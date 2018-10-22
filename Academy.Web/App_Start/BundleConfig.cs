@@ -24,8 +24,24 @@ namespace Academy.Web
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-lumen.css",
                       "~/Content/site.css"));
+
+            //bundles.Add(
+            //    new StyleBundle("~/Bundles/vendor/css")
+            //        .Include("~/Content/themes/base/all.css", new CssRewriteUrlTransform())
+            //        .Include("~/Content/bootstrap.css", new CssRewriteUrlTransform())
+            //        .Include("~/Content/themes/metronic/assets/global/plugins/simple-line-icons/simple-line-icons.min.css", new CssRewriteUrlTransform())
+            //        .Include("~/Content/themes/metronic/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css", new CssRewriteUrlTransform())
+            //        .Include("~/Content/themes/metronic/assets/global/plugins/jstree/dist/themes/default/style.min.css", new CssRewriteUrlTransform())
+            //        .Include("~/Content/themes/metronic/assets/global/css/components.min.css", new CssRewriteUrlTransform())
+            //        .Include("~/Content/themes/metronic/assets/global/css/plugins.min.css", new CssRewriteUrlTransform())
+            //        .Include("~/Content/themes/metronic/assets/layouts/layout/css/layout.min.css", new CssRewriteUrlTransform())
+            //        .Include("~/Content/themes/metronic/assets/layouts/layout/css/themes/darkblue.min.css", new CssRewriteUrlTransform())
+            //        .Include("~/Content/Site.css", new CssRewriteUrlTransform())
+            //        .Include("~/Content/export.css", new CssRewriteUrlTransform())
+            //);
+
         }
     }
 }

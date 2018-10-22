@@ -1,0 +1,16 @@
+D:\Projects\Academy\Academy.Core\bin\Debug\Academy.Core.dll.config
+D:\Projects\Academy\Academy.Core\bin\Debug\Academy.Core.dll
+D:\Projects\Academy\Academy.Core\bin\Debug\Academy.Core.pdb
+D:\Projects\Academy\Academy.Core\bin\Debug\EntityFramework.dll
+D:\Projects\Academy\Academy.Core\bin\Debug\EntityFramework.DynamicFilters.dll
+D:\Projects\Academy\Academy.Core\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\Academy\Academy.Core\bin\Debug\EntityFramework.xml
+D:\Projects\Academy\Academy.Core\bin\Debug\EntityFramework.DynamicFilters.xml
+D:\Projects\Academy\Academy.Core\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.csprojResolveAssemblyReference.cache
+D:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.dll
+D:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.pdb
+D:\Projects\Academy\Academy.Core\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\Projects\Academy\Academy.Core\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Projects\Academy\Academy.Core\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+D:\Projects\Academy\Academy.Core\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
