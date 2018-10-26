@@ -1,0 +1,27 @@
+﻿@model  IEnumerable<Academy.Core.Students.Student>  
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Students</h2>
+@if (!Model.Any())
+{
+    <p>No Stdents Found</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead></thead>
+        <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(student.FullName, "Details", "Students", new { id = student.Id })   
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

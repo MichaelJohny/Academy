@@ -1,0 +1,99 @@
+﻿@model Academy.Core.Students.Student
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New</h2>
+
+@using (Html.BeginForm("Create", "Students"))
+{
+   
+    <div class="form-row">
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.SecondName)
+            @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.ThirdName)
+            @Html.TextBoxFor(m => m.ThirdName, new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.LastName)
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        
+
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Mobile1)
+            @Html.TextBoxFor(m => m.Mobile1, new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Mobile2)
+            @Html.TextBoxFor(m => m.Mobile2, new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.BirthDate)
+            @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Nationality)
+            @Html.DropDownListFor(m => m.Nationality,new SelectList(Model.GetNationalityList(),"Id","Name"),"Select Nationality", new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Last Name" })
+
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.AddressDescrption)
+            @Html.TextBoxFor(m => m.AddressDescrption, new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Collage)
+            @Html.DropDownListFor(m => m.Collage, new SelectList(Model.GetCollageList(), "Id", "Name"), "Select Collage", new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Qualification)
+            @Html.DropDownListFor(m => m.Qualification, new SelectList(Model.GetQualificationList(), "Id", "Name"), "Select Qualification", new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+       
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Specialization)
+            @Html.TextBoxFor(m => m.Specialization, new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.JobTitle)
+            @Html.TextBoxFor(m => m.JobTitle, new { @class = "form-control", placeholder = "Last Name" })
+
+        </div>
+        
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Specialization)
+            @Html.TextBoxFor(m => m.Specialization, new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.GraduationYear)
+            @Html.TextBoxFor(m => m.GraduationYear, new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Experience)
+            @Html.TextBoxFor(m => m.Experience, new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(m => m.IsBlackList) BlackList
+            </label>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
