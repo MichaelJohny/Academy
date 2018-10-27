@@ -70,6 +70,7 @@ artifacts/
 *.scc
 *.cache
 *.dll
+*.suo
 *.exe
 *.pdb
 /build/

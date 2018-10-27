@@ -35,6 +35,7 @@ namespace Academy.Web.Controllers
 
             var studentVm = new StudentViewModel()
             {
+
                 Students = await students.ToListAsync(),
                 SearchTerm = query
             };
