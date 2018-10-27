@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using Academy.Core.Enums;
 using Academy.Core.Students;
-using Academy.Core.ViewModels;
 using Academy.Web.Models;
 
 namespace Academy.Web.Controllers

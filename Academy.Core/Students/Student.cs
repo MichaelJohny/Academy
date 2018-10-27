@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Academy.Core.Base;
-using Academy.Core.ComplexTypes;
 using Academy.Core.Enrollments;
 using Academy.Core.Enums;
 
