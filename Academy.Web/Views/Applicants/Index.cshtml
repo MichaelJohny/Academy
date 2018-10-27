@@ -1,14 +1,30 @@
 ﻿@using Academy.Core.Enums
-@model  IEnumerable<Academy.Core.Students.Student>
+@model  Academy.Core.ViewModels.StudentViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Applicants</h2>
-@if (!Model.Any())
+
+
+@Html.ActionLink("Create New ", "New", "Applicants", null, new { @class = "btn btn-primary pull-right" })
+
+@using (Html.BeginForm("Search", "Applicants"))
 {
-    <p>No Stdents Found</p>
+    <div class="form-group">
+        <div id="searchStudents" class="input-group">
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control" })
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+}
+
+@if (!Model.Students.Any())
+{
+    <p>No Applicants Found</p>
 }
 else
 {
@@ -20,21 +36,23 @@ else
                 <th>Date of birth</th>
                 <th>Mobile</th>
                 <th>Graduation Year</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var student in Model)
+            @foreach (var student in Model.Students)
             {
+
                 <tr>
                     <td>
-                        @Html.ActionLink(student.FullName, "Details", "Students", new { id = student.Id })
+                        @Html.ActionLink(student.FullName, "Edit", "Applicants", new { id = student.Id }, null)
                     </td>
                     <td>
-                        @student.Collage
+                        @student.Collage.Name
                     </td>
                     <td>
-                        @student.BirthDate
+                        @student.BirthDate.ToString("d")
                     </td>
                     <td>
                         @student.Mobile1
@@ -43,15 +61,25 @@ else
                         @student.GraduationYear
                     </td>
                     <td>
-                        @*<a href="/Applicants/UpdateStatus/8?class=btn%20btn-warning&amp;status=Rejected">Rejected</a>
-                        <a href="/Applicants/UpdateStatus/8?class=btn%20btn-warning&amp;status=Rejected">Rejected</a>*@
-                        
-                        
-                        @*<a class="btn btn-success" href="/Applicants/UpdateStatus?Length=10" id="8" status="Accepted">Accept</a>*@
-                        
-                        @Html.ActionLink("Accept", "UpdateStatus", "Applicants", new {@class = "btn btn-success", id = student.Id, status = StudentStatus.Accepted})
-                        @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new {@class = "btn btn-warning", id = student.Id, status = StudentStatus.Rejected}, null)
+                        @student.Status
                     </td>
+                    @if (student.Status != StudentStatus.Rejected)
+                    {
+                        <td>
+
+                            @Html.ActionLink("Accept", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Accepted }, new { @class = "btn btn-success", })
+                            @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Rejected }, new { @class = "btn btn-warning", })
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.ActionLink("Accept", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Accepted }, new { @class = "btn btn-success not-active",id="acceptApplicant" })
+                            @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Rejected }, new { @class = "btn btn-warning not-active", id = "rejectApplicant" })
+
+                        </td>
+                    }
+
                 </tr>
             }
         </tbody>

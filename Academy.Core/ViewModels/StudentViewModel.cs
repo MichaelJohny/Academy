@@ -1,9 +1,11 @@
-﻿using Academy.Core.Students;
+﻿using System.Collections.Generic;
+using Academy.Core.Students;
 
 namespace Academy.Core.ViewModels
 {
     public class StudentViewModel
     {
-        public Student Student { get; set; }
+        public IEnumerable<Student> Students { get; set; }
+        public string SearchTerm { get; set; }
     }
 }

@@ -204,18 +204,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicantsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstructorsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810262326050_DeleteDate.cs" />
-    <Compile Include="Migrations\201810262326050_DeleteDate.Designer.cs">
-      <DependentUpon>201810262326050_DeleteDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810270027199_UpdateUser.cs" />
-    <Compile Include="Migrations\201810270027199_UpdateUser.Designer.cs">
-      <DependentUpon>201810270027199_UpdateUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -339,6 +332,9 @@
     <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\StudentForm.cshtml" />
     <Content Include="Views\Applicants\Index.cshtml" />
+    <Content Include="Views\Applicants\ApplicantForm.cshtml" />
+    <Content Include="Views\Instructors\InstructorsView.cshtml" />
+    <Content Include="Views\Instructors\InstructorForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -358,14 +354,6 @@
       <Project>{ad4dbb19-6da9-409f-8d95-c4a4f46902a6}</Project>
       <Name>Academy.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810262326050_DeleteDate.resx">
-      <DependentUpon>201810262326050_DeleteDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810270027199_UpdateUser.resx">
-      <DependentUpon>201810270027199_UpdateUser.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

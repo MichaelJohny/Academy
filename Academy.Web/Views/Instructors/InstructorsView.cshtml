@@ -1,0 +1,59 @@
+﻿@model Academy.Core.ViewModels.InstructoreViewModel
+@{
+    ViewBag.Title = "InstructorsView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Instructors</h2>
+@Html.ActionLink("Create New ", "New", "Instructors", null, new { @class = "btn btn-primary pull-right" })
+
+
+@using (Html.BeginForm("Search", "Instructors"))
+{
+    <div class="form-group">
+        <div id="searchStudents" class="input-group">
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control" })
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+}
+
+
+@if (!Model.Instructors.Any())
+{
+    <p>No Instructors Found</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var instructor in Model.Instructors)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(instructor.FullName, "Edit", "Instructors", new { id = instructor.Id }, null)
+                    </td>
+                    <td>
+                        @instructor.Email
+                    </td>
+                    <td>
+                        @instructor.Mobile1
+                    </td>
+                    <td>
+                        @instructor.BirthDate
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

@@ -8,10 +8,13 @@ using System.Web;
 using Academy.Core.AcademyConst;
 using Academy.Core.Base;
 using Academy.Core.Courses;
+using Academy.Core.DropLists;
+using Academy.Core.DynamicFilters;
 using Academy.Core.Enrollments;
 using Academy.Core.Instructors;
 using Academy.Core.Students;
 using Academy.Core.Users;
+using EntityFramework.DynamicFilters;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebGrease.Css.Extensions;
@@ -37,6 +40,9 @@ namespace Academy.Web.Models
         public DbSet<Course> Courses { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<Nationality> Nationalities { get; set; }
+        public DbSet<Collage> Collages { get; set; }
+        public DbSet<Qualifiation> Qualifiations { get; set; }
         public ApplicationDbContext()
             : base("AcademyConnection")
         {
@@ -46,6 +52,18 @@ namespace Academy.Web.Models
         {
             return new ApplicationDbContext();
         }
+
+        public void SetFilter(string name, object value)
+        {
+            this.SetFilterScopedParameterValue(name, value);
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Filter(AcademyConst.IsDeleted,(ISoftDelete d)=>d.IsDeleted,false);
+            base.OnModelCreating(modelBuilder);
+        }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             AddTimestamps();

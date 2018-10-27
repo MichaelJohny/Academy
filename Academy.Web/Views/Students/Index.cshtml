@@ -1,11 +1,27 @@
-﻿@model  IEnumerable<Academy.Core.Students.Student>  
+﻿@model  Academy.Core.ViewModels.StudentViewModel  
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Students</h2>
-@if (!Model.Any())
+@Html.ActionLink("Create New ", "New", "Students", null, new { @class = "btn btn-primary pull-right" })
+
+
+@using (Html.BeginForm("Search", "Students"))
+{
+    <div class="form-group">
+        <div id="searchStudents" class="input-group">
+            @Html.TextBoxFor(m=>m.SearchTerm,new {@class="form-control"})
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+}
+
+
+@if (!Model.Students.Any())
 {
     <p>No Stdents Found</p>
 }
@@ -22,17 +38,17 @@ else
         </tr>
         </thead>
         <tbody>
-        @foreach (var student in Model)
+        @foreach (var student in Model.Students)
         {
             <tr>
                 <td>
                     @Html.ActionLink(student.FullName, "Edit", "Students", new { id = student.Id },null)   
                 </td>
                 <td>
-                    @student.Collage
+                    @student.Collage.Name
                 </td>
                 <td>
-                    @student.BirthDate
+                    @student.BirthDate.ToString("d")
                 </td>
                 <td>
                     @student.Mobile1
