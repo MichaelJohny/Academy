@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Academy.Core.Base;
 using Academy.Core.Enrollments;
 using Academy.Core.Instructors;
@@ -22,6 +21,8 @@ namespace Academy.Core.Courses
         public TimeSpan TimeFrom { get; set; }
         public TimeSpan TimeTo { get; set; }
         public string CourseLocation { get; set; }
+        public double CourseDuration { get; set; }
+        public double CourseFees { get; set; }
         public virtual ICollection<Enrollment> Enrollments { get; set; }
         public virtual ICollection<Instructor> Instructors { get; set; }
     }
