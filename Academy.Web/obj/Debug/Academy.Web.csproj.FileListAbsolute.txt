@@ -84,8 +84,6 @@ D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.dll
 D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.pdb
 D:\Projects\Academy\Academy.Web\bin\Academy.Core.dll
 D:\Projects\Academy\Academy.Web\bin\Academy.Core.pdb
-D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.InitialModel.resources
+D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.DeleteDate.resources
 D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.csproj.GenerateResource.Cache
-D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.AddModels.resources
-D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.AddPropstostudent.resources
-D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.Addstatustostudent.resources
+D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.UpdateUser.resources

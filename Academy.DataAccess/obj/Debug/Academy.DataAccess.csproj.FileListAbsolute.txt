@@ -55,3 +55,6 @@ D:\Projects\Academy\Academy.DataAccess\bin\Debug\System.Web.Razor.xml
 D:\Projects\Academy\Academy.DataAccess\bin\Debug\System.Web.WebPages.Razor.xml
 D:\Projects\Academy\Academy.DataAccess\bin\Debug\System.Web.WebPages.xml
 D:\Projects\Academy\Academy.DataAccess\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Projects\Academy\Academy.DataAccess\bin\Debug\WebGrease.dll
+D:\Projects\Academy\Academy.DataAccess\bin\Debug\Antlr3.Runtime.dll
+D:\Projects\Academy\Academy.DataAccess\bin\Debug\Antlr3.Runtime.pdb

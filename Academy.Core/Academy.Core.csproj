@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcademyConst\AcademyConst.cs" />
     <Compile Include="Base\BaseEntity.cs" />
     <Compile Include="ComplexTypes\BaseComplex.cs" />
     <Compile Include="ComplexTypes\CollageComplex.cs" />

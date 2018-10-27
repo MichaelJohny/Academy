@@ -12,13 +12,33 @@
 else
 {
     <table class="table table-bordered table-hover">
-        <thead></thead>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Collage</th>
+            <th>Date of birth</th>
+            <th>Mobile</th>
+            <th>Graduation Year</th>
+        </tr>
+        </thead>
         <tbody>
         @foreach (var student in Model)
         {
             <tr>
                 <td>
-                    @Html.ActionLink(student.FullName, "Details", "Students", new { id = student.Id })   
+                    @Html.ActionLink(student.FullName, "Edit", "Students", new { id = student.Id },null)   
+                </td>
+                <td>
+                    @student.Collage
+                </td>
+                <td>
+                    @student.BirthDate
+                </td>
+                <td>
+                    @student.Mobile1
+                </td>
+                <td>
+                    @student.GraduationYear
                 </td>
             </tr>
         }

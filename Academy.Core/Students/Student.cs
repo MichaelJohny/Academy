@@ -31,18 +31,14 @@ namespace Academy.Core.Students
         [Display(Name = "Third Name")]
         public string ThirdName { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Enrollment Date")]
-        public DateTime EnrollmentDate { get; set; }
-
+        
         [Display(Name = "Full Name")]
         public string FullName => $"{FirstName} {SecondName} {ThirdName}";
 
 
         [Required, Display(Name = "Date of birth")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
 
         [Required]
@@ -83,32 +79,32 @@ namespace Academy.Core.Students
 
         public virtual ICollection<Enrollment> Enrollments { get; set; }
 
-        public IEnumerable<NationalityComplex> GetNationalityList()
+        public IEnumerable<string> GetNationalityList()
         {
-            return new HashSet<NationalityComplex>()
+            return new HashSet<string>()
             {
-                new NationalityComplex() {Id = 1, Name = "Egyption"},
-                new NationalityComplex() {Id = 1, Name = "American"},
-                new NationalityComplex() {Id = 1, Name = "Australian"},
-                new NationalityComplex() {Id = 1, Name = "Candian"}
-            }; 
-        }
-        public IEnumerable<CollageComplex> GetQualificationList()
-        {
-            return new HashSet<CollageComplex>()
-            {
-                new CollageComplex() {Id = 1, Name = "Computer Science"},
-                new CollageComplex() {Id = 1, Name = "Commerce"},
-                new CollageComplex() {Id = 1, Name = "Accountant"},
-                new CollageComplex() {Id = 1, Name = "Medicin"}
+                "Egyption",
+                "American",
+                "Australian",
+                "Candian"
             };
         }
-        public IEnumerable<QualificationComplex> GetCollageList()
+        public IEnumerable<string> GetCollageList()
         {
-            return new HashSet<QualificationComplex>()
+            return new HashSet<string>()
             {
-                new QualificationComplex() {Id = 1, Name = "Master"},
-                new QualificationComplex() {Id = 1, Name = "BCs"},
+                "Computer Science",
+                "Commerce",
+                "Accountant",
+                "Medicin"
+            };
+        }
+        public IEnumerable<string> GetQualificationList()
+        {
+            return new HashSet<string>()
+            {
+                "Master",
+                "BCs",
             };
         }
 

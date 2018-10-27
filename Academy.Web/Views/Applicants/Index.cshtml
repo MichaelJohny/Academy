@@ -1,0 +1,60 @@
+﻿@using Academy.Core.Enums
+@model  IEnumerable<Academy.Core.Students.Student>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Applicants</h2>
+@if (!Model.Any())
+{
+    <p>No Stdents Found</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Collage</th>
+                <th>Date of birth</th>
+                <th>Mobile</th>
+                <th>Graduation Year</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(student.FullName, "Details", "Students", new { id = student.Id })
+                    </td>
+                    <td>
+                        @student.Collage
+                    </td>
+                    <td>
+                        @student.BirthDate
+                    </td>
+                    <td>
+                        @student.Mobile1
+                    </td>
+                    <td>
+                        @student.GraduationYear
+                    </td>
+                    <td>
+                        @*<a href="/Applicants/UpdateStatus/8?class=btn%20btn-warning&amp;status=Rejected">Rejected</a>
+                        <a href="/Applicants/UpdateStatus/8?class=btn%20btn-warning&amp;status=Rejected">Rejected</a>*@
+                        
+                        
+                        @*<a class="btn btn-success" href="/Applicants/UpdateStatus?Length=10" id="8" status="Accepted">Accept</a>*@
+                        
+                        @Html.ActionLink("Accept", "UpdateStatus", "Applicants", new {@class = "btn btn-success", id = student.Id, status = StudentStatus.Accepted})
+                        @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new {@class = "btn btn-warning", id = student.Id, status = StudentStatus.Rejected}, null)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

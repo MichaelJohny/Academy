@@ -1,0 +1,105 @@
+﻿@model Academy.Core.Students.Student
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (Model.Id > 0)
+{
+    <h2>Update Student</h2>
+}
+else
+{
+    <h2>New Student</h2>   
+}
+
+@using (Html.BeginForm("Create", "Students"))
+{
+   
+    <div class="form-row">
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.SecondName)
+            @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control", placeholder = "Second Name" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.ThirdName)
+            @Html.TextBoxFor(m => m.ThirdName, new { @class = "form-control", placeholder = "Third Name" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.LastName)
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
+        </div>
+        
+
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Mobile1)
+            @Html.TextBoxFor(m => m.Mobile1, new { @class = "form-control", placeholder = "Mobile1" })
+        </div>
+        
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Mobile2)
+            @Html.TextBoxFor(m => m.Mobile2, new { @class = "form-control", placeholder = "Mobile2" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.BirthDate)
+            @Html.EditorFor(m => m.BirthDate, new {htmlAttributes = new {@class="form-control"} })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Nationality)
+            @Html.DropDownListFor(m => m.Nationality,new SelectList(Model.GetNationalityList()),"Select Nationality", new { @class = "form-control" })
+        </div>
+        
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.AddressDescrption)
+            @Html.TextBoxFor(m => m.AddressDescrption, new { @class = "form-control", placeholder = "Address Description" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Collage)
+            @Html.DropDownListFor(m => m.Collage, new SelectList(Model.GetCollageList()), "Select Collage", new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Qualification)
+            @Html.DropDownListFor(m => m.Qualification, new SelectList(Model.GetQualificationList()), "Select Qualification", new { @class = "form-control", placeholder = "Qualification" })
+        </div>
+       
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Specialization)
+            @Html.TextBoxFor(m => m.Specialization, new { @class = "form-control", placeholder = "Specialization" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.JobTitle)
+            @Html.TextBoxFor(m => m.JobTitle, new { @class = "form-control", placeholder = "Job Title" })
+
+        </div>
+        
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.GraduationYear)
+            @Html.TextBoxFor(m => m.GraduationYear, new { @class = "form-control", placeholder = "Graduation Year" })
+        </div>
+        
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Experience)
+            @Html.TextBoxFor(m => m.Experience, new { @class = "form-control", placeholder = "Experience" })
+        </div>
+        
+        @*<div class="form-group">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.IsBlackList) BlackList
+                </label>
+            </div>    
+        </div>*@
+        
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
