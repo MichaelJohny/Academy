@@ -84,8 +84,3 @@ D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.dll
 D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.pdb
 D:\Projects\Academy\Academy.Web\bin\Academy.Core.dll
 D:\Projects\Academy\Academy.Web\bin\Academy.Core.pdb
-D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.changetype.resources
-D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.csproj.GenerateResource.Cache
-D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.AddDelete.resources
-D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.AddFields.resources
-D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.AddDate.resources
