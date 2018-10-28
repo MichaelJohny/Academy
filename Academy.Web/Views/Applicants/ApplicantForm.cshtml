@@ -110,9 +110,9 @@ else
             </div>*@
 
     </div>
-    <div class="form-group pull-right" >
-        <button type="submit" class="btn btn-primary ">Save</button>
-        
+    <div id="submitDiv" class="form-group pull-right">
+        @Html.ActionLink("New", "New", "Applicants", new { @class = "btn btn-default" },null)
+        <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>
     </div>
 }
 @section scripts{
