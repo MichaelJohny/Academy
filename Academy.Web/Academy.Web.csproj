@@ -210,14 +210,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201810262326050_DeleteDate.cs" />
-    <Compile Include="Migrations\201810262326050_DeleteDate.Designer.cs">
-      <DependentUpon>201810262326050_DeleteDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810270027199_UpdateUser.cs" />
-    <Compile Include="Migrations\201810270027199_UpdateUser.Designer.cs">
-      <DependentUpon>201810270027199_UpdateUser.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -360,14 +352,6 @@
       <Project>{ad4dbb19-6da9-409f-8d95-c4a4f46902a6}</Project>
       <Name>Academy.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810262326050_DeleteDate.resx">
-      <DependentUpon>201810262326050_DeleteDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810270027199_UpdateUser.resx">
-      <DependentUpon>201810270027199_UpdateUser.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

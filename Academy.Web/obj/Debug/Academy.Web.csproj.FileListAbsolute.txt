@@ -171,8 +171,5 @@ E:\Projects\Academy\Academy.Web\bin\Microsoft.Owin.Security.Google.xml
 E:\Projects\Academy\Academy.Web\bin\Microsoft.Owin.Security.Twitter.xml
 E:\Projects\Academy\Academy.Web\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.csprojResolveAssemblyReference.cache
-E:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.DeleteDate.resources
-E:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.UpdateUser.resources
-E:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.csproj.GenerateResource.Cache
 E:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.dll
 E:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.pdb

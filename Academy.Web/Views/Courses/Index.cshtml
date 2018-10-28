@@ -1,5 +1,19 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@model IEnumerable<Academy.Core.Courses.Course>
+    @{
+        ViewBag.Title = "Courses";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+<h2>Courses</h2>
+@if (!Model.Any())
+{
+    <p>No Courses Found</p>
+}
+else
+{
+    <table  class="table table-bordered table-hover">
+        
+    </table>
 }
 
 
