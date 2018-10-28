@@ -22,3 +22,30 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#searchStudents {
+    width: 300px;
+}
+
+.not-active {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+    color: black;
+}
+
+.field-validation-error {
+    color: red;
+}
+
+.input-validation-error {
+    
+}
+
+#submitStudent {
+    margin-left: 10px;
+}
+
+#submitDiv {
+    margin-top: 10px;
+}

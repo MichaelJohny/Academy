@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Academy.Core.Base;
+using Academy.Core.ComplexTypes;
+using Academy.Core.DropLists;
 using Academy.Core.Enrollments;
 using Academy.Core.Enums;
+using Academy.Core.Validations;
 
 namespace Academy.Core.Students
 {
@@ -41,15 +44,17 @@ namespace Academy.Core.Students
         public DateTime BirthDate { get; set; }
 
         [Required]
-        public string Nationality { get; set; }
+        public int NationalityId { get; set; }
 
         [Display(Name = "BlackList")]
         public bool IsBlackList { get; set; }
 
         [Required, DataType(DataType.PhoneNumber)]
+        [MobileValidation]
         public string Mobile1 { get; set; }
 
         [DataType(DataType.PhoneNumber)]
+        [Mobile2Validation]
         public string Mobile2 { get; set; }
 
         [Required, DataType(DataType.EmailAddress)]
@@ -59,10 +64,10 @@ namespace Academy.Core.Students
         public string AddressDescrption { get; set; }
 
         [Required]
-        public string Qualification { get; set; }
+        public int QualificationId { get; set; }
 
         [Required]
-        public string Collage { get; set; }
+        public int CollageId { get; set; }
 
         public string Specialization { get; set; }
 
@@ -76,36 +81,54 @@ namespace Academy.Core.Students
 
         public StudentStatus Status { get; set; }
 
-        public virtual ICollection<Enrollment> Enrollments { get; set; }
+        [ForeignKey("CollageId")]
+        public virtual Collage Collage { get; set; }
+        [ForeignKey("NationalityId")]
+        public virtual Nationality Nationality { get; set; }
+        [ForeignKey("QualificationId")]
+        public virtual Qualifiation Qualifiation { get; set; }
 
-        public IEnumerable<string> GetNationalityList()
-        {
-            return new HashSet<string>()
-            {
-                "Egyption",
-                "American",
-                "Australian",
-                "Candian"
-            };
-        }
-        public IEnumerable<string> GetCollageList()
-        {
-            return new HashSet<string>()
-            {
-                "Computer Science",
-                "Commerce",
-                "Accountant",
-                "Medicin"
-            };
-        }
-        public IEnumerable<string> GetQualificationList()
-        {
-            return new HashSet<string>()
-            {
-                "Master",
-                "BCs",
-            };
-        }
+        public virtual ICollection<Enrollment> Enrollments { get; set; }
+        
+        //public IEnumerable<string> GetNationalityList()
+        //{
+        //    return new HashSet<string>()
+        //    {
+        //        "Egyption",
+        //        "American",
+        //        "Australian",
+        //        "Candian"
+        //    };
+        //}
+
+        //public IEnumerable<NationalityComplex> GetNationalityList()
+        //{
+        //    return new HashSet<NationalityComplex>()
+        //    {
+        //        new NationalityComplex() {Id = 1, Name = "Egyption"},
+        //        new NationalityComplex() {Id = 1, Name = "American"},
+        //        new NationalityComplex() {Id = 1, Name = "Australian"},
+        //        new NationalityComplex() {Id = 1, Name = "Candian"}
+        //    };
+        //}
+        //public IEnumerable<string> GetCollageList()
+        //{
+        //    return new HashSet<string>()
+        //    {
+        //        "Computer Science",
+        //        "Commerce",
+        //        "Accountant",
+        //        "Medicin"
+        //    };
+        //}
+        //public IEnumerable<string> GetQualificationList()
+        //{
+        //    return new HashSet<string>()
+        //    {
+        //        "Master",
+        //        "BCs",
+        //    };
+        //}
 
     }
 }

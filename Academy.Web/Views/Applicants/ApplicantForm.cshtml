@@ -1,33 +1,31 @@
 ﻿@model Academy.Core.Students.Student
 @{
-    ViewBag.Title = "New";
+    ViewBag.Title = "ApplicantForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 @if (Model.Id > 0)
 {
-    <h2>Update Student</h2>
+    <h2>Update Applicant</h2>
 }
 else
 {
-    <h2>New Student</h2>   
+    <h2>New Applicant</h2>
 }
 
-@using (Html.BeginForm("Save", "Students"))
+@using (Html.BeginForm("Save", "Applicants"))
 {
     @Html.HiddenFor(m => m.Id)
-
     <div class="form-row">
         <div class="col-md-4">
             @Html.LabelFor(m => m.FirstName)
             @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
-            @Html.ValidationMessageFor(m => m.FirstName)
+            @Html.ValidationMessageFor(m=>m.FirstName)
         </div>
         <div class="col-md-4">
             @Html.LabelFor(m => m.SecondName)
             @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control", placeholder = "Second Name" })
-            @Html.ValidationMessageFor(m => m.SecondName)
+            @Html.ValidationMessageFor(m=>m.SecondName)
         </div>
         <div class="col-md-4">
             @Html.LabelFor(m => m.ThirdName)
@@ -50,16 +48,16 @@ else
         <div class="col-md-4">
             @Html.LabelFor(m => m.Mobile2)
             @Html.TextBoxFor(m => m.Mobile2, new { @class = "form-control", placeholder = "Mobile2" })
-
+            
         </div>
         <div class="col-md-4">
             @Html.LabelFor(m => m.BirthDate)
-            @Html.EditorFor(m => m.BirthDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @selectedDate = Model.BirthDate } })
+            @Html.EditorFor(m => m.BirthDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @selectedDate = Model.BirthDate}  })
             @Html.ValidationMessageFor(m => m.BirthDate)
         </div>
         <div class="col-md-4">
             @Html.LabelFor(m => m.NationalityId)
-            @Html.DropDownListFor(m => m.NationalityId, new SelectList(ViewBag.Nationalities, "Id", "Name"), "Select Nationality", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.NationalityId, new SelectList(ViewBag.Nationalities, "Id","Name"), "Select Nationality", new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.NationalityId)
         </div>
 
@@ -75,12 +73,12 @@ else
         </div>
         <div class="col-md-4">
             @Html.LabelFor(m => m.CollageId)
-            @Html.DropDownListFor(m => m.CollageId, new SelectList(ViewBag.Collages, "Id", "Name"), "Select Collage", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.CollageId, new SelectList(ViewBag.Collages,"Id","Name"), "Select Collage", new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.CollageId)
         </div>
         <div class="col-md-4">
             @Html.LabelFor(m => m.QualificationId)
-            @Html.DropDownListFor(m => m.QualificationId, new SelectList(ViewBag.Qualifications, "Id", "Name"), "Select Qualification", new { @class = "form-control", placeholder = "Qualification" })
+            @Html.DropDownListFor(m => m.QualificationId, new SelectList(ViewBag.Qualifications, "Id","Name"), "Select Qualification", new { @class = "form-control", placeholder = "Qualification" })
             @Html.ValidationMessageFor(m => m.QualificationId)
         </div>
 
@@ -112,14 +110,11 @@ else
             </div>*@
 
     </div>
-    <div id="submitDiv" class="form-group pull-right" >
-        @Html.ActionLink("New","New","Students" ,new {@class="btn btn-default"})
-        <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>    
+    <div id="submitDiv" class="form-group pull-right">
+        @Html.ActionLink("New", "New", "Applicants", new { @class = "btn btn-default" },null)
+        <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>
     </div>
-    
-
 }
-
 @section scripts{
     @Scripts.Render("~/bundle/jaueryval")
 }

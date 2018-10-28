@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Academy.Web", "Academy.Web\Academy.Web.csproj", "{C6644F28-05CB-4246-8884-AA1B8606AC5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Academy.DataAccess", "Academy.DataAccess\Academy.DataAccess.csproj", "{0E7D5F67-1AE2-42D6-A898-6EFFC61FE961}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Academy.Core", "Academy.Core\Academy.Core.csproj", "{AD4DBB19-6DA9-409F-8D95-C4A4F46902A6}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{C6644F28-05CB-4246-8884-AA1B8606AC5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6644F28-05CB-4246-8884-AA1B8606AC5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6644F28-05CB-4246-8884-AA1B8606AC5B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E7D5F67-1AE2-42D6-A898-6EFFC61FE961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E7D5F67-1AE2-42D6-A898-6EFFC61FE961}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E7D5F67-1AE2-42D6-A898-6EFFC61FE961}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E7D5F67-1AE2-42D6-A898-6EFFC61FE961}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD4DBB19-6DA9-409F-8D95-C4A4F46902A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD4DBB19-6DA9-409F-8D95-C4A4F46902A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD4DBB19-6DA9-409F-8D95-C4A4F46902A6}.Release|Any CPU.ActiveCfg = Release|Any CPU

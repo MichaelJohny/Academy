@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Academy.Core.DynamicFilters;
 
 namespace Academy.Core.Base
 {
-    public class BaseEntity
+    public class BaseEntity:ISoftDelete
     {
         public int Id { get; set; }
         public DateTime CreationTime { get; set; }

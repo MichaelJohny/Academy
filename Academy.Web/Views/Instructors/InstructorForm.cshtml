@@ -1,0 +1,65 @@
+﻿@model Academy.Core.Instructors.Instructor
+@{
+    ViewBag.Title = "InstructorForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Id > 0)
+{
+    <h2>Update Instructor</h2>
+}
+else
+{
+    <h2>New Instructor</h2>
+}
+
+@using (Html.BeginForm("Save", "Instructors"))
+{
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="form-row">
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.FirstMidName)
+            @Html.TextBoxFor(m => m.FirstMidName, new { @class = "form-control", placeholder = "First Name" })
+            @Html.ValidationMessageFor(m => m.FirstMidName)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.LastName)
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
+            @Html.ValidationMessageFor(m => m.LastName)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.Mobile1)
+            @Html.TextBoxFor(m => m.Mobile1, new { @class = "form-control", placeholder = "Mobile1" })
+            @Html.ValidationMessageFor(m => m.Mobile1)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.Mobile2)
+            @Html.TextBoxFor(m => m.Mobile2, new { @class = "form-control", placeholder = "Mobile2" })
+            @Html.ValidationMessageFor(m => m.Mobile2)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.Address)
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Address" })
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.IdNumber)
+            @Html.TextBoxFor(m => m.IdNumber, new { @class = "form-control", placeholder = "ID Number" })
+            @Html.ValidationMessageFor(m => m.IdNumber)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.BirthDate)
+            @Html.TextBoxFor(m => m.BirthDate, "{0:MM-dd-yyy}", new { @class = "form-control", placeholder = "MM-dd-yyyy" })
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundle/jaueryval")
+}
