@@ -33,6 +33,7 @@ else
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile</th>
+                <th>Date of birth</th>
             </tr>
         </thead>
         <tbody>
@@ -49,7 +50,7 @@ else
                         @instructor.Mobile1
                     </td>
                     <td>
-                        @instructor.BirthDate
+                        @instructor.BirthDate.ToString("d")
                     </td>
                 </tr>
             }

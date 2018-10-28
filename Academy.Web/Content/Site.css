@@ -37,6 +37,15 @@ textarea {
 .field-validation-error {
     color: red;
 }
+
 .input-validation-error {
     
+}
+
+#submitStudent {
+    margin-left: 10px;
+}
+
+#submitDiv {
+    margin-top: 10px;
 }
