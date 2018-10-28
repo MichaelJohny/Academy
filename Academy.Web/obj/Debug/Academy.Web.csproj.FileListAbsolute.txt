@@ -84,3 +84,10 @@ D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.dll
 D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.pdb
 D:\Projects\Academy\Academy.Web\bin\Academy.Core.dll
 D:\Projects\Academy\Academy.Web\bin\Academy.Core.pdb
+D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.Add.resources
+D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.csproj.GenerateResource.Cache
+D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.AddArea.resources
+D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.Addrealation.resources
+D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.NewRelation.resources
+D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.SSS.resources
+D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.Migrations.AddTostudent.resources

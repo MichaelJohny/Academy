@@ -63,7 +63,7 @@ else
                     <td>
                         @student.Status
                     </td>
-                    @if (student.Status != StudentStatus.Rejected)
+                    @if (student.Status != StudentStatus.Rejected && !student.IsBlackList)
                     {
                         <td>
 

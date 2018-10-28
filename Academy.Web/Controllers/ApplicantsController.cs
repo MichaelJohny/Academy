@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Academy.Core.ComplexTypes;
 using Academy.Core.Enums;
 using Academy.Core.Students;
 using Academy.Core.ViewModels;
@@ -25,7 +26,7 @@ namespace Academy.Web.Controllers
         // GET: Applicants
         public async Task<ActionResult> Index(string query = null)
         {
-            var applicants =  _context.Students.Where(s => s.Status != StudentStatus.Accepted);
+            var applicants = _context.Students.Where(s => s.Status != StudentStatus.Accepted);
             if (!string.IsNullOrWhiteSpace(query))
             {
                 applicants = applicants.Where(s => s.FirstName.Contains(query) ||
@@ -50,8 +51,8 @@ namespace Academy.Web.Controllers
         public async Task<ActionResult> New()
         {
             await GetDropLists();
-            var student = new Student();
-            return View("ApplicantForm",student);
+            var student = new Student {BirthDate = new DateTime(1990, 1, 1)};
+            return View("ApplicantForm", student);
         }
 
         public async Task<ActionResult> UpdateStatus(int id, StudentStatus status)
@@ -74,7 +75,7 @@ namespace Academy.Web.Controllers
                 await GetDropLists();
                 return View("ApplicantForm", student);
             }
-                
+
             student.Status = StudentStatus.Pending;
             if (student.Id == 0)
                 _context.Students.Add(student);
@@ -91,10 +92,21 @@ namespace Academy.Web.Controllers
         {
             var student = await _context.Students.SingleOrDefaultAsync(s => s.Id == id);
             if (student == null) return HttpNotFound();
-            ViewBag.Collages = await _context.Collages.ToListAsync();
-            ViewBag.Nationalities = await _context.Nationalities.ToListAsync();
-            ViewBag.Qualifications = await _context.Qualifiations.ToListAsync();
+            await GetDropLists();
+            ViewBag.BirthDate = student.BirthDate;
             return View("ApplicantForm", student);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> GetAreas(string selectedCity)
+        {
+            if (string.IsNullOrEmpty(selectedCity))
+                return Json(new SelectList(new List<BaseComplex>(), "Id", "Name",
+                    JsonRequestBehavior.AllowGet));
+
+            var id = Convert.ToInt16(selectedCity);
+            var areas = await _context.Areas.Where(x => x.CityId == id).ToListAsync();
+            return Json(new SelectList(areas, "Id", "Name", JsonRequestBehavior.AllowGet));
         }
 
         private async Task GetDropLists()
@@ -102,6 +114,8 @@ namespace Academy.Web.Controllers
             ViewBag.Collages = await _context.Collages.ToListAsync();
             ViewBag.Nationalities = await _context.Nationalities.ToListAsync();
             ViewBag.Qualifications = await _context.Qualifiations.ToListAsync();
+            ViewBag.Cities = await _context.Cities.ToListAsync();
+            ViewBag.Areas = await _context.Areas.ToListAsync();
         }
     }
 }

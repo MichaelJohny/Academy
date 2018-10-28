@@ -1,5 +1,5 @@
 ﻿$(function() {
-    $('datePicker').datetimepicker();
+    $('.datePicker').datetimepicker();
 
     $('.datePick').each(function () {
         var a = $(this).datepicker({

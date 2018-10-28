@@ -68,6 +68,8 @@
     <Compile Include="ComplexTypes\NationalityComplex.cs" />
     <Compile Include="ComplexTypes\QualificationComplex.cs" />
     <Compile Include="Courses\Course.cs" />
+    <Compile Include="DropLists\Area.cs" />
+    <Compile Include="DropLists\City.cs" />
     <Compile Include="DropLists\Collage.cs" />
     <Compile Include="DropLists\Nationality.cs" />
     <Compile Include="DropLists\Qualifiation.cs" />
