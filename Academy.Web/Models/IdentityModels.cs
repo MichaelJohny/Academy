@@ -46,6 +46,8 @@ namespace Academy.Web.Models
         public DbSet<Collage> Collages { get; set; }
         public DbSet<CourseNames> CourseNames { get; set; }
         public DbSet<Qualifiation> Qualifiations { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Area> Areas { get; set; }
         public ApplicationDbContext()
             : base("AcademyConnection")
         {
@@ -64,6 +66,10 @@ namespace Academy.Web.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Filter(AcademyConst.IsDeleted,(ISoftDelete d)=>d.IsDeleted,false);
+            //modelBuilder.Entity<Area>()
+            //    .HasRequired(c => c.City)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
             base.OnModelCreating(modelBuilder);
         }
 

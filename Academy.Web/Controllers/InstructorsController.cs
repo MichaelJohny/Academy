@@ -29,7 +29,10 @@ namespace Academy.Web.Controllers
                                                      s.Mobile1.Contains(query) ||
                                                      s.Mobile2.Contains(query));
             }
+            //hello 
 
+
+            
             var viewModel = new InstructoreViewModel()
             {
                 Instructors = await instructors.ToListAsync(),

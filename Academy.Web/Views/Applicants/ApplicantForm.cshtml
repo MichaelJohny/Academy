@@ -15,17 +15,18 @@ else
 
 @using (Html.BeginForm("Save", "Applicants"))
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Id)
     <div class="form-row">
         <div class="col-md-4">
             @Html.LabelFor(m => m.FirstName)
             @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
-            @Html.ValidationMessageFor(m=>m.FirstName)
+            @Html.ValidationMessageFor(m => m.FirstName)
         </div>
         <div class="col-md-4">
             @Html.LabelFor(m => m.SecondName)
             @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control", placeholder = "Second Name" })
-            @Html.ValidationMessageFor(m=>m.SecondName)
+            @Html.ValidationMessageFor(m => m.SecondName)
         </div>
         <div class="col-md-4">
             @Html.LabelFor(m => m.ThirdName)
@@ -48,16 +49,19 @@ else
         <div class="col-md-4">
             @Html.LabelFor(m => m.Mobile2)
             @Html.TextBoxFor(m => m.Mobile2, new { @class = "form-control", placeholder = "Mobile2" })
-            
+
         </div>
         <div class="col-md-4">
             @Html.LabelFor(m => m.BirthDate)
-            @Html.EditorFor(m => m.BirthDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @selectedDate = Model.BirthDate}  })
+            @*@Html.EditorFor(m => m.BirthDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @selectedDate = Model.BirthDate } })*@
+            @Html.TextBoxFor(m=>m.BirthDate, $"{Model.BirthDate.ToShortDateString():d}",
+                new { @class = "form-control datepicker", type = "date", @Value = Model.BirthDate.ToString("yyyy-MM-dd") })
+
             @Html.ValidationMessageFor(m => m.BirthDate)
         </div>
         <div class="col-md-4">
             @Html.LabelFor(m => m.NationalityId)
-            @Html.DropDownListFor(m => m.NationalityId, new SelectList(ViewBag.Nationalities, "Id","Name"), "Select Nationality", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.NationalityId, new SelectList(ViewBag.Nationalities, "Id", "Name"), "Select Nationality", new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.NationalityId)
         </div>
 
@@ -73,13 +77,23 @@ else
         </div>
         <div class="col-md-4">
             @Html.LabelFor(m => m.CollageId)
-            @Html.DropDownListFor(m => m.CollageId, new SelectList(ViewBag.Collages,"Id","Name"), "Select Collage", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.CollageId, new SelectList(ViewBag.Collages, "Id", "Name"), "Select Collage", new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.CollageId)
         </div>
         <div class="col-md-4">
             @Html.LabelFor(m => m.QualificationId)
-            @Html.DropDownListFor(m => m.QualificationId, new SelectList(ViewBag.Qualifications, "Id","Name"), "Select Qualification", new { @class = "form-control", placeholder = "Qualification" })
+            @Html.DropDownListFor(m => m.QualificationId, new SelectList(ViewBag.Qualifications, "Id", "Name"), "Select Qualification", new { @class = "form-control", placeholder = "Qualification" })
             @Html.ValidationMessageFor(m => m.QualificationId)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.CityId)
+            @Html.DropDownListFor(m => m.CityId, new SelectList(ViewBag.Cities, "Id", "Name"), "Select City", new { @class = "form-control", placeholder = "City" })
+            @Html.ValidationMessageFor(m => m.CityId)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.AreaId)
+            @Html.DropDownListFor(m => m.AreaId, new SelectList(ViewBag.Areas, "Id", "Name"),  new { @class = "form-control", placeholder = "Area" })
+            @Html.ValidationMessageFor(m => m.AreaId)
         </div>
 
         <div class="col-md-4">
@@ -100,21 +114,76 @@ else
             @Html.LabelFor(m => m.Experience)
             @Html.TextBoxFor(m => m.Experience, new { @class = "form-control", placeholder = "Experience" })
         </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.Employer)
+            @Html.TextBoxFor(m => m.Employer, new { @class = "form-control", placeholder = "Employer" })
+        </div>
 
-        @*<div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        @Html.CheckBoxFor(m => m.IsBlackList) BlackList
-                    </label>
-                </div>
-            </div>*@
+        <div class="col-md-4">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.IsBlackList) BlackList
+                </label>
+            </div>
+        </div>
 
     </div>
     <div id="submitDiv" class="form-group pull-right">
-        @Html.ActionLink("New", "New", "Applicants", new { @class = "btn btn-default" },null)
+        @*@Html.ActionLink("New", "New", "Applicants", new { @class = "btn btn-default" })*@
+        <a class="btn btn-default" href="/Applicants/New"> New</a>
         <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>
     </div>
 }
+
+
+
 @section scripts{
-    @Scripts.Render("~/bundle/jaueryval")
+    <script>
+
+        $(document).ready(function () {            
+            const selectedCity = $("#CityId").val();
+            const selectedArea = $("#AreaId").val();
+            let areasSelect = $('#AreaId');
+            AddAreas(selectedCity, areasSelect);
+            if (selectedArea != null && selectedArea != '') {
+                areasSelect.val = selectedArea;
+            };
+
+       
+        });
+
+        $("#CityId").change(function () {
+            const selectedCity = $("#CityId").val();
+            let areasSelect = $('#AreaId');
+            areasSelect.empty();
+            if (selectedCity != null && selectedCity != '') {
+                AddAreas(selectedCity, areasSelect);
+            }
+        });
+
+        function AddAreas(selectedCity, areasSelect) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetAreas", "Applicants")',
+                dataType: 'json',
+                data: { selectedCity: selectedCity },
+                success: function(areas) {
+                    if (areas != null && !jQuery.isEmptyObject(areas)) {
+                        areasSelect.append('<option value= 0> Select Area </option>');
+                        $.each(areas,
+                            function(index, area) {
+                                areasSelect.append($('<option/>',
+                                    {
+                                        value: area.Value,
+                                        text: area.Text
+                                    }));
+                            });
+                    }
+                }
+            });
+        }
+
+    </script>
 }
+
+

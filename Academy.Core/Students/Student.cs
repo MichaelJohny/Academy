@@ -42,8 +42,7 @@ namespace Academy.Core.Students
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
 
-        [Required]
-        [Display(Name = "Nationality")]
+        [Required, Display(Name = "Nationality")]
         public int NationalityId { get; set; }
 
         [Display(Name = "BlackList")]
@@ -65,12 +64,10 @@ namespace Academy.Core.Students
         [Required, Display(Name = "Address Description")]
         public string AddressDescrption { get; set; }
 
-        [Required]
-        [Display(Name = "Qualification")]
+        [Required, Display(Name = "Qualifcation")]
         public int QualificationId { get; set; }
 
-        [Required]
-        [Display(Name = "Collage")]
+        [Required,Display(Name = "Collage")]
         public int CollageId { get; set; }
 
         public string Specialization { get; set; }
@@ -83,12 +80,28 @@ namespace Academy.Core.Students
 
         public string Experience { get; set; }
 
+        public string Employer { get; set; }
+
         public StudentStatus Status { get; set; }
+
+        [Required, Display(Name = "Area")]
+        public int CityId { get; set; }
+
+        [Required, Display(Name = "Area")]
+        public int AreaId { get; set; }
+
+        [ForeignKey("CityId")]
+        public City City { get; set; }
+
+        [ForeignKey("AreaId")]
+        public Area Area { get; set; }
 
         [ForeignKey("CollageId")]
         public virtual Collage Collage { get; set; }
+
         [ForeignKey("NationalityId")]
         public virtual Nationality Nationality { get; set; }
+
         [ForeignKey("QualificationId")]
         public virtual Qualifiation Qualifiation { get; set; }
 
