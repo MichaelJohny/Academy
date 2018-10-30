@@ -1,18 +1,66 @@
-﻿@model IEnumerable<Academy.Core.Courses.Course>
+﻿@model Academy.Core.ViewModels.CourseViewModel
     @{
         ViewBag.Title = "Courses";
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
 
 <h2>Courses</h2>
-@if (!Model.Any())
+@Html.ActionLink("Create New ", "New", "Courses", null, new { @class = "btn btn-primary pull-right" })
+
+@using (Html.BeginForm("Search", "Courses"))
+{
+    <div class="form-group">
+        <div id="searchCourses" class="input-group">
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search By Course Name" })
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+}
+
+@if (!Model.Courses.Any())
 {
     <p>No Courses Found</p>
 }
 else
 {
-    <table  class="table table-bordered table-hover">
-        
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date From</th>
+            <th>Date To</th>
+            <th>Instructor</th>
+            <th>Course Location</th>
+            <th>Course Fees</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var course in Model.Courses)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(course.CourseName.Name, "Edit", "Courses", new { id = course.Id },null)   
+                </td>
+                <td>
+                    @course.DateFrom.ToString("d")
+                </td>
+                <td>
+                    @course.DateTo.ToString("d")
+                </td>
+                <td>
+                    @course.Instructor.FullName
+                </td>
+                <td>
+                    @course.CourseLocation.CourseAddress
+                </td>
+                <td>
+                    @course.CourseFees
+                </td>
+            </tr>
+        }
+        </tbody>
     </table>
 }
 

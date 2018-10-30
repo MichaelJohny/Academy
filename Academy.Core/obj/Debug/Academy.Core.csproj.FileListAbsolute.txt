@@ -26,6 +26,6 @@ E:\Projects\Academy\Academy.Core\bin\Debug\EntityFramework.DynamicFilters.xml
 E:\Projects\Academy\Academy.Core\bin\Debug\EntityFramework.SqlServer.xml
 E:\Projects\Academy\Academy.Core\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 E:\Projects\Academy\Academy.Core\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
-E:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.csprojResolveAssemblyReference.cache
 E:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.dll
 E:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.pdb
+E:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.csprojResolveAssemblyReference.cache

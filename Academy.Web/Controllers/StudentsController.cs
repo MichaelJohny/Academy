@@ -13,7 +13,6 @@ namespace Academy.Web.Controllers
     public class StudentsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public StudentsController()
         {
             _context = new ApplicationDbContext();

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Academy.Core.Base;
-using Academy.Core.ComplexTypes;
 using Academy.Core.DropLists;
 using Academy.Core.Enrollments;
 using Academy.Core.Enums;
@@ -44,6 +43,7 @@ namespace Academy.Core.Students
         public DateTime BirthDate { get; set; }
 
         [Required]
+        [Display(Name = "Nationality")]
         public int NationalityId { get; set; }
 
         [Display(Name = "BlackList")]
@@ -51,10 +51,12 @@ namespace Academy.Core.Students
 
         [Required, DataType(DataType.PhoneNumber)]
         [MobileValidation]
+        [Display(Name = "Mobile 1")]
         public string Mobile1 { get; set; }
 
         [DataType(DataType.PhoneNumber)]
         [Mobile2Validation]
+        [Display(Name = "Mobile 2")]
         public string Mobile2 { get; set; }
 
         [Required, DataType(DataType.EmailAddress)]
@@ -64,9 +66,11 @@ namespace Academy.Core.Students
         public string AddressDescrption { get; set; }
 
         [Required]
+        [Display(Name = "Qualification")]
         public int QualificationId { get; set; }
 
         [Required]
+        [Display(Name = "Collage")]
         public int CollageId { get; set; }
 
         public string Specialization { get; set; }

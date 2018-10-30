@@ -1,4 +1,4 @@
-﻿body {
+﻿\body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -26,6 +26,9 @@ textarea {
 #searchStudents {
     width: 300px;
 }
+#searchCourses {
+    width: 300px;
+}
 
 .not-active {
     pointer-events: none;
@@ -47,5 +50,5 @@ textarea {
 }
 
 #submitDiv {
-    margin-top: 10px;
+    margin-top: 10%;
 }

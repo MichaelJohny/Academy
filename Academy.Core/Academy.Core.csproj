@@ -65,9 +65,11 @@
     <Compile Include="Base\BaseEntity.cs" />
     <Compile Include="ComplexTypes\BaseComplex.cs" />
     <Compile Include="ComplexTypes\CollageComplex.cs" />
+    <Compile Include="ComplexTypes\CourseNames.cs" />
     <Compile Include="ComplexTypes\NationalityComplex.cs" />
     <Compile Include="ComplexTypes\QualificationComplex.cs" />
     <Compile Include="Courses\Course.cs" />
+    <Compile Include="Courses\CourseLocation.cs" />
     <Compile Include="DropLists\Collage.cs" />
     <Compile Include="DropLists\Nationality.cs" />
     <Compile Include="DropLists\Qualifiation.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Validations\InstructorMobileValidation.cs" />
     <Compile Include="Validations\MobileValidation.cs" />
     <Compile Include="Validations\InstructorDateValidation.cs" />
+    <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\InstructoreViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
   </ItemGroup>

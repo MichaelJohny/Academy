@@ -1,0 +1,75 @@
+﻿@model Academy.Core.Courses.Course
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Id > 0)
+{
+    <h2>Update Course</h2>
+}
+else
+{
+    <h2>New Course</h2>
+}
+
+@using (Html.BeginForm("Save", "Courses"))
+{
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-row">
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.CourseNameId)
+            @Html.DropDownListFor(m => m.CourseNameId, new SelectList(ViewBag.CourseNames, "Id", "Name"), "Select Course", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CourseNameId)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.InstructorId)
+            @Html.DropDownListFor(m => m.InstructorId, new SelectList(ViewBag.Instructors, "Id", "FullName"), "Select Instructor", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.InstructorId)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.DateFrom)
+            @Html.EditorFor(m => m.DateFrom, new {htmlAttributes = new {@class = "form-control", @type = "date", @selectedDate = Model.DateFrom} })
+            @Html.ValidationMessageFor(m => m.DateFrom)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.DateTo)
+            @Html.EditorFor(m => m.DateTo, new {htmlAttributes = new {@class = "form-control", @type = "date", @selectedDate = Model.DateTo } })
+            @Html.ValidationMessageFor(m => m.DateTo)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.TimeFrom)
+            @Html.EditorFor(m => m.TimeFrom, new {htmlAttributes = new {@class = "form-control", @type = "time", @selectedDate = Model.TimeFrom } })
+            @Html.ValidationMessageFor(m => m.TimeFrom)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.TimeTo) 
+            @Html.EditorFor(m => m.TimeTo, new {htmlAttributes = new {@class = "form-control", @type = "time", @selectedDate = Model.TimeTo} })
+            @Html.ValidationMessageFor(m => m.TimeTo)
+        </div>       
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.CourseLocationId)
+            @Html.DropDownListFor(m => m.CourseLocationId,new SelectList(ViewBag.CourseLocations,"Id","CourseAddress"),"Select Location", new {@class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CourseLocationId)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.CourseDuration)
+            @Html.TextBoxFor(m => m.CourseDuration, new {@class = "form-control", placeholder = "Course Duration" })
+            @Html.ValidationMessageFor(m => m.CourseDuration)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.CourseFees)
+            @Html.TextBoxFor(m => m.CourseFees, new {@class = "form-control", placeholder = "Course Fees" })
+        </div>
+    </div>
+
+    <div id="submitDiv" class="form-group pull-right" >
+        @Html.ActionLink("New","New","Courses" ,new {@class="btn btn-default"})
+        <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>    
+    </div>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundle/jaueryval")
+}
+
