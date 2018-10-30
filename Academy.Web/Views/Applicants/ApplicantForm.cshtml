@@ -55,7 +55,7 @@ else
             @Html.LabelFor(m => m.BirthDate)
             @*@Html.EditorFor(m => m.BirthDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @selectedDate = Model.BirthDate } })*@
             @Html.TextBoxFor(m=>m.BirthDate, $"{Model.BirthDate.ToShortDateString():d}",
-                new { @class = "form-control datepicker", type = "date"  })
+                new { @class = "form-control datepicker", type = "date", @Value = Model.BirthDate.ToString("yyyy-MM-dd") })
 
             @Html.ValidationMessageFor(m => m.BirthDate)
         </div>
@@ -134,40 +134,22 @@ else
         <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>
     </div>
 }
+
+
+
 @section scripts{
     <script>
-        @*$(document).ready(function () {
 
-            $("#CityId").change(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("GetAreas","Applicants")',
-                    dataType: 'json',
-                    data: { cityId: $("#CityId").val() },
-                    success: function (areas) {
-                        $("#AreaId").empty().append('<option value= 0> Select Area </option>');
-                        $.each(areas,
-                            function(i, area) {
-                                $("#AreaId").append('<option value="' + area.Value + '">' + area.Text + '</option>');
-                            });
-                    }
-                });
-                return false;
-            });
-
-        });*@
-
-        $(document).ready(function () {
+        $(document).ready(function () {            
             const selectedCity = $("#CityId").val();
             const selectedArea = $("#AreaId").val();
             let areasSelect = $('#AreaId');
-            AddRegions(selectedCity, areasSelect);
+            AddAreas(selectedCity, areasSelect);
             if (selectedArea != null && selectedArea != '') {
                 areasSelect.val = selectedArea;
             };
 
-            const birthDate = @Html.Raw(Json.Encode(Model.BirthDate));
-            $("#BirthDate").val(birthDate);
+       
         });
 
         $("#CityId").change(function () {
@@ -175,11 +157,11 @@ else
             let areasSelect = $('#AreaId');
             areasSelect.empty();
             if (selectedCity != null && selectedCity != '') {
-                AddRegions(selectedCity, areasSelect);
+                AddAreas(selectedCity, areasSelect);
             }
         });
 
-        function AddRegions(selectedCity, areasSelect) {
+        function AddAreas(selectedCity, areasSelect) {
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("GetAreas", "Applicants")',
