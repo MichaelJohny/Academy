@@ -1,9 +1,8 @@
-﻿using Academy.Core.Base;
+﻿using Academy.Core.ComplexTypes;
 
 namespace Academy.Core.Courses
 {
-    public class CourseLocation: BaseEntity
+    public class CourseLocation: BaseComplex
     {
-        public string CourseAddress { get; set; }
     }
 }

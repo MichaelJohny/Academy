@@ -6,70 +6,139 @@
 
 @if (Model.Id > 0)
 {
-    <h2>Update Course</h2>
+    <h3 class="pageLabel">Update Course</h3>
 }
 else
 {
-    <h2>New Course</h2>
+    <h3 class="pageLabel">New Course</h3>
 }
 
 @using (Html.BeginForm("Save", "Courses"))
 {
+    @Html.ValidationSummary(false)
     @Html.HiddenFor(m => m.Id)
+
     <div class="form-row">
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.CourseNameId)
-            @Html.DropDownListFor(m => m.CourseNameId, new SelectList(ViewBag.CourseNames, "Id", "Name"), "Select Course", new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.CourseNameId)
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.CourseNameId)
+                @Html.DropDownListFor(m => m.CourseNameId, new SelectList(ViewBag.CourseNames, "Id", "Name"), "Select Course", new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.CourseNameId)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.InstructorId)
+                @Html.DropDownListFor(m => m.InstructorId, new SelectList(ViewBag.Instructors, "Id", "FullName"), "Select Instructor", new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.InstructorId)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.DateFrom)
+                @Html.EditorFor(m => m.DateFrom, new {htmlAttributes = new {@class = "form-control", @type = "date", @selectedDate = Model.DateFrom}})
+                @Html.ValidationMessageFor(m => m.DateFrom)
+            </div>
         </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.InstructorId)
-            @Html.DropDownListFor(m => m.InstructorId, new SelectList(ViewBag.Instructors, "Id", "FullName"), "Select Instructor", new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.InstructorId)
+
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.DateTo)
+                @Html.EditorFor(m => m.DateTo, new {htmlAttributes = new {@class = "form-control", @type = "date", @selectedDate = Model.DateTo}})
+                @Html.ValidationMessageFor(m => m.DateTo)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.TimeFrom)
+                @Html.EditorFor(m => m.TimeFrom, new {htmlAttributes = new {@class = "form-control", @type = "time", @selectedDate = Model.TimeFrom}})
+                @Html.ValidationMessageFor(m => m.TimeFrom)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.TimeTo)
+                @Html.EditorFor(m => m.TimeTo, new {htmlAttributes = new {@class = "form-control", @type = "time", @selectedDate = Model.TimeTo}})
+                @Html.ValidationMessageFor(m => m.TimeTo)
+            </div>
         </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.DateFrom)
-            @Html.EditorFor(m => m.DateFrom, new {htmlAttributes = new {@class = "form-control", @type = "date", @selectedDate = Model.DateFrom} })
-            @Html.ValidationMessageFor(m => m.DateFrom)
+
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.CourseLocationId)
+                @Html.DropDownListFor(m => m.CourseLocationId, new SelectList(ViewBag.CourseLocations, "Id", "Name"), "Select Location", new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.CourseLocationId)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.CourseLabId)
+                @Html.DropDownListFor(m => m.CourseLabId, new SelectList(ViewBag.CourseLabs, "Id", "Name"), "Select Lab", new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.CourseLabId)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.CourseDuration)
+                @Html.TextBoxFor(m => m.CourseDuration, new {@class = "form-control", placeholder = "Course Duration"})
+                @Html.ValidationMessageFor(m => m.CourseDuration)
+            </div>
         </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.DateTo)
-            @Html.EditorFor(m => m.DateTo, new {htmlAttributes = new {@class = "form-control", @type = "date", @selectedDate = Model.DateTo } })
-            @Html.ValidationMessageFor(m => m.DateTo)
-        </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.TimeFrom)
-            @Html.EditorFor(m => m.TimeFrom, new {htmlAttributes = new {@class = "form-control", @type = "time", @selectedDate = Model.TimeFrom } })
-            @Html.ValidationMessageFor(m => m.TimeFrom)
-        </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.TimeTo) 
-            @Html.EditorFor(m => m.TimeTo, new {htmlAttributes = new {@class = "form-control", @type = "time", @selectedDate = Model.TimeTo} })
-            @Html.ValidationMessageFor(m => m.TimeTo)
-        </div>       
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.CourseLocationId)
-            @Html.DropDownListFor(m => m.CourseLocationId,new SelectList(ViewBag.CourseLocations,"Id","CourseAddress"),"Select Location", new {@class = "form-control" })
-            @Html.ValidationMessageFor(m => m.CourseLocationId)
-        </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.CourseDuration)
-            @Html.TextBoxFor(m => m.CourseDuration, new {@class = "form-control", placeholder = "Course Duration" })
-            @Html.ValidationMessageFor(m => m.CourseDuration)
-        </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.CourseFees)
-            @Html.TextBoxFor(m => m.CourseFees, new {@class = "form-control", placeholder = "Course Fees" })
+
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.CourseFees)
+                @Html.TextBoxFor(m => m.CourseFees, new {@class = "form-control", placeholder = "Course Fees"})
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
         </div>
     </div>
 
-    <div id="submitDiv" class="form-group pull-right" >
-        @Html.ActionLink("New","New","Courses" ,new {@class="btn btn-default"})
-        <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>    
+    <div class="form-row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div id="submitDiv" class="form-group pull-right" >
+                @Html.ActionLink("New","New","Courses" ,new {@class="btn btn-default"})
+                <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>    
+            </div>
+        </div>
     </div>
+    
 }
 
 @section scripts{
-    @Scripts.Render("~/bundle/jaueryval")
+    <script>
+        $(document).ready(function () {
+            const selectedCourseLocation = $("#CourseLocationId").val();
+            const selectedCourseLab = $("#CourseLabId").val();
+
+            let labSelect = $("#CourseLabId");
+            AddLabs(selectedCourseLocation, labSelect);
+            if (selectedCourseLab != null && selectedCourseLab != '') {
+                labSelect.val = selectedCourseLab;
+            }
+        });
+
+        $("#CourseLocationId").change(function () {
+            const selectedCourseLocation = $("#CourseLocationId").val();
+            let labSelect = $('#CourseLabId');
+            labSelect.empty();
+            if (selectedCourseLocation != null && selectedCourseLocation != '') {
+                AddLabs(selectedCourseLocation, labSelect);
+            }
+        });
+
+
+        function AddLabs(selectedCourseLocation, labSelect) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetCourseLabs", "Courses")',
+                dataType: 'json',
+                data: { selectedCourseLocation: selectedCourseLocation },
+                success: function (labs) {
+                    if (labs != null && !jQuery.isEmptyObject(labs)) {
+                        labSelect.append('<option value= 0> Select Lab </option>');
+                        $.each(labs,
+                            function (index, lab) {
+                                labSelect.append($('<option/>',
+                                    {
+                                        value: lab.Value,
+                                        text: lab.Text
+                                    }));
+                            });
+                    }
+                }
+            });
+        }
+
+    </script>
 }
 

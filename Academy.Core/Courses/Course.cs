@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Academy.Core.Base;
 using Academy.Core.ComplexTypes;
+using Academy.Core.DropLists;
 using Academy.Core.Enrollments;
 using Academy.Core.Instructors;
 
@@ -36,9 +37,8 @@ namespace Academy.Core.Courses
         [Display(Name = "Course Location")]
         public int CourseLocationId { get; set; }
 
-
-        //[Display(Name = "Course Location")]
-        //public string CourseLocation { get; set; }
+        [Required, Display(Name = "Course Lab")]
+        public int CourseLabId { get; set; }
 
         [Display(Name = "Course Duration")]
         public double CourseDuration { get; set; }
@@ -52,6 +52,9 @@ namespace Academy.Core.Courses
 
         [ForeignKey("CourseLocationId")]
         public virtual CourseLocation CourseLocation { get; set; }
+
+        [ForeignKey("CourseLabId")]
+        public virtual CourseLabs CourseLab { get; set; }
 
         [ForeignKey("InstructorId")]
         public virtual Instructor Instructor { get; set; }

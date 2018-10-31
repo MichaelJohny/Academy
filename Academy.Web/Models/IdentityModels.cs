@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
@@ -40,6 +41,7 @@ namespace Academy.Web.Models
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseLocation> CourseLocations { get; set; }
+        public DbSet<CourseLabs> CourseLabs { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Nationality> Nationalities { get; set; }
@@ -70,6 +72,8 @@ namespace Academy.Web.Models
             //    .HasRequired(c => c.City)
             //    .WithMany()
             //    .WillCascadeOnDelete(false);
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             base.OnModelCreating(modelBuilder);
         }
 

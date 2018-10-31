@@ -29,3 +29,5 @@ E:\Projects\Academy\Academy.Core\bin\Debug\Microsoft.AspNet.Identity.EntityFrame
 E:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.dll
 E:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.pdb
 E:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.csprojResolveAssemblyReference.cache
+E:\Projects\Academy\Academy.Core\bin\Debug\Newtonsoft.Json.dll
+E:\Projects\Academy\Academy.Core\bin\Debug\Newtonsoft.Json.xml

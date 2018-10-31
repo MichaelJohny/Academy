@@ -7,6 +7,8 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    margin: auto;
+    margin-top: 45px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -22,7 +24,10 @@ select,
 textarea {
     max-width: 280px;
 }
-
+.pageLabel {
+    margin-left: 25px;
+    margin-bottom: 25px;
+}
 #searchStudents {
     width: 300px;
 }
@@ -50,7 +55,7 @@ textarea {
 }
 
 #submitDiv {
-    margin-top: 10%;
+    margin-top: 2%;
 }
 
 
@@ -112,3 +117,9 @@ h6::first-letter {margin-top: 0; }
 h4::first-letter {margin-top: 0; }
 
 h6{ font-size: 14px; }
+
+.validation-summary-errors {
+    color: red !important;
+    margin-bottom: 2% !important;
+    font-size: x-large !important;
+}

@@ -84,7 +84,7 @@ namespace Academy.Core.Students
 
         public StudentStatus Status { get; set; }
 
-        [Required, Display(Name = "Area")]
+        [Required, Display(Name = "City")]
         public int CityId { get; set; }
 
         [Required, Display(Name = "Area")]

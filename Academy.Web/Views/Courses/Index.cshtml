@@ -9,6 +9,8 @@
 
 @using (Html.BeginForm("Search", "Courses"))
 {
+    @Html.ValidationSummary(false)
+
     <div class="form-group">
         <div id="searchCourses" class="input-group">
             @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search By Course Name" })
@@ -33,7 +35,9 @@ else
             <th>Date To</th>
             <th>Instructor</th>
             <th>Course Location</th>
+            <th>Course Lab</th>
             <th>Course Fees</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -53,10 +57,16 @@ else
                     @course.Instructor.FullName
                 </td>
                 <td>
-                    @course.CourseLocation.CourseAddress
+                    @course.CourseLocation.Name
+                </td>
+                <td>
+                    @course.CourseLab.Name
                 </td>
                 <td>
                     @course.CourseFees
+                </td>
+                <td style="text-align: center;">
+                    @Html.ActionLink("Delete", "DeleteCourse", "Courses", new { id = course.Id}, new { @class = "btn btn-warning"})
                 </td>
             </tr>
         }
