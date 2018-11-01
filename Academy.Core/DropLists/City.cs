@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Academy.Core.ComplexTypes;
+﻿using Academy.Core.ComplexTypes;
 using Academy.Core.Students;
 
 namespace Academy.Core.DropLists

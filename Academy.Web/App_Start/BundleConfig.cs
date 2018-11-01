@@ -23,11 +23,13 @@ namespace Academy.Web
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js",
                 "~/Scripts/bootstrap-datetimepicker.min.js",
-                "~/Scripts/site.js"));
+                "~/Scripts/site.js",
+                "~/Scripts/toastr.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap-lumen.css",
                 "~/Content/site.css",
+                "~/Content/toastr.css",
                 "~/Content/bootstrap-datetimepicker.min.css"));
         }
     }

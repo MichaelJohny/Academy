@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Academy.Core.AcademyConst;
 using Academy.Core.Base;
+using Academy.Core.ComplexTypes;
 using Academy.Core.Courses;
 using Academy.Core.DropLists;
 using Academy.Core.DynamicFilters;
@@ -39,10 +40,13 @@ namespace Academy.Web.Models
     {
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<CourseLocation> CourseLocations { get; set; }
+        public DbSet<CourseLabs> CourseLabs { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Nationality> Nationalities { get; set; }
         public DbSet<Collage> Collages { get; set; }
+        public DbSet<CourseNames> CourseNames { get; set; }
         public DbSet<Qualifiation> Qualifiations { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Area> Areas { get; set; }
@@ -70,6 +74,8 @@ namespace Academy.Web.Models
             //    .HasRequired(c => c.City)
             //    .WithMany()
             //    .WillCascadeOnDelete(false);
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             base.OnModelCreating(modelBuilder);
         }
 

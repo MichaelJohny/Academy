@@ -27,10 +27,12 @@ namespace Academy.Core.Instructors
 
         [DataType(DataType.PhoneNumber)]
         [InstructorMobileValidation]
+        [Display(Name = "Mobile 1")]
         public string Mobile1 { get; set; }
 
         [DataType(DataType.PhoneNumber)]
         [InstructorMobile2Validation]
+        [Display(Name = "Mobile 2")]
         public string Mobile2 { get; set; }
 
         [Required, DataType(DataType.EmailAddress)]
@@ -45,6 +47,7 @@ namespace Academy.Core.Instructors
 
         [Required]
         public string Address { get; set; }
+
         public virtual ICollection<Course> Courses { get; set; }
     }
 }

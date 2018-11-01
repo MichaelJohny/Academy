@@ -7,117 +7,163 @@
 
 @if (Model.Id > 0)
 {
-    <h2>Update Student</h2>
+    <h3 class="pageLabel">Update Student</h3>
 }
 else
 {
-    <h2>New Student</h2>   
+    <h3 class="pageLabel">New Student</h3>   
 }
 
 @using (Html.BeginForm("Save", "Students"))
 {
+    @Html.ValidationSummary(false)
     @Html.HiddenFor(m => m.Id)
 
     <div class="form-row">
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.FirstName)
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
-            @Html.ValidationMessageFor(m => m.FirstName)
-        </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.SecondName)
-            @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control", placeholder = "Second Name" })
-            @Html.ValidationMessageFor(m => m.SecondName)
-        </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.ThirdName)
-            @Html.TextBoxFor(m => m.ThirdName, new { @class = "form-control", placeholder = "Third Name" })
-            @Html.ValidationMessageFor(m => m.ThirdName)
-        </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.LastName)
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
-            @Html.ValidationMessageFor(m => m.LastName)
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName, new {@class = "form-control", placeholder = "First Name"})
+                @Html.ValidationMessageFor(m => m.FirstName)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.SecondName)
+                @Html.TextBoxFor(m => m.SecondName, new {@class = "form-control", placeholder = "Second Name"})
+                @Html.ValidationMessageFor(m => m.SecondName)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.ThirdName)
+                @Html.TextBoxFor(m => m.ThirdName, new {@class = "form-control", placeholder = "Third Name"})
+                @Html.ValidationMessageFor(m => m.ThirdName)
+            </div>
         </div>
 
-
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.Mobile1)
-            @Html.TextBoxFor(m => m.Mobile1, new { @class = "form-control", placeholder = "Mobile1" })
-            @Html.ValidationMessageFor(m => m.Mobile1)
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.LastName)
+                @Html.TextBoxFor(m => m.LastName, new {@class = "form-control", placeholder = "Last Name"})
+                @Html.ValidationMessageFor(m => m.LastName)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Mobile1)
+                @Html.TextBoxFor(m => m.Mobile1, new {@class = "form-control", placeholder = "Mobile1"})
+                @Html.ValidationMessageFor(m => m.Mobile1)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Mobile2)
+                @Html.TextBoxFor(m => m.Mobile2, new {@class = "form-control", placeholder = "Mobile2"})
+            </div>
         </div>
 
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.Mobile2)
-            @Html.TextBoxFor(m => m.Mobile2, new { @class = "form-control", placeholder = "Mobile2" })
-
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.BirthDate)
+                @Html.EditorFor(m => m.BirthDate, new {htmlAttributes = new {@class = "form-control", @type = "date", @selectedDate = Model.BirthDate}})
+                @Html.ValidationMessageFor(m => m.BirthDate)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.NationalityId)
+                @Html.DropDownListFor(m => m.NationalityId, new SelectList(ViewBag.Nationalities, "Id", "Name"), "Select Nationality", new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.NationalityId)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Email"})
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
         </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.BirthDate)
-            @Html.EditorFor(m => m.BirthDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @selectedDate = Model.BirthDate } })
-            @Html.ValidationMessageFor(m => m.BirthDate)
-        </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.NationalityId)
-            @Html.DropDownListFor(m => m.NationalityId, new SelectList(ViewBag.Nationalities, "Id", "Name"), "Select Nationality", new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.NationalityId)
-        </div>
-
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.Email)
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
-            @Html.ValidationMessageFor(m => m.Email)
-        </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.AddressDescrption)
-            @Html.TextBoxFor(m => m.AddressDescrption, new { @class = "form-control", placeholder = "Address Description" })
-            @Html.ValidationMessageFor(m => m.AddressDescrption)
-        </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.CollageId)
-            @Html.DropDownListFor(m => m.CollageId, new SelectList(ViewBag.Collages, "Id", "Name"), "Select Collage", new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.CollageId)
-        </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.QualificationId)
-            @Html.DropDownListFor(m => m.QualificationId, new SelectList(ViewBag.Qualifications, "Id", "Name"), "Select Qualification", new { @class = "form-control", placeholder = "Qualification" })
-            @Html.ValidationMessageFor(m => m.QualificationId)
-        </div>
-
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.Specialization)
-            @Html.TextBoxFor(m => m.Specialization, new { @class = "form-control", placeholder = "Specialization" })
-        </div>
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.JobTitle)
-            @Html.TextBoxFor(m => m.JobTitle, new { @class = "form-control", placeholder = "Job Title" })
+        
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.AddressDescrption)
+                @Html.TextBoxFor(m => m.AddressDescrption, new {@class = "form-control", placeholder = "Address Description"})
+                @Html.ValidationMessageFor(m => m.AddressDescrption)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.CollageId)
+                @Html.DropDownListFor(m => m.CollageId, new SelectList(ViewBag.Collages, "Id", "Name"), "Select Collage", new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.CollageId)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.QualificationId)
+                @Html.DropDownListFor(m => m.QualificationId, new SelectList(ViewBag.Qualifications, "Id", "Name"), "Select Qualification", new {@class = "form-control", placeholder = "Qualification"})
+                @Html.ValidationMessageFor(m => m.QualificationId)
+            </div>
         </div>
 
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.GraduationYear)
-            @Html.TextBoxFor(m => m.GraduationYear, new { @class = "form-control", placeholder = "Graduation Year" })
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Specialization)
+                @Html.TextBoxFor(m => m.Specialization, new {@class = "form-control", placeholder = "Specialization"})
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.JobTitle)
+                @Html.TextBoxFor(m => m.JobTitle, new {@class = "form-control", placeholder = "Job Title"})
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.GraduationYear)
+                @Html.TextBoxFor(m => m.GraduationYear, new {@class = "form-control", placeholder = "Graduation Year"})
+            </div>
         </div>
 
-        <div class="col-md-4">
-            @Html.LabelFor(m => m.Experience)
-            @Html.TextBoxFor(m => m.Experience, new { @class = "form-control", placeholder = "Experience" })
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Experience)
+                @Html.TextBoxFor(m => m.Experience, new {@class = "form-control", placeholder = "Experience"})
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
         </div>
-
-        @*<div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        @Html.CheckBoxFor(m => m.IsBlackList) BlackList
-                    </label>
-                </div>
-            </div>*@
-
     </div>
-    <div id="submitDiv" class="form-group pull-right" >
-        @Html.ActionLink("New","New","Students" ,new {@class="btn btn-default"})
-        <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>    
-    </div>
-    
 
+    <div class="form-row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div id="submitDiv" class="form-group pull-right" >
+                @Html.ActionLink("New","New","Students" ,new {@class="btn btn-default"})
+                <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>    
+            </div>
+        </div>
+    </div>
+
+    if (Model.Enrollments != null)
+    {
+        <div class="row-form">
+            <div class="col-xs-12 col-md-12 col=lg-12">
+                <h3>Enrolled Courses by Selected Student</h3>
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date From</th>
+                        <th>Date To</th>
+                        <th>Course Location</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var course in Model.Enrollments)
+                    {
+                        <tr>
+                            <td>
+                                @course.Course.CourseName.Name   
+                            </td>
+                            <td>
+                                @course.Course.DateFrom.ToString("d")
+                            </td>
+                            <td>
+                                @course.Course.DateTo.ToString("d")
+                            </td>
+                            <td>
+                                @course.Course.CourseLocation.Name
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
 }
 
 @section scripts{
