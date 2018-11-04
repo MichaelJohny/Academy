@@ -96,5 +96,6 @@ namespace Academy.Web.Controllers
             ViewBag.Nationalities = await _context.Nationalities.ToListAsync();
             ViewBag.Qualifications = await _context.Qualifiations.ToListAsync();
         }
+
     }
 }

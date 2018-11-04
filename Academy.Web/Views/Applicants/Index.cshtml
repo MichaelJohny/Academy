@@ -74,8 +74,8 @@ else
                     else
                     {
                         <td style="text-align: center;">
-                            @Html.ActionLink("Accept", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Accepted }, new { @class = "btn btn-success not-active",id="acceptApplicant" })
-                            @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Rejected }, new { @class = "btn btn-warning not-active", id = "rejectApplicant" })
+                            @Html.ActionLink("Accept", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Accepted }, new { @class = "btn btn-default not-active",id="acceptApplicant" })
+                            @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Rejected }, new { @class = "btn btn-danger not-active", id = "rejectApplicant" })
 
                         </td>
                     }
