@@ -100,6 +100,7 @@
     <Compile Include="Validations\InstructorDateValidation.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\InstructoreViewModel.cs" />
+    <Compile Include="ViewModels\StudentCourseViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

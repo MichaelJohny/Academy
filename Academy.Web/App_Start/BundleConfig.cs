@@ -24,13 +24,21 @@ namespace Academy.Web
                 "~/Scripts/respond.js",
                 "~/Scripts/bootstrap-datetimepicker.min.js",
                 "~/Scripts/site.js",
-                "~/Scripts/toastr.js"));
+                "~/Scripts/toastr.js",
+                "~/Scripts/Select/select2.min.js",
+                "~/Scripts/Table/main.js",
+                "~/Scripts/popper.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap-lumen.css",
                 "~/Content/site.css",
                 "~/Content/toastr.css",
-                "~/Content/bootstrap-datetimepicker.min.css"));
+                "~/Content/bootstrap-datetimepicker.min.css",
+                "~/Content/Select/select2.min.css",
+                "~/Content/Table/animate.css",
+                "~/Content/Table/main.css",
+                "~/Content/Table/util.css",
+                "~/Content/perfect-selector/perfect-scrollbar.css"));
         }
     }
 }

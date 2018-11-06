@@ -229,6 +229,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\perfect-selector\perfect-scrollbar.css" />
+    <Content Include="Content\perfect-selector\perfect-scrollbar.min.js" />
+    <Content Include="Content\Select\select2.css" />
+    <Content Include="Content\Select\select2.min.css" />
+    <Content Include="Content\Table\animate.css" />
+    <Content Include="Content\Table\main.css" />
+    <Content Include="Content\Table\util.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
@@ -286,7 +293,10 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Select\select2.js" />
+    <Content Include="Scripts\Select\select2.min.js" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\Table\main.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
@@ -347,6 +357,7 @@
     <Content Include="Views\Instructors\InstructorForm.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\Courses\CourseForm.cshtml" />
+    <Content Include="Views\Students\AssignCourseForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

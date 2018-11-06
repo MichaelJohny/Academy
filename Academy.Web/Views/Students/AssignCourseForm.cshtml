@@ -1,0 +1,134 @@
+﻿@model Academy.Core.ViewModels.StudentCourseViewModel
+@{
+    ViewBag.Title = "AssignCourseForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Assign Course to @Model.Student.FullName </h2>
+
+
+
+@*<div class="limiter" style="margin-top: 10px !important">
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100 ver1 m-b-110">
+                    <table data-vertable="ver1">
+                        <thead>
+                        <tr class="row100 head">
+                            <th class="column100 column1" data-column="column1">Course Name</th>
+                            <th class="column100 column2" data-column="column2">Date From</th>
+                            <th class="column100 column3" data-column="column3">Date To</th>
+                            <th class="column100 column4" data-column="column4">Lab</th>
+                            <th class="column100 column5" data-column="column5">Location</th>
+                            <th class="column100 column6" data-column="column6">Fees</th>
+                            <th class="column100 column7" data-column="column7">Instructor</th>
+                            <th class="column100 column8" data-column="column8">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var course in Model.Courses)
+                        {
+                            <tr class="row100">
+                                <td class="column100 column1" data-column="column1">@course.CourseName.Name</td>
+                                <td class="column100 column2" data-column="column2">@course.DateFrom.ToString("d")</td>
+                                <td class="column100 column3" data-column="column3">@course.DateTo.ToString("d")</td>
+                                <td class="column100 column4" data-column="column4">@course.CourseLab.Name</td>
+                                <td class="column100 column5" data-column="column5">@course.CourseLab.CourseLocation.Name</td>
+                                <td class="column100 column6" data-column="column6">@course.CourseFees</td>
+                                <td class="column100 column7" data-column="column7">@course.Instructor.FullName</td>
+                                @if (Model.Student.Enrollments.Any(x => x.CourseId == course.Id))
+                                {
+                                    <td class="column100 column8 not-active"  data-column="column8">@Html.ActionLink("Assign", "TakeCourse", "Students", new {id = Model.Student.Id, courseId = course.Id}, new {@class = "btn btn-success",})</td>
+                                }
+                                else
+                                {
+                                    <td class="column100 column8" data-column="column8">@Html.ActionLink("Assign", "TakeCourse", "Students", new { id = Model.Student.Id, courseId = course.Id }, new { @class = "btn btn-success", })</td>
+                                }
+
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Date From</th>
+            <th>Date To</th>
+            <th>Lab</th>
+            <th>Location</th>
+            <th>Fees</th>
+            <th>Instructor</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model.Courses)
+        {
+            <tr>
+                <td>
+                    @course.CourseName.Name
+                </td>
+                <td>
+                    @course.DateFrom.ToString("d")
+                </td>
+                <td>
+                    @course.DateTo.ToString("d")
+                </td>
+                <td>
+                    @course.CourseLab.Name
+                </td>
+                <td>
+                    @course.CourseLab.CourseLocation.Name
+                </td>
+                <td>
+                    @course.CourseFees
+                </td>
+                <td>
+                    @course.Instructor.FullName
+                </td>
+                @if (Model.Student.Enrollments.Any(x => x.CourseId == course.Id))
+                {
+                    <td class="not-active">
+                        @Html.ActionLink("Assign", "TakeCourse", "Students", new { id = Model.Student.Id, courseId = course.Id }, new { @class = "btn btn-success", })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink("Assign", "TakeCourse", "Students", new { id = Model.Student.Id, courseId = course.Id }, new { @class = "btn btn-success", })
+                    </td>
+                }
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            if ('@Html.Raw(TempData["Error"])' !== '') {
+                const error = '@Html.Raw(TempData["Error"])';
+                toastr.error(error);
+
+            }
+            if ('@Html.Raw(TempData["Success"])' !== '') {
+                const success = '@Html.Raw(TempData["Success"])';
+                toastr.success(success);
+
+            }
+
+        });
+    </script>
+}
+

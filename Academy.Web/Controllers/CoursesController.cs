@@ -111,8 +111,10 @@ namespace Academy.Web.Controllers
                                             && c.CourseLocationId == course.CourseLocationId && c.CourseLabId == course.CourseLabId);
             var selectedInstructor = _context.Instructors.SingleOrDefaultAsync(x => x.Id == course.InstructorId);
             IEnumerable<Course> diffCoursesWithSameTime = null;
-            if(selectedInstructor?.Result.Courses != null)
-                diffCoursesWithSameTime = selectedInstructor?.Result.Courses.Where(insCourse => insCourse.TimeFrom == course.TimeFrom && insCourse.DateFrom == course.DateFrom);
+            if (selectedInstructor?.Result.Courses != null)
+                diffCoursesWithSameTime =
+                    selectedInstructor?.Result.Courses.Where(insCourse => insCourse.TimeFrom == course.TimeFrom &&
+                                                                          insCourse.DateFrom == course.DateFrom);
 
             if (anyCoursesWithSameTimeAndLocation.Any() || diffCoursesWithSameTime.Any())
                 //can't add course

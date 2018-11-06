@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Applicants</h2>
+<h2 >Applicants</h2>
 
 
 @Html.ActionLink("Create New ", "New", "Applicants", null, new { @class = "btn btn-primary pull-right" })
@@ -65,15 +65,15 @@ else
                     </td>
                     @if (student.Status != StudentStatus.Rejected && !student.IsBlackList)
                     {
-                        <td>
+                        <td class="text-center">
 
                             @Html.ActionLink("Accept", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Accepted }, new { @class = "btn btn-success", })
-                            @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Rejected }, new { @class = "btn btn-warning", })
+                            @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Rejected }, new { @class = "btn btn-danger", })
                         </td>
                     }
                     else
                     {
-                        <td style="text-align: center;">
+                        <td class="text-center">
                             @Html.ActionLink("Accept", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Accepted }, new { @class = "btn btn-default not-active",id="acceptApplicant" })
                             @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Rejected }, new { @class = "btn btn-danger not-active", id = "rejectApplicant" })
 
