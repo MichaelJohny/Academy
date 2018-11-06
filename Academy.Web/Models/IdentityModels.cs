@@ -70,10 +70,6 @@ namespace Academy.Web.Models
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Filter(AcademyConst.IsDeleted,(ISoftDelete d)=>d.IsDeleted,false);
-            //modelBuilder.Entity<Area>()
-            //    .HasRequired(c => c.City)
-            //    .WithMany()
-            //    .WillCascadeOnDelete(false);
             base.OnModelCreating(modelBuilder);
         }
 
