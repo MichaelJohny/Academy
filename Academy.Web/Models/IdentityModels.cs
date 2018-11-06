@@ -74,8 +74,6 @@ namespace Academy.Web.Models
             //    .HasRequired(c => c.City)
             //    .WithMany()
             //    .WillCascadeOnDelete(false);
-            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             base.OnModelCreating(modelBuilder);
         }
 
