@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Academy.Core.ComplexTypes;
 using Academy.Core.Courses;
-using Academy.Core.Exceptions;
 using Academy.Core.ViewModels;
 using Academy.Web.Models;
 
 namespace Academy.Web.Controllers
 {
     [Authorize]
-    public class CoursesController : BaseController
+    public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -49,7 +48,10 @@ namespace Academy.Web.Controllers
             ViewBag.CourseNames = await _context.CourseNames.ToListAsync();     
             ViewBag.Instructors = await _context.Instructors.ToListAsync();     
             ViewBag.CourseLocations = await _context.CourseLocations.ToListAsync();     
-            ViewBag.CourseLabs = await _context.CourseLabs.ToListAsync();     
+            ViewBag.CourseLabs = await _context.CourseLabs.ToListAsync();
+            ViewBag.Users = await _context.Users.ToListAsync();
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            ViewBag.Batches = await _context.Batches.ToListAsync();
         }
 
         [HttpPost]
@@ -66,7 +68,12 @@ namespace Academy.Web.Controllers
                 ModelState.AddModelError("", "Please Check Course time and instructor");
                 await GetDropLists();
                 return View("CourseForm", course);
-                //throw new UserFriendlyException("Please Check Course time and instructor");
+            }
+            if (!ValidateCourseGroupNumber(course))
+            {
+                ModelState.AddModelError("","Can't Insert duplicated Group Number");
+                await GetDropLists();
+                return View("CourseForm", course);
             }
             if (course.Id == 0)
                 _context.Courses.Add(course);
@@ -117,12 +124,17 @@ namespace Academy.Web.Controllers
                     selectedInstructor?.Result.Courses.Where(insCourse => insCourse.TimeFrom == course.TimeFrom &&
                                                                           insCourse.DateFrom == course.DateFrom);
 
-            if (anyCoursesWithSameTimeAndLocation.Any() || diffCoursesWithSameTime.Any())
-                //can't add course
-                return false;
-            else
-                //can add course
-                return true;
+            return !anyCoursesWithSameTimeAndLocation.Any() && !diffCoursesWithSameTime.Any();
+        }
+
+        private bool ValidateCourseGroupNumber(Course course)
+        {
+            var allCoursesWithSameLocationAndCategory =
+                _context.Courses.Where(c => c.CourseLocationId == course.CourseLocationId &&
+                                            c.CategoryId == course.CategoryId);
+            if (!allCoursesWithSameLocationAndCategory.Any()) return true;
+            var allGroupNumbers = allCoursesWithSameLocationAndCategory.Select(pr => pr.GroupNumber);
+            return !allGroupNumbers.Contains(course.GroupNumber);
         }
 
         public async Task<ActionResult> DeleteCourse(int id)

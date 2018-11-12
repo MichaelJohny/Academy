@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Academy.Core.AcademyConst;
 using Academy.Core.Base;
+using Academy.Core.Batchs;
 using Academy.Core.ComplexTypes;
 using Academy.Core.Courses;
 using Academy.Core.DropLists;
@@ -50,6 +51,8 @@ namespace Academy.Web.Models
         public DbSet<Qualifiation> Qualifiations { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Area> Areas { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Batch> Batches { get; set; }
         public ApplicationDbContext()
             : base("AcademyConnection")
         {

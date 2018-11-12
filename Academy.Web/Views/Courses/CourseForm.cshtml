@@ -31,18 +31,31 @@ else
                 @Html.ValidationMessageFor(m => m.InstructorId)
             </div>
             <div class="col-md-4">
-                @Html.LabelFor(m => m.DateFrom)
-                @Html.EditorFor(m => m.DateFrom, new {htmlAttributes = new {@class = "form-control", @type = "date", @selectedDate = Model.DateFrom}})
-                @Html.ValidationMessageFor(m => m.DateFrom)
+                @Html.LabelFor(m => m.GroupNumber)
+                @Html.EditorFor(m => m.GroupNumber, new {htmlAttributes = new {@class = "form-control"} })
+                @Html.ValidationMessageFor(m => m.GroupNumber)
             </div>
         </div>
 
         <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
+                @Html.LabelFor(m => m.CourseManagerId)
+                @Html.DropDownListFor(m => m.CourseManagerId, new SelectList(ViewBag.Users, "Id", "UserName"), "Select Course Manager", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CourseManagerId)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.DateFrom)
+                @Html.EditorFor(m => m.DateFrom, new {htmlAttributes = new {@class = "form-control", @type = "date", @selectedDate = Model.DateFrom}})
+                @Html.ValidationMessageFor(m => m.DateFrom)
+            </div>
+            <div class="col-md-4">
                 @Html.LabelFor(m => m.DateTo)
                 @Html.EditorFor(m => m.DateTo, new {htmlAttributes = new {@class = "form-control", @type = "date", @selectedDate = Model.DateTo}})
                 @Html.ValidationMessageFor(m => m.DateTo)
             </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.TimeFrom)
                 @Html.EditorFor(m => m.TimeFrom, new {htmlAttributes = new {@class = "form-control", @type = "time", @selectedDate = Model.TimeFrom}})
@@ -53,14 +66,14 @@ else
                 @Html.EditorFor(m => m.TimeTo, new {htmlAttributes = new {@class = "form-control", @type = "time", @selectedDate = Model.TimeTo}})
                 @Html.ValidationMessageFor(m => m.TimeTo)
             </div>
-        </div>
-
-        <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.CourseLocationId)
                 @Html.DropDownListFor(m => m.CourseLocationId, new SelectList(ViewBag.CourseLocations, "Id", "Name"), "Select Location", new {@class = "form-control"})
                 @Html.ValidationMessageFor(m => m.CourseLocationId)
             </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.CourseLabId)
                 @Html.DropDownListFor(m => m.CourseLabId, new SelectList(ViewBag.CourseLabs, "Id", "Name"), "Select Lab", new {@class = "form-control"})
@@ -71,15 +84,25 @@ else
                 @Html.TextBoxFor(m => m.CourseDuration, new {@class = "form-control", placeholder = "Course Duration"})
                 @Html.ValidationMessageFor(m => m.CourseDuration)
             </div>
-        </div>
-
-        <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.CourseFees)
                 @Html.TextBoxFor(m => m.CourseFees, new {@class = "form-control", placeholder = "Course Fees"})
             </div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4"></div>
+        </div>
+        
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.CategoryId)
+                @Html.DropDownListFor(m => m.CategoryId, new SelectList(ViewBag.Categories, "Id", "Name"), "Select Category", new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.CategoryId)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.BatchId)
+                @Html.DropDownListFor(m => m.BatchId, new SelectList(ViewBag.Batches, "Id", "BatchNumber"), "Select Batch", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.BatchId)
+            </div>
+            <div class="col-md-4">
+            </div>
         </div>
     </div>
 
@@ -100,10 +123,20 @@ else
             const selectedCourseLocation = $("#CourseLocationId").val();
             const selectedCourseLab = $("#CourseLabId").val();
 
-            let labSelect = $("#CourseLabId");
+            const labSelect = $("#CourseLabId");
             AddLabs(selectedCourseLocation, labSelect);
-            if (selectedCourseLab != null && selectedCourseLab != '') {
+            if (selectedCourseLab != null && selectedCourseLab !== '') {
                 labSelect.val = selectedCourseLab;
+            }
+
+
+            const selectedCategory = $("#CategoryId").val();
+            const selectedBatch = $("#BatchId").val();
+
+            const batchSelect = $("#BatchId");
+            AddBatches(selectedCategory, batchSelect);
+            if (selectedBatch != null && selectedBatch !== '') {
+                batchSelect.val = selectedBatch;
             }
         });
 
@@ -111,12 +144,20 @@ else
             const selectedCourseLocation = $("#CourseLocationId").val();
             let labSelect = $('#CourseLabId');
             labSelect.empty();
-            if (selectedCourseLocation != null && selectedCourseLocation != '') {
+            if (selectedCourseLocation != null && selectedCourseLocation !== '') {
                 AddLabs(selectedCourseLocation, labSelect);
             }
         });
 
-
+        $("#CategoryId").change(function() {
+            const selectedCategory = $("#CategoryId").val();
+            let batchSelect = $('#BatchId');
+            batchSelect.empty();
+            if (selectedCategory != null && selectedCategory !== '') {
+                AddBatches(selectedCategory, batchSelect);
+            }
+        });
+        
         function AddLabs(selectedCourseLocation, labSelect) {
             $.ajax({
                 type: 'POST',
@@ -139,6 +180,27 @@ else
             });
         }
 
+        function AddBatches(selectedCategory, batchSelect) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetBatches","Batches")',
+                dataType: 'json',
+                data: { selectedCategory: selectedCategory },
+                success: function(batches) {
+                    if (batches != null && !jQuery.isEmptyObject(batches)) {
+                        batchSelect.append('<option value= 0> Select Batch </option>');
+                        $.each(batches,
+                            function(index, batch) {
+                                batchSelect.append($('<option/>',
+                                    {
+                                        value: batch.Value,
+                                        text: batch.Text
+                                    }));
+                            });
+                    }
+                }
+            });
+        }
     </script>
 }
 
