@@ -35,6 +35,7 @@ else
             <th>Date of birth</th>
             <th>Mobile</th>
             <th>Graduation Year</th>
+            <th>Assign Courses</th>
         </tr>
         </thead>
         <tbody>
@@ -55,6 +56,9 @@ else
                 </td>
                 <td>
                     @student.GraduationYear
+                </td>
+                <td>
+                    @Html.ActionLink("Assign Course", "AssignCourses", "Students",new { id = student.Id }, new { @class = "btn btn-default"})
                 </td>
             </tr>
         }

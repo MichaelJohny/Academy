@@ -1,4 +1,5 @@
 ﻿using Academy.Core.ComplexTypes;
+using Academy.Core.Students;
 
 namespace Academy.Core.DropLists
 {
@@ -8,6 +9,7 @@ namespace Academy.Core.DropLists
         {
             //Areas = new HashSet<Area>();
         }
+
         //public virtual ICollection<Area> Areas { get; set; }
     }
 }

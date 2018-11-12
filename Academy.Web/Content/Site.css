@@ -8,7 +8,7 @@
     padding-left: 15px;
     padding-right: 15px;
     margin: auto;
-    margin-top: 45px;
+    margin-top: 70px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -41,6 +41,8 @@ textarea {
     text-decoration: none;
     color: black;
 }
+
+
 
 .field-validation-error {
     color: red;

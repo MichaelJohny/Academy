@@ -70,13 +70,9 @@ namespace Academy.Web.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Filter(AcademyConst.IsDeleted,(ISoftDelete d)=>d.IsDeleted,false);
-            //modelBuilder.Entity<Area>()
-            //    .HasRequired(c => c.City)
-            //    .WithMany()
-            //    .WillCascadeOnDelete(false);
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Filter(AcademyConst.IsDeleted,(ISoftDelete d)=>d.IsDeleted,false);
             base.OnModelCreating(modelBuilder);
         }
 
