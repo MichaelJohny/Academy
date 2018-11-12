@@ -4,6 +4,7 @@
     {
         public const string UserIdSessionKey = "UserIdSessionKey";
         public const string IsDeleted = "IsDeleted";
+
     }
 
 }
