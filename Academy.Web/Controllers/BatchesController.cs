@@ -1,8 +1,11 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Academy.Core.Batchs;
+using Academy.Core.ComplexTypes;
 using Academy.Core.ViewModels;
 using Academy.Web.Models;
 
@@ -16,11 +19,11 @@ namespace Academy.Web.Controllers
             _context = new ApplicationDbContext();
         }
         // GET: Batches
-        public async Task<ActionResult> Index(string query = null)
+        public async Task<ActionResult> Index(int? query = null)
         {
             IQueryable<Batch> batches = _context.Batches;
-            if (!string.IsNullOrWhiteSpace(query))
-                batches = batches.Where(c => c.BatchNumber.Contains(query));
+            if (query != null)
+                batches = batches.Where(c => c.BatchNumber == query);
             var batchViewModel = new BatchViewModel()
             {
                 Batches = await batches.ToListAsync(),
@@ -80,6 +83,18 @@ namespace Academy.Web.Controllers
             }
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Batches");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> GetBatches(string selectedCategory)
+        {
+            if (string.IsNullOrEmpty(selectedCategory))
+                return Json(new SelectList(new List<Batch>(), "Id", "BatchNumber",
+                    JsonRequestBehavior.AllowGet));
+
+            var id = Convert.ToInt16(selectedCategory);
+            var batches = await _context.Batches.Where(x => x.CategoryId == id).ToListAsync();
+            return Json(new SelectList(batches, "Id", "BatchNumber", JsonRequestBehavior.AllowGet));
         }
     }
 }

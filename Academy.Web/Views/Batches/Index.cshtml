@@ -46,6 +46,7 @@ else
                 </td>
                 <td style="text-align: center;">
                     @Html.ActionLink("Delete", "DeleteBatch", "Batches", new { id = batch.Id}, new { @class = "btn btn-danger"})
+                    @Html.ActionLink("Assign Course", "AssignCourses", "Batches",new { id = batch.Id }, new { @class = "btn btn-default"})
                 </td>
             </tr>
         }

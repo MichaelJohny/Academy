@@ -67,7 +67,6 @@ namespace Academy.Web.Controllers
                 ModelState.AddModelError("", "Please Check Course time and instructor");
                 await GetDropLists();
                 return View("CourseForm", course);
-                //throw new UserFriendlyException("Please Check Course time and instructor");
             }
             if (!ValidateCourseGroupNumber(course))
             {
@@ -112,12 +111,6 @@ namespace Academy.Web.Controllers
             return Json(new SelectList(labs, "Id", "Name", JsonRequestBehavior.AllowGet));
         }
 
-        private int GetLastGroupNumber()
-        {
-            var maxGroupNumber = _context.Courses.Max(x => x.GroupNumber);
-            return maxGroupNumber;
-        }
-
         private bool ValidateCourse(Course course)
         {
             var anyCoursesWithSameTimeAndLocation =
@@ -130,28 +123,17 @@ namespace Academy.Web.Controllers
                     selectedInstructor?.Result.Courses.Where(insCourse => insCourse.TimeFrom == course.TimeFrom &&
                                                                           insCourse.DateFrom == course.DateFrom);
 
-            if (anyCoursesWithSameTimeAndLocation.Any() || diffCoursesWithSameTime.Any())
-                //can't add course
-                return false;
-            else
-                //can add course
-                return true;
+            return !anyCoursesWithSameTimeAndLocation.Any() && !diffCoursesWithSameTime.Any();
         }
 
         private bool ValidateCourseGroupNumber(Course course)
         {
             var allCoursesWithSameLocationAndCategory =
                 _context.Courses.Where(c => c.CourseLocationId == course.CourseLocationId &&
-                                            c.CourseLabId == course.CourseLabId && c.CategoryId == course.CategoryId);
-            if (allCoursesWithSameLocationAndCategory.Any())
-            {
-                var allGroupNumbers = allCoursesWithSameLocationAndCategory.Select(pr => pr.GroupNumber);
-                if (allGroupNumbers.Contains(course.GroupNumber))
-                    return false;
-                else
-                    return true;
-            }
-            return true;
+                                            c.CategoryId == course.CategoryId);
+            if (!allCoursesWithSameLocationAndCategory.Any()) return true;
+            var allGroupNumbers = allCoursesWithSameLocationAndCategory.Select(pr => pr.GroupNumber);
+            return !allGroupNumbers.Contains(course.GroupNumber);
         }
 
         public async Task<ActionResult> DeleteCourse(int id)

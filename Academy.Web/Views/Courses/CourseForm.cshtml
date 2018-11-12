@@ -98,7 +98,7 @@ else
             </div>
             <div class="col-md-4">
                 @Html.LabelFor(m => m.BatchId)
-                @Html.DropDownListFor(m => m.BatchId, new SelectList(ViewBag.Batches, "Id", "Name"), "Select Batch", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.BatchId, new SelectList(ViewBag.Batches, "Id", "BatchNumber"), "Select Batch", new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.BatchId)
             </div>
             <div class="col-md-4">
@@ -123,12 +123,21 @@ else
             const selectedCourseLocation = $("#CourseLocationId").val();
             const selectedCourseLab = $("#CourseLabId").val();
 
-            let labSelect = $("#CourseLabId");
+            const labSelect = $("#CourseLabId");
             AddLabs(selectedCourseLocation, labSelect);
             if (selectedCourseLab != null && selectedCourseLab !== '') {
                 labSelect.val = selectedCourseLab;
             }
-            getGroupNumber();
+
+
+            const selectedCategory = $("#CategoryId").val();
+            const selectedBatch = $("#BatchId").val();
+
+            const batchSelect = $("#BatchId");
+            AddBatches(selectedCategory, batchSelect);
+            if (selectedBatch != null && selectedBatch !== '') {
+                batchSelect.val = selectedBatch;
+            }
         });
 
         $("#CourseLocationId").change(function () {
@@ -140,6 +149,14 @@ else
             }
         });
 
+        $("#CategoryId").change(function() {
+            const selectedCategory = $("#CategoryId").val();
+            let batchSelect = $('#BatchId');
+            batchSelect.empty();
+            if (selectedCategory != null && selectedCategory !== '') {
+                AddBatches(selectedCategory, batchSelect);
+            }
+        });
         
         function AddLabs(selectedCourseLocation, labSelect) {
             $.ajax({
@@ -156,6 +173,28 @@ else
                                     {
                                         value: lab.Value,
                                         text: lab.Text
+                                    }));
+                            });
+                    }
+                }
+            });
+        }
+
+        function AddBatches(selectedCategory, batchSelect) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetBatches","Batches")',
+                dataType: 'json',
+                data: { selectedCategory: selectedCategory },
+                success: function(batches) {
+                    if (batches != null && !jQuery.isEmptyObject(batches)) {
+                        batchSelect.append('<option value= 0> Select Batch </option>');
+                        $.each(batches,
+                            function(index, batch) {
+                                batchSelect.append($('<option/>',
+                                    {
+                                        value: batch.Value,
+                                        text: batch.Text
                                     }));
                             });
                     }

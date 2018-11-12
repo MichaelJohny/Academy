@@ -10,7 +10,7 @@ namespace Academy.Core.Batchs
     public class Batch : BaseEntity
     {
         [Display(Name = "Batch Number")]
-        public string BatchNumber { get; set; }
+        public int BatchNumber { get; set; }
 
         [Display(Name = "Batch Category")]
         public int CategoryId { get; set; }

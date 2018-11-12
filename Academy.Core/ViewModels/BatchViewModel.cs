@@ -6,6 +6,6 @@ namespace Academy.Core.ViewModels
     public class BatchViewModel
     {
         public IEnumerable<Batch> Batches { get; set; }
-        public string SearchTerm { get; set; }
+        public int? SearchTerm { get; set; }
     }
 }
