@@ -1,0 +1,35 @@
+﻿@model Academy.Core.Batchs.Batch
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Model.Id > 0)
+{
+    <h3 class="pageLabel">Update Batch</h3>
+}
+else
+{
+    <h3 class="pageLabel">New Batch</h3>
+}
+@using (Html.BeginForm("Save", "Batches"))
+{
+    @Html.ValidationSummary(false)
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="form-row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.BatchNumber)
+                @Html.EditorFor(m => m.BatchNumber, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.BatchNumber)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.CategoryId)
+                @Html.DropDownListFor(m => m.CategoryId, new SelectList(ViewBag.Categories, "Id", "FullName"), "Select Category", new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.CategoryId)
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+}

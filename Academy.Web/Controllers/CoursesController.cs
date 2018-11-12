@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Academy.Core.ComplexTypes;
 using Academy.Core.Courses;
-using Academy.Core.Exceptions;
 using Academy.Core.ViewModels;
 using Academy.Web.Models;
 
 namespace Academy.Web.Controllers
 {
     [Authorize]
-    public class CoursesController : BaseController
+    public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -48,7 +47,10 @@ namespace Academy.Web.Controllers
             ViewBag.CourseNames = await _context.CourseNames.ToListAsync();     
             ViewBag.Instructors = await _context.Instructors.ToListAsync();     
             ViewBag.CourseLocations = await _context.CourseLocations.ToListAsync();     
-            ViewBag.CourseLabs = await _context.CourseLabs.ToListAsync();     
+            ViewBag.CourseLabs = await _context.CourseLabs.ToListAsync();
+            ViewBag.Users = await _context.Users.ToListAsync();
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            ViewBag.Batches = await _context.Batches.ToListAsync();
         }
 
         [HttpPost]
@@ -66,6 +68,12 @@ namespace Academy.Web.Controllers
                 await GetDropLists();
                 return View("CourseForm", course);
                 //throw new UserFriendlyException("Please Check Course time and instructor");
+            }
+            if (!ValidateCourseGroupNumber(course))
+            {
+                ModelState.AddModelError("","Can't Insert duplicated Group Number");
+                await GetDropLists();
+                return View("CourseForm", course);
             }
             if (course.Id == 0)
                 _context.Courses.Add(course);
@@ -104,6 +112,12 @@ namespace Academy.Web.Controllers
             return Json(new SelectList(labs, "Id", "Name", JsonRequestBehavior.AllowGet));
         }
 
+        private int GetLastGroupNumber()
+        {
+            var maxGroupNumber = _context.Courses.Max(x => x.GroupNumber);
+            return maxGroupNumber;
+        }
+
         private bool ValidateCourse(Course course)
         {
             var anyCoursesWithSameTimeAndLocation =
@@ -120,6 +134,22 @@ namespace Academy.Web.Controllers
             else
                 //can add course
                 return true;
+        }
+
+        private bool ValidateCourseGroupNumber(Course course)
+        {
+            var allCoursesWithSameLocationAndCategory =
+                _context.Courses.Where(c => c.CourseLocationId == course.CourseLocationId &&
+                                            c.CourseLabId == course.CourseLabId && c.CategoryId == course.CategoryId);
+            if (allCoursesWithSameLocationAndCategory.Any())
+            {
+                var allGroupNumbers = allCoursesWithSameLocationAndCategory.Select(pr => pr.GroupNumber);
+                if (allGroupNumbers.Contains(course.GroupNumber))
+                    return false;
+                else
+                    return true;
+            }
+            return true;
         }
 
         public async Task<ActionResult> DeleteCourse(int id)

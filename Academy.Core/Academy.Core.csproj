@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="AcademyConst\AcademyConst.cs" />
     <Compile Include="Base\BaseEntity.cs" />
+    <Compile Include="Batchs\Batch.cs" />
     <Compile Include="ComplexTypes\BaseComplex.cs" />
     <Compile Include="ComplexTypes\CollageComplex.cs" />
     <Compile Include="Courses\CourseLabs.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="ComplexTypes\QualificationComplex.cs" />
     <Compile Include="Courses\Course.cs" />
     <Compile Include="DropLists\Area.cs" />
+    <Compile Include="DropLists\Category.cs" />
     <Compile Include="DropLists\City.cs" />
     <Compile Include="Courses\CourseLocation.cs" />
     <Compile Include="DropLists\Collage.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Validations\InstructorMobileValidation.cs" />
     <Compile Include="Validations\MobileValidation.cs" />
     <Compile Include="Validations\InstructorDateValidation.cs" />
+    <Compile Include="ViewModels\BatchViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\InstructoreViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />

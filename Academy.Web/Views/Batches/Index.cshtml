@@ -1,0 +1,56 @@
+﻿@model Academy.Core.ViewModels.BatchViewModel
+@{
+    ViewBag.Title = "Batches";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Batches</h2>
+
+@Html.ActionLink("Create New ", "New", "Batches", null, new { @class = "btn btn-primary pull-right" })
+
+@using (Html.BeginForm("Search", "Batches"))
+{
+    @Html.ValidationSummary(false)
+
+    <div class="form-group">
+        <div id="searchCourses" class="input-group">
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search By Batch Number" })
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+}
+
+@if (!Model.Batches.Any())
+{
+    <p>No Courses Found</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>BatchNumber</th>
+            <th>Category</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var batch in Model.Batches)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(batch.BatchNumber, "Edit", "Batches", new { id = batch.Id }, null)   
+                </td>
+                <td>
+                    @batch.Category.Name
+                </td>
+                <td style="text-align: center;">
+                    @Html.ActionLink("Delete", "DeleteBatch", "Batches", new { id = batch.Id}, new { @class = "btn btn-danger"})
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+

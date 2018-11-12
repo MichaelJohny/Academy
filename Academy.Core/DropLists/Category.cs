@@ -2,7 +2,7 @@
 
 namespace Academy.Core.DropLists
 {
-    public class Nationality:BaseComplex
+    public class Category : BaseComplex
     {
     }
 }
