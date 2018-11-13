@@ -18,18 +18,83 @@ else
 
     <div class="form-row">
         <div class="col-xs-12 col-md-12 col-lg-12">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.LabelFor(m => m.BatchNumber)
-                @Html.EditorFor(m => m.BatchNumber, new {@class = "form-control"})
+                @Html.EditorFor(m => m.BatchNumber, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(m => m.BatchNumber)
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.LabelFor(m => m.CategoryId)
-                @Html.DropDownListFor(m => m.CategoryId, new SelectList(ViewBag.Categories, "Id", "FullName"), "Select Category", new {@class = "form-control"})
+                @Html.DropDownListFor(m => m.CategoryId, new SelectList(ViewBag.Categories, "Id", "Name"), "Select Category", new {@class = "form-control"})
                 @Html.ValidationMessageFor(m => m.CategoryId)
-            </div>
-            <div class="col-md-4">
             </div>
         </div>
     </div>
+
+    
+    <div class="form-row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.StartDate)
+                @Html.EditorFor(m => m.StartDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @selectedDate = Model.StartDate } })
+                @Html.ValidationMessageFor(m => m.StartDate)
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.EndDate)
+                @Html.EditorFor(m => m.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @selectedDate = Model.EndDate } })
+                @Html.ValidationMessageFor(m => m.EndDate)
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div id="submitDiv" class="form-group pull-right" >
+                @Html.ActionLink("New","New","Batches" ,new {@class="btn btn-default"})
+                <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>    
+            </div>
+        </div>
+    </div>
+
+
+    if (Model.Courses !=  null)
+    {
+        <div class="form-row">
+            <div class="col-xs-12 col-md-12 col=lg-12">
+                <h3>Assigned Courses to Selected Batch</h3>
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Date From</th>
+                            <th>Date To</th>
+                            <th>Course Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var course in Model.Courses)
+                    {
+                            <tr>
+                                <td>
+                                    @course.CourseName.Name
+                                </td>
+                                <td>
+                                    @course.DateFrom.ToString("d")
+                                </td>
+                                <td>
+                                    @course.DateTo.ToString("d")
+                                </td>
+                                <td>
+                                    @course.CourseLocation.Name
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
 }
