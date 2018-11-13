@@ -23,7 +23,7 @@
 
 @if (!Model.Batches.Any())
 {
-    <p>No Courses Found</p>
+    <p>No Batches Found</p>
 }
 else
 {
@@ -32,6 +32,7 @@ else
         <tr>
             <th>BatchNumber</th>
             <th>Category</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -39,14 +40,13 @@ else
         {
             <tr>
                 <td>
-                    @Html.ActionLink(batch.BatchNumber, "Edit", "Batches", new { id = batch.Id }, null)   
+                    @Html.ActionLink(batch.BatchNumber.ToString(),"Edit", "Batches", new { id = batch.Id }, null)   
                 </td>
                 <td>
                     @batch.Category.Name
                 </td>
                 <td style="text-align: center;">
                     @Html.ActionLink("Delete", "DeleteBatch", "Batches", new { id = batch.Id}, new { @class = "btn btn-danger"})
-                    @Html.ActionLink("Assign Course", "AssignCourses", "Batches",new { id = batch.Id }, new { @class = "btn btn-default"})
                 </td>
             </tr>
         }
