@@ -172,10 +172,8 @@ else
             const selectedCity = $("#CityId").val();
             const selectedArea = $("#AreaId").val();
             let areasSelect = $('#AreaId');
-            AddAreas(selectedCity, areasSelect);
-            if (selectedArea != null && selectedArea != '') {
-                areasSelect.val = selectedArea;
-            };
+            AddAreas(selectedCity, areasSelect, selectedArea);
+            
 
        
         });
@@ -189,7 +187,7 @@ else
             }
         });
 
-        function AddAreas(selectedCity, areasSelect) {
+        function AddAreas(selectedCity, areasSelect, selectedArea) {
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("GetAreas", "Applicants")',
@@ -197,6 +195,7 @@ else
                 data: { selectedCity: selectedCity },
                 success: function(areas) {
                     if (areas != null && !jQuery.isEmptyObject(areas)) {
+                        areasSelect.empty();
                         areasSelect.append('<option value= 0> Select Area </option>');
                         $.each(areas,
                             function(index, area) {
@@ -206,6 +205,14 @@ else
                                         text: area.Text
                                     }));
                             });
+                        if ($("#AreaId").val() != null && $("#AreaId").val() != '') {
+                            if (selectedArea == undefined)
+                                areasSelect.val("0");
+                            else {
+                                areasSelect.val(selectedArea);
+                            }
+                          
+                        };
                     }
                 }
             });

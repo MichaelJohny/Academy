@@ -31,6 +31,7 @@ else
         <thead>
         <tr>
             <th>Name</th>
+            <th>Code</th>
             <th>Collage</th>
             <th>Date of birth</th>
             <th>Mobile</th>
@@ -46,6 +47,9 @@ else
                     @Html.ActionLink(student.FullName, "Edit", "Students", new { id = student.Id },null)   
                 </td>
                 <td>
+                    @student.Code
+                </td>
+                <td>
                     @student.Collage.Name
                 </td>
                 <td>
@@ -58,7 +62,7 @@ else
                     @student.GraduationYear
                 </td>
                 <td>
-                    @Html.ActionLink("Assign Course", "AssignCourses", "Students",new { id = student.Id }, new { @class = "btn btn-default"})
+                    @Html.ActionLink("Assign Course", "AssignCourses", "Students",new { id = student.Id }, new { @class = "btn btn-info"})
                 </td>
             </tr>
         }

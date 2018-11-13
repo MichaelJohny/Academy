@@ -124,20 +124,17 @@ else
             const selectedCourseLab = $("#CourseLabId").val();
 
             const labSelect = $("#CourseLabId");
-            AddLabs(selectedCourseLocation, labSelect);
-            if (selectedCourseLab != null && selectedCourseLab !== '') {
-                labSelect.val = selectedCourseLab;
-            }
+           
+            AddLabs(selectedCourseLocation, labSelect, selectedCourseLab);
+          
 
 
             const selectedCategory = $("#CategoryId").val();
             const selectedBatch = $("#BatchId").val();
 
             const batchSelect = $("#BatchId");
-            AddBatches(selectedCategory, batchSelect);
-            if (selectedBatch != null && selectedBatch !== '') {
-                batchSelect.val = selectedBatch;
-            }
+            AddBatches(selectedCategory, batchSelect, selectedBatch);
+          
         });
 
         $("#CourseLocationId").change(function () {
@@ -158,7 +155,7 @@ else
             }
         });
         
-        function AddLabs(selectedCourseLocation, labSelect) {
+        function AddLabs(selectedCourseLocation, labSelect, selectedCourseLab) {
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("GetCourseLabs", "Courses")',
@@ -166,6 +163,7 @@ else
                 data: { selectedCourseLocation: selectedCourseLocation },
                 success: function (labs) {
                     if (labs != null && !jQuery.isEmptyObject(labs)) {
+                        labSelect.empty();
                         labSelect.append('<option value= 0> Select Lab </option>');
                         $.each(labs,
                             function (index, lab) {
@@ -175,12 +173,21 @@ else
                                         text: lab.Text
                                     }));
                             });
+                        if ($("#CourseLabId").val() != null && $("#CourseLabId").val() !== '') {
+
+                            if (selectedCourseLab == undefined)
+                                labSelect.val("0");
+                            else {
+                                labSelect.val(selectedCourseLab);
+                            }
+                            
+                        }
                     }
                 }
             });
         }
 
-        function AddBatches(selectedCategory, batchSelect) {
+        function AddBatches(selectedCategory, batchSelect, selectedBatch) {
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("GetBatches","Batches")',
@@ -188,6 +195,7 @@ else
                 data: { selectedCategory: selectedCategory },
                 success: function(batches) {
                     if (batches != null && !jQuery.isEmptyObject(batches)) {
+                        batchSelect.empty();
                         batchSelect.append('<option value= 0> Select Batch </option>');
                         $.each(batches,
                             function(index, batch) {
@@ -197,6 +205,15 @@ else
                                         text: batch.Text
                                     }));
                             });
+                        if ($("#BatchId").val() != null && $("#BatchId").val() !== '') {
+
+                            if (selectedBatch == undefined)
+                                batchSelect.val("0");
+                            else {
+                                batchSelect.val(selectedBatch);
+                            }
+
+                        }
                     }
                 }
             });

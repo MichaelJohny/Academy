@@ -97,7 +97,7 @@
                 @if (Model.Student.Enrollments.Any(x => x.CourseId == course.Id))
                 {
                     <td class="not-active">
-                        @Html.ActionLink("Assign", "TakeCourse", "Students", new { id = Model.Student.Id, courseId = course.Id }, new { @class = "btn btn-success", })
+                        @Html.ActionLink("Assign", "TakeCourse", "Students", new { id = Model.Student.Id, courseId = course.Id }, new { @class = "btn btn-default", })
                     </td>
                 }
                 else

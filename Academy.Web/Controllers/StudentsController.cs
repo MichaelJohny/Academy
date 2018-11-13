@@ -98,6 +98,8 @@ namespace Academy.Web.Controllers
             ViewBag.Collages = await _context.Collages.ToListAsync();
             ViewBag.Nationalities = await _context.Nationalities.ToListAsync();
             ViewBag.Qualifications = await _context.Qualifiations.ToListAsync();
+            ViewBag.Cities = await _context.Cities.ToListAsync();
+            ViewBag.Areas = await _context.Areas.ToListAsync();
         }
 
         public async Task<ActionResult> AssignCourses(int id)
