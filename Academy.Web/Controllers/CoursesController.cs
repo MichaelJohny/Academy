@@ -39,6 +39,7 @@ namespace Academy.Web.Controllers
         {
             await GetDropLists();
             var course = new Course();
+
             return View("CourseForm", course);
         }
 
