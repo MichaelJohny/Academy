@@ -32,7 +32,7 @@ namespace Academy.Web.Controllers
                 applicants = applicants.Where(s => s.FirstName.Contains(query) ||
                                                s.SecondName.Contains(query) || s.ThirdName.Contains(query) ||
                                                s.LastName.Contains(query) || s.Mobile1.Contains(query) ||
-                                               s.Mobile2.Contains(query));
+                                               s.Mobile2.Contains(query)|| s.Code.ToString().Contains(query));
             }
             var studentVm = new StudentViewModel()
             {
@@ -77,6 +77,7 @@ namespace Academy.Web.Controllers
             }
 
             student.Status = StudentStatus.Pending;
+            student.Code = await GetStudentCide();
             if (student.Id == 0)
                 _context.Students.Add(student);
             else
@@ -88,6 +89,11 @@ namespace Academy.Web.Controllers
             return RedirectToAction("Index", "Applicants");
         }
 
+        private async Task<int> GetStudentCide()
+        {
+            var code =await _context.Students.MaxAsync(x => x.Code);
+            return code == 0 ? 100 : code + 1;
+        }
         public async Task<ActionResult> Edit(int id)
         {
             var student = await _context.Students.SingleOrDefaultAsync(s => s.Id == id);

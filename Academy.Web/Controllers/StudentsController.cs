@@ -31,7 +31,7 @@ namespace Academy.Web.Controllers
                 students = students.Where(s => s.FirstName.Contains(query) ||
                                                s.SecondName.Contains(query) || s.ThirdName.Contains(query) ||
                                                s.LastName.Contains(query) || s.Mobile1.Contains(query) ||
-                                               s.Mobile2.Contains(query));
+                                               s.Mobile2.Contains(query)||s.Code.ToString().Contains(query));
             }
 
             var studentVm = new StudentViewModel()
@@ -73,6 +73,7 @@ namespace Academy.Web.Controllers
                 return View("StudentForm", student);
             }
             student.Status = StudentStatus.Accepted;
+            student.Code = await GetStudentCide();
             if (student.Id == 0)
                 _context.Students.Add(student);
             else
@@ -139,6 +140,11 @@ namespace Academy.Web.Controllers
             return View("AssignCourseForm", viewModel);
         }
 
+        private async Task<int> GetStudentCide()
+        {
+            var code = await _context.Students.MaxAsync(x => x.Code);
+            return code == 0 ? 100 : code + 1;
+        }
         private async Task<bool> ValidateStudentcourses(Student student, int courseId)
         {
             //var student = await _context.Students.FindAsync(id);

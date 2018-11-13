@@ -45,17 +45,23 @@ else
                 @Html.ValidationMessageFor(m => m.LastName)
             </div>
             <div class="col-md-4">
+                @Html.LabelFor(m => m.Code)
+                @Html.TextBoxFor(m => m.Code, new { @class = "form-control" , @readonly="readonly"})
+                @Html.ValidationMessageFor(m => m.Code)
+            </div>
+            <div class="col-md-4">
                 @Html.LabelFor(m => m.Mobile1)
                 @Html.TextBoxFor(m => m.Mobile1, new {@class = "form-control", placeholder = "Mobile1"})
                 @Html.ValidationMessageFor(m => m.Mobile1)
             </div>
+          
+        </div>
+
+        <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.Mobile2)
                 @Html.TextBoxFor(m => m.Mobile2, new {@class = "form-control", placeholder = "Mobile2"})
             </div>
-        </div>
-
-        <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.BirthDate)
                 @*@Html.EditorFor(m => m.BirthDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @selectedDate = Model.BirthDate } })*@
@@ -69,14 +75,15 @@ else
                 @Html.DropDownListFor(m => m.NationalityId, new SelectList(ViewBag.Nationalities, "Id", "Name"), "Select Nationality", new {@class = "form-control"})
                 @Html.ValidationMessageFor(m => m.NationalityId)
             </div>
+
+        </div>
+
+        <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.Email)
                 @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Email"})
                 @Html.ValidationMessageFor(m => m.Email)
             </div>
-        </div>
-
-        <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.AddressDescrption)
                 @Html.TextBoxFor(m => m.AddressDescrption, new {@class = "form-control", placeholder = "Address Description"})
@@ -87,14 +94,15 @@ else
                 @Html.DropDownListFor(m => m.CollageId, new SelectList(ViewBag.Collages, "Id", "Name"), "Select Collage", new {@class = "form-control"})
                 @Html.ValidationMessageFor(m => m.CollageId)
             </div>
+
+        </div>
+
+        <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.QualificationId)
                 @Html.DropDownListFor(m => m.QualificationId, new SelectList(ViewBag.Qualifications, "Id", "Name"), "Select Qualification", new {@class = "form-control", placeholder = "Qualification"})
                 @Html.ValidationMessageFor(m => m.QualificationId)
             </div>
-        </div>
-
-        <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.CityId)
                 @Html.DropDownListFor(m => m.CityId, new SelectList(ViewBag.Cities, "Id", "Name"), "Select City", new {@class = "form-control", placeholder = "City"})
@@ -106,13 +114,14 @@ else
                 @Html.ValidationMessageFor(m => m.AreaId)
             </div>
 
+
+        </div>
+
+        <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.Specialization)
                 @Html.TextBoxFor(m => m.Specialization, new {@class = "form-control", placeholder = "Specialization"})
             </div>
-        </div>
-
-        <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.JobTitle)
                 @Html.TextBoxFor(m => m.JobTitle, new {@class = "form-control", placeholder = "Job Title"})
@@ -121,13 +130,14 @@ else
                 @Html.LabelFor(m => m.GraduationYear)
                 @Html.TextBoxFor(m => m.GraduationYear, new {@class = "form-control", placeholder = "Graduation Year"})
             </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.Experience)
-                @Html.TextBoxFor(m => m.Experience, new {@class = "form-control", placeholder = "Experience"})
-            </div>
+
         </div>
 
         <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Experience)
+                @Html.TextBoxFor(m => m.Experience, new { @class = "form-control", placeholder = "Experience" })
+            </div>
             <div class="col-md-4">
                 @Html.LabelFor(m => m.Employer)
                 @Html.TextBoxFor(m => m.Employer, new {@class = "form-control", placeholder = "Employer"})
@@ -140,7 +150,7 @@ else
                     </label>
                 </div>
             </div>
-            <div class="col-md-4"></div>
+
         </div>
     </div>
 

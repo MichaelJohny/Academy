@@ -349,6 +349,7 @@
     <Content Include="Views\Courses\CourseForm.cshtml" />
     <Content Include="Views\Batches\Index.cshtml" />
     <Content Include="Views\Batches\BatchForm.cshtml" />
+    <Content Include="Views\Students\AssignCourseForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

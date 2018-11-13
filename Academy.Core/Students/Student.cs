@@ -36,6 +36,7 @@ namespace Academy.Core.Students
         [Display(Name = "Full Name")]
         public string FullName => $"{FirstName} {SecondName} {ThirdName}";
 
+        public int Code { get; set; }
 
         [Required, Display(Name = "Date of birth")]
         [DataType(DataType.Date)]
