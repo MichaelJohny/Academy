@@ -17,104 +17,326 @@ else
 {
     @Html.ValidationSummary(false)
     @Html.HiddenFor(m => m.Id)
+    <div class="">
+        <table class="table table-light">
+            <tr>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.CourseNameId)
+                            </td>
+                            <td class="col-md-4">
+                                @Html.DropDownListFor(m => m.CourseNameId, new SelectList(ViewBag.CourseNames, "Id", "Name"), "Select Course", new {@class = "form-control formcontrolWidth"})
+                                @Html.ValidationMessageFor(m => m.CourseNameId)            
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.GroupNumber)
+                            </td>
+                            <td class="col-md-4">
+                                @Html.EditorFor(m => m.GroupNumber, new {htmlAttributes = new {@class = "form-control formcontrolWidth "}})
+                                @Html.ValidationMessageFor(m => m.GroupNumber)
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    
+                </td>
+            </tr>
+            <tr>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.BatchId)
+                            </td>
+                            <td class="col-md-4">
+                                @Html.DropDownListFor(m => m.BatchId, new SelectList(ViewBag.Batches, "Id", "BatchNumber"), "Select Batch", new {@class = "form-control formcontrolWidth"})
+                                @Html.ValidationMessageFor(m => m.BatchId)
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.InstructorId)
+                            </td>
+                            <td class="col-md-4">
+                                @Html.DropDownListFor(m => m.InstructorId, new SelectList(ViewBag.Instructors, "Id", "FullName"), "Select Instructor", new {@class = "form-control formcontrolWidth"})
+                                @Html.ValidationMessageFor(m => m.InstructorId)            
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+
+            </tr>
+            <tr>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.CourseManagerId)            
+                            </td>
+                            <td class="col-md-4">
+                                @Html.DropDownListFor(m => m.CourseManagerId, new SelectList(ViewBag.Users, "Id", "UserName"), "Select Course Manager", new {@class = "form-control formcontrolWidth"})
+                                @Html.ValidationMessageFor(m => m.CourseManagerId)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.CourseDuration)
+                            </td>
+                            <td class="col-md-4">
+                                @Html.TextBoxFor(m => m.CourseDuration, new {@class = "form-control formcontrolWidth", placeholder = "Course Duration"})
+                                @Html.ValidationMessageFor(m => m.CourseDuration)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        <tr>
+            <td class="form-inline col-md-6">
+                <table>
+                    <tr>
+                        <td class="col-md-2">
+                            @Html.LabelFor(m => m.Day1)
+                        </td>
+                        <td class="col-md-4">
+                            @Html.DropDownList("Day1", new SelectList(ViewBag.days,"Value","Text"), "Select Day", new { @class = "form-control formcontrolWidth" })
+                        </td>
+                       
+                        
+                    </tr>
+                </table>
+            </td>
+            <td class="form-inline col-md-6">
+                <table>
+                    <tr>
+                        <td class="col-md-2">
+                            @Html.LabelFor(m => m.Day2)
+                        </td>
+                        <td class="col-md-4">
+                            @Html.DropDownList("Day2", new SelectList(ViewBag.days,"Value","Text"), "Select Day", new { @class = "form-control formcontrolWidth" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+            <tr>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.DateFrom)
+                            </td>
+                            <td class="col-md-4">
+                                @Html.EditorFor(m => m.DateFrom, new {htmlAttributes = new {@class = "form-control formcontrolWidth", @type = "date", @selectedDate = Model.DateFrom}})
+                                @Html.ValidationMessageFor(m => m.DateFrom)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.DateTo)
+                            </td>
+                            <td class="col-md-4">
+                                @Html.EditorFor(m => m.DateTo, new {htmlAttributes = new {@class = "form-control formcontrolWidth", @type = "date", @selectedDate = Model.DateTo}})
+                                @Html.ValidationMessageFor(m => m.DateTo)
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.TimeFrom)
+                            </td>
+                            <td class="col-md-4">
+                                @Html.EditorFor(m => m.TimeFrom, new {htmlAttributes = new {@class = "form-control formcontrolWidth", @type = "time", @selectedDate = Model.TimeFrom}})
+                                @Html.ValidationMessageFor(m => m.TimeFrom)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.TimeTo)
+                            </td>
+                            <td class="col-md-4">
+                                @Html.EditorFor(m => m.TimeTo, new {htmlAttributes = new {@class = "form-control formcontrolWidth", @type = "time", @selectedDate = Model.TimeTo}})
+                                @Html.ValidationMessageFor(m => m.TimeTo)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.CourseLocationId)
+
+                                
+                            </td>
+                            <td class="col-md-4">
+                                @Html.DropDownListFor(m => m.CourseLocationId, new SelectList(ViewBag.CourseLocations, "Id", "Name"), "Select Location", new {@class = "form-control formcontrolWidth"})
+                                @Html.ValidationMessageFor(m => m.CourseLocationId)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.CourseLabId)
+                            </td>
+                            <td class="col-md-4">
+                                @Html.DropDownListFor(m => m.CourseLabId, new SelectList(ViewBag.CourseLabs, "Id", "Name"), "Select Lab", new {@class = "form-control formcontrolWidth"})
+                                @Html.ValidationMessageFor(m => m.CourseLabId)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="form-inline col-md-6">
+                    <table>
+                        <tr>
+                            <td class="col-md-2">
+                                @Html.LabelFor(m => m.CourseFees)
+                            </td>
+                            <td class="col-md-4">
+                                @Html.TextBoxFor(m => m.CourseFees, new { @class = "form-control formcontrolWidth", placeholder = "Course Fees" })
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    @*<div class="form-row">
+            <div class="form-row">
+                <div class="form-inline col-md-4 ">
+                    @Html.LabelFor(m => m.CourseNameId)
+                    @Html.DropDownListFor(m => m.CourseNameId, new SelectList(ViewBag.CourseNames, "Id", "Name"), "Select Course", new { @class = "form-control formcontrolWidth" })
+                    @Html.ValidationMessageFor(m => m.CourseNameId)
+                </div>
+                <div class="form-inline col-md-4">
+                    @Html.LabelFor(m => m.GroupNumber)
+                    @Html.EditorFor(m => m.GroupNumber, new { htmlAttributes = new { @class = "form-control formcontrolWidth" } })
+                    @Html.ValidationMessageFor(m => m.GroupNumber)
+                </div>
+                <div class="form-inline  col-md-4">
+                    @Html.LabelFor(m => m.BatchId)
+                    @Html.DropDownListFor(m => m.BatchId, new SelectList(ViewBag.Batches, "Id", "BatchNumber"), "Select Batch", new { @class = "form-control formcontrolWidth" })
+                    @Html.ValidationMessageFor(m => m.BatchId)
+                </div>
+
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-inline col-md-6">
+                    @Html.LabelFor(m => m.InstructorId)
+                    @Html.DropDownListFor(m => m.InstructorId, new SelectList(ViewBag.Instructors, "Id", "FullName"), "Select Instructor", new { @class = "form-control formcontrolWidth" })
+                    @Html.ValidationMessageFor(m => m.InstructorId)
+                </div>
+                <div class="form-inline col-md-6">
+                    @Html.LabelFor(m => m.CourseManagerId)
+                    @Html.DropDownListFor(m => m.CourseManagerId, new SelectList(ViewBag.Users, "Id", "UserName"), "Select Course Manager", new { @class = "form-control formcontrolWidth" })
+                    @Html.ValidationMessageFor(m => m.CourseManagerId)
+                </div>
+
+            </div>
+            <br/><br/>
+            <div class="divPadding">
+                <div class="form-inline  col-md-3">
+                    @Html.LabelFor(m => m.DateFrom)
+                    @Html.EditorFor(m => m.DateFrom, new { htmlAttributes = new { @class = "form-control formcontrolWidth", @type = "date", @selectedDate = Model.DateFrom } })
+                    @Html.ValidationMessageFor(m => m.DateFrom)
+                </div>
+                <div class="form-inline  col-md-3">
+                    @Html.LabelFor(m => m.DateTo)
+                    @Html.EditorFor(m => m.DateTo, new { htmlAttributes = new { @class = "form-control formcontrolWidth", @type = "date", @selectedDate = Model.DateTo } })
+                    @Html.ValidationMessageFor(m => m.DateTo)
+                </div>
+                <div class="form-inline  col-md-3">
+                    @Html.LabelFor(m => m.TimeFrom)
+                    @Html.EditorFor(m => m.TimeFrom, new { htmlAttributes = new { @class = "form-control formcontrolWidth", @type = "time", @selectedDate = Model.TimeFrom } })
+                    @Html.ValidationMessageFor(m => m.TimeFrom)
+                </div>
+                <div class="form-inline  col-md-3">
+                    @Html.LabelFor(m => m.TimeTo)
+                    @Html.EditorFor(m => m.TimeTo, new { htmlAttributes = new { @class = "form-control formcontrolWidth", @type = "time", @selectedDate = Model.TimeTo } })
+                    @Html.ValidationMessageFor(m => m.TimeTo)
+                </div>
+
+            </div>
+            <br/>
+
+            <div class="divPadding">
+                <div class="form-inline col-md-4">
+                    @Html.LabelFor(m => m.CourseDuration)
+                    @Html.TextBoxFor(m => m.CourseDuration, new { @class = "form-control formcontrolWidth", placeholder = "Course Duration" })
+                    @Html.ValidationMessageFor(m => m.CourseDuration)
+                </div>
+                <div class="form-inline col-md-4">
+                    @Html.LabelFor(m => m.CourseLocationId)
+                    @Html.DropDownListFor(m => m.CourseLocationId, new SelectList(ViewBag.CourseLocations, "Id", "Name"), "Select Location", new { @class = "form-control formcontrolWidth" })
+                    @Html.ValidationMessageFor(m => m.CourseLocationId)
+                </div>
+                <div class="form-inline col-md-4">
+                    @Html.LabelFor(m => m.CourseLabId)
+                    @Html.DropDownListFor(m => m.CourseLabId, new SelectList(ViewBag.CourseLabs, "Id", "Name"), "Select Lab", new { @class = "form-control formcontrolWidth" })
+                    @Html.ValidationMessageFor(m => m.CourseLabId)
+                </div>
+
+                <div class="form-inline col-md-4">
+                    @Html.LabelFor(m => m.CourseFees)
+                    @Html.TextBoxFor(m => m.CourseFees, new { @class = "form-control formcontrolWidth", placeholder = "Course Fees" })
+                </div>
+            </div>
+
+        </div>*@
 
     <div class="form-row">
         <div class="col-xs-12 col-md-12 col-lg-12">
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.CourseNameId)
-                @Html.DropDownListFor(m => m.CourseNameId, new SelectList(ViewBag.CourseNames, "Id", "Name"), "Select Course", new {@class = "form-control"})
-                @Html.ValidationMessageFor(m => m.CourseNameId)
-            </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.InstructorId)
-                @Html.DropDownListFor(m => m.InstructorId, new SelectList(ViewBag.Instructors, "Id", "FullName"), "Select Instructor", new {@class = "form-control"})
-                @Html.ValidationMessageFor(m => m.InstructorId)
-            </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.GroupNumber)
-                @Html.EditorFor(m => m.GroupNumber, new {htmlAttributes = new {@class = "form-control"} })
-                @Html.ValidationMessageFor(m => m.GroupNumber)
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-md-12 col-lg-12">
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.CourseManagerId)
-                @Html.DropDownListFor(m => m.CourseManagerId, new SelectList(ViewBag.Users, "Id", "UserName"), "Select Course Manager", new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.CourseManagerId)
-            </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.DateFrom)
-                @Html.EditorFor(m => m.DateFrom, new {htmlAttributes = new {@class = "form-control", @type = "date", @selectedDate = Model.DateFrom}})
-                @Html.ValidationMessageFor(m => m.DateFrom)
-            </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.DateTo)
-                @Html.EditorFor(m => m.DateTo, new {htmlAttributes = new {@class = "form-control", @type = "date", @selectedDate = Model.DateTo}})
-                @Html.ValidationMessageFor(m => m.DateTo)
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-md-12 col-lg-12">
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.TimeFrom)
-                @Html.EditorFor(m => m.TimeFrom, new {htmlAttributes = new {@class = "form-control", @type = "time", @selectedDate = Model.TimeFrom}})
-                @Html.ValidationMessageFor(m => m.TimeFrom)
-            </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.TimeTo)
-                @Html.EditorFor(m => m.TimeTo, new {htmlAttributes = new {@class = "form-control", @type = "time", @selectedDate = Model.TimeTo}})
-                @Html.ValidationMessageFor(m => m.TimeTo)
-            </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.CourseLocationId)
-                @Html.DropDownListFor(m => m.CourseLocationId, new SelectList(ViewBag.CourseLocations, "Id", "Name"), "Select Location", new {@class = "form-control"})
-                @Html.ValidationMessageFor(m => m.CourseLocationId)
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-md-12 col-lg-12">
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.CourseLabId)
-                @Html.DropDownListFor(m => m.CourseLabId, new SelectList(ViewBag.CourseLabs, "Id", "Name"), "Select Lab", new {@class = "form-control"})
-                @Html.ValidationMessageFor(m => m.CourseLabId)
-            </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.CourseDuration)
-                @Html.TextBoxFor(m => m.CourseDuration, new {@class = "form-control", placeholder = "Course Duration"})
-                @Html.ValidationMessageFor(m => m.CourseDuration)
-            </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.CourseFees)
-                @Html.TextBoxFor(m => m.CourseFees, new {@class = "form-control", placeholder = "Course Fees"})
-            </div>
-        </div>
-        
-        <div class="col-xs-12 col-md-12 col-lg-12">
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.CategoryId)
-                @Html.DropDownListFor(m => m.CategoryId, new SelectList(ViewBag.Categories, "Id", "Name"), "Select Category", new {@class = "form-control"})
-                @Html.ValidationMessageFor(m => m.CategoryId)
-            </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.BatchId)
-                @Html.DropDownListFor(m => m.BatchId, new SelectList(ViewBag.Batches, "Id", "BatchNumber"), "Select Batch", new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.BatchId)
-            </div>
-            <div class="col-md-4">
+            <div id="submitDiv" class="form-group pull-right">
+                @Html.ActionLink("New", "New", "Courses", new { @class = "btn btn-default" })
+                <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>
             </div>
         </div>
     </div>
 
-    <div class="form-row">
-        <div class="col-xs-12 col-md-12 col-lg-12">
-            <div id="submitDiv" class="form-group pull-right" >
-                @Html.ActionLink("New","New","Courses" ,new {@class="btn btn-default"})
-                <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>    
-            </div>
-        </div>
-    </div>
-    
 }
 
 @section scripts{
@@ -124,9 +346,9 @@ else
             const selectedCourseLab = $("#CourseLabId").val();
 
             const labSelect = $("#CourseLabId");
-           
+
             AddLabs(selectedCourseLocation, labSelect, selectedCourseLab);
-          
+
 
 
             const selectedCategory = $("#CategoryId").val();
@@ -134,7 +356,7 @@ else
 
             const batchSelect = $("#BatchId");
             AddBatches(selectedCategory, batchSelect, selectedBatch);
-          
+
         });
 
         $("#CourseLocationId").change(function () {
@@ -146,7 +368,7 @@ else
             }
         });
 
-        $("#CategoryId").change(function() {
+        $("#CategoryId").change(function () {
             const selectedCategory = $("#CategoryId").val();
             let batchSelect = $('#BatchId');
             batchSelect.empty();
@@ -154,7 +376,7 @@ else
                 AddBatches(selectedCategory, batchSelect);
             }
         });
-        
+
         function AddLabs(selectedCourseLocation, labSelect, selectedCourseLab) {
             $.ajax({
                 type: 'POST',
@@ -180,7 +402,7 @@ else
                             else {
                                 labSelect.val(selectedCourseLab);
                             }
-                            
+
                         }
                     }
                 }
@@ -193,12 +415,12 @@ else
                 url: '@Url.Action("GetBatches","Batches")',
                 dataType: 'json',
                 data: { selectedCategory: selectedCategory },
-                success: function(batches) {
+                success: function (batches) {
                     if (batches != null && !jQuery.isEmptyObject(batches)) {
                         batchSelect.empty();
                         batchSelect.append('<option value= 0> Select Batch </option>');
                         $.each(batches,
-                            function(index, batch) {
+                            function (index, batch) {
                                 batchSelect.append($('<option/>',
                                     {
                                         value: batch.Value,

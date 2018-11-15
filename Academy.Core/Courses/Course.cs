@@ -15,8 +15,8 @@ namespace Academy.Core.Courses
         [Display(Name = "Course Name")]
         public int CourseNameId { get; set; }
 
-        [Display(Name = "Course Category")]
-        public int CategoryId { get; set; }
+        //[Display(Name = "Course Category")]
+        //public int CategoryId { get; set; }
 
         [Display(Name = "Instructor")]
         public int InstructorId { get; set; }
@@ -55,14 +55,18 @@ namespace Academy.Core.Courses
         [Display(Name = "Course Fees")]
         public double CourseFees { get; set; }
 
+        public string Day1 { get; set; }
+
+        public string Day2 { get; set; }
+
         [Display(Name = "Group Number")]
         public int GroupNumber { get; set; }
 
         [ForeignKey("CourseNameId")]
         public virtual CourseNames CourseName { get; set; }
 
-        [ForeignKey("CategoryId")]
-        public virtual Category Category { get; set; }
+        //[ForeignKey("CategoryId")]
+        //public virtual Category Category { get; set; }
 
         [ForeignKey("CourseLocationId")]
         public virtual CourseLocation CourseLocation { get; set; }
@@ -77,5 +81,19 @@ namespace Academy.Core.Courses
         public virtual Batch Batch { get; set; }
 
         public virtual ICollection<Enrollment> Enrollments { get; set; }
+
+        public IEnumerable<string> GetDays()
+        {
+            return new HashSet<string>()
+            {
+                "Sat",
+                "Sun",
+                "Mon",
+                "Tus",
+                "Wend",
+                "Thurs",
+                "Fri"
+            };
+        }
     }
 }

@@ -32,10 +32,9 @@ else
         <tr>
             <th>Name</th>
             <th>Code</th>
-            <th>Collage</th>
-            <th>Date of birth</th>
+            <th>City</th>
             <th>Mobile</th>
-            <th>Graduation Year</th>
+            
             <th>Assign Courses</th>
         </tr>
         </thead>
@@ -50,16 +49,10 @@ else
                     @student.Code
                 </td>
                 <td>
-                    @student.Collage.Name
-                </td>
-                <td>
-                    @student.BirthDate.ToString("d")
+                    @student.City.Name
                 </td>
                 <td>
                     @student.Mobile1
-                </td>
-                <td>
-                    @student.GraduationYear
                 </td>
                 <td>
                     @Html.ActionLink("Assign Course", "AssignCourses", "Students",new { id = student.Id }, new { @class = "btn btn-info"})

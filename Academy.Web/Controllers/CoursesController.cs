@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -37,17 +38,18 @@ namespace Academy.Web.Controllers
 
         public async Task<ActionResult> New()
         {
+            GetDays();
             await GetDropLists();
-            var course = new Course();
+            var course = new Course { DateFrom = DateTime.Now, DateTo = DateTime.Now };
 
             return View("CourseForm", course);
         }
 
         private async Task GetDropLists()
         {
-            ViewBag.CourseNames = await _context.CourseNames.ToListAsync();     
-            ViewBag.Instructors = await _context.Instructors.ToListAsync();     
-            ViewBag.CourseLocations = await _context.CourseLocations.ToListAsync();     
+            ViewBag.CourseNames = await _context.CourseNames.ToListAsync();
+            ViewBag.Instructors = await _context.Instructors.ToListAsync();
+            ViewBag.CourseLocations = await _context.CourseLocations.ToListAsync();
             ViewBag.CourseLabs = await _context.CourseLabs.ToListAsync();
             ViewBag.Users = await _context.Users.ToListAsync();
             ViewBag.Categories = await _context.Categories.ToListAsync();
@@ -59,19 +61,22 @@ namespace Academy.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                GetDays();
                 await GetDropLists();
                 return View("CourseForm", course);
             }
             //before inesert / update -> validate time&Location and instructor
-            if (!ValidateCourse(course))
+            if (course.Id == 0 && !await ValidateCourse(course))
             {
                 ModelState.AddModelError("", "Please Check Course time and instructor");
+                GetDays();
                 await GetDropLists();
                 return View("CourseForm", course);
             }
             if (!ValidateCourseGroupNumber(course))
             {
-                ModelState.AddModelError("","Can't Insert duplicated Group Number");
+                ModelState.AddModelError("", "Can't Insert duplicated Group Number");
+                GetDays();
                 await GetDropLists();
                 return View("CourseForm", course);
             }
@@ -96,6 +101,7 @@ namespace Academy.Web.Controllers
         {
             var course = await _context.Courses.SingleOrDefaultAsync(s => s.Id == id);
             if (course == null) return HttpNotFound();
+            GetDays();
             await GetDropLists();
             return View("CourseForm", course);
         }
@@ -112,17 +118,27 @@ namespace Academy.Web.Controllers
             return Json(new SelectList(labs, "Id", "Name", JsonRequestBehavior.AllowGet));
         }
 
-        private bool ValidateCourse(Course course)
+        private async Task<bool> ValidateCourse(Course course)
         {
             var anyCoursesWithSameTimeAndLocation =
-                _context.Courses.Where(c => c.TimeFrom == course.TimeFrom && c.DateFrom == course.DateFrom
-                                            && c.CourseLocationId == course.CourseLocationId && c.CourseLabId == course.CourseLabId);
-            var selectedInstructor = _context.Instructors.SingleOrDefaultAsync(x => x.Id == course.InstructorId);
+                _context.Courses.Where(c => c.CourseLocationId == course.CourseLocationId &&
+                                            c.CourseLabId == course.CourseLabId &&
+                                            c.TimeFrom <= course.TimeFrom && c.TimeTo >= course.TimeFrom
+                                            && DbFunctions.TruncateTime(c.DateFrom) <=
+                                            DbFunctions.TruncateTime(course.DateFrom) &&
+                                            DbFunctions.TruncateTime(c.DateTo) >=
+                                            DbFunctions.TruncateTime(course.DateFrom)
+                );
+            var selectedInstructor = await _context.Instructors.SingleOrDefaultAsync(x => x.Id == course.InstructorId);
             IEnumerable<Course> diffCoursesWithSameTime = null;
-            if (selectedInstructor?.Result.Courses != null)
+            if (selectedInstructor?.Courses != null)
                 diffCoursesWithSameTime =
-                    selectedInstructor?.Result.Courses.Where(insCourse => insCourse.TimeFrom == course.TimeFrom &&
-                                                                          insCourse.DateFrom == course.DateFrom);
+                    selectedInstructor.Courses.Where(insCourse => insCourse.TimeFrom <= course.TimeFrom &&
+                                                                  insCourse.TimeTo >= course.TimeFrom &&
+                                                                  DbFunctions.TruncateTime(insCourse.DateFrom) <=
+                                                                  DbFunctions.TruncateTime(course.DateFrom) &&
+                                                                  DbFunctions.TruncateTime(insCourse.DateTo) >=
+                                                                  DbFunctions.TruncateTime(course.DateFrom));
 
             return !anyCoursesWithSameTimeAndLocation.Any() && !diffCoursesWithSameTime.Any();
         }
@@ -131,7 +147,7 @@ namespace Academy.Web.Controllers
         {
             var allCoursesWithSameLocationAndCategory =
                 _context.Courses.Where(c => c.CourseLocationId == course.CourseLocationId &&
-                                            c.CategoryId == course.CategoryId);
+                                            c.Batch.CategoryId == course.Batch.CategoryId);
             if (!allCoursesWithSameLocationAndCategory.Any()) return true;
             var allGroupNumbers = allCoursesWithSameLocationAndCategory.Select(pr => pr.GroupNumber);
             return !allGroupNumbers.Contains(course.GroupNumber);
@@ -145,5 +161,19 @@ namespace Academy.Web.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Courses");
         }
+
+        private void GetDays()
+        {
+            var course = new Course();
+            ViewBag.Days = course.GetDays()
+                .Select(day => new SelectListItem
+                {
+                    Value = day,
+                    Text = day
+                })
+                .ToList();
+
+        }
+
     }
 }

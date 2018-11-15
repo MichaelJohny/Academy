@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,9 +30,9 @@ namespace Academy.Web.Controllers
             if (!string.IsNullOrWhiteSpace(query))
             {
                 students = students.Where(s => s.FirstName.Contains(query) ||
-                                               s.SecondName.Contains(query) || s.ThirdName.Contains(query) ||
+                                               s.SecondName.Contains(query) ||
                                                s.LastName.Contains(query) || s.Mobile1.Contains(query) ||
-                                               s.Mobile2.Contains(query)||s.Code.ToString().Contains(query));
+                                               s.Mobile2.Contains(query) || s.Code.ToString().Contains(query));
             }
 
             var studentVm = new StudentViewModel()
@@ -60,7 +61,7 @@ namespace Academy.Web.Controllers
         public async Task<ActionResult> New()
         {
             await GetDropLists();
-            var student = new Student();
+            var student = new Student() { BirthDate = null };
             return View("StudentForm", student);
         }
 
@@ -74,6 +75,8 @@ namespace Academy.Web.Controllers
             }
             student.Status = StudentStatus.Accepted;
             student.Code = await GetStudentCide();
+            if (student.AreaId == 0)
+                student.AreaId = null;
             if (student.Id == 0)
                 _context.Students.Add(student);
             else
@@ -100,6 +103,8 @@ namespace Academy.Web.Controllers
             ViewBag.Qualifications = await _context.Qualifiations.ToListAsync();
             ViewBag.Cities = await _context.Cities.ToListAsync();
             ViewBag.Areas = await _context.Areas.ToListAsync();
+            ViewBag.Universities = await _context.Universities.ToListAsync();
+            ViewBag.Sepecializations = await _context.Specializations.ToListAsync();
         }
 
         public async Task<ActionResult> AssignCourses(int id)
@@ -144,6 +149,7 @@ namespace Academy.Web.Controllers
 
         private async Task<int> GetStudentCide()
         {
+            if (!await _context.Students.AnyAsync()) return 100;
             var code = await _context.Students.MaxAsync(x => x.Code);
             return code == 0 ? 100 : code + 1;
         }
