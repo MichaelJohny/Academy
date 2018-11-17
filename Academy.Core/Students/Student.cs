@@ -90,8 +90,8 @@ namespace Academy.Core.Students
         [Required, Display(Name = "City")]
         public int CityId { get; set; }
 
-        [ Display(Name = "University")]
-        public int? UniversityId { get; set; }
+        
+        public string University { get; set; }
 
         [Display(Name = "Area")]
         public int? AreaId { get; set; }
@@ -110,9 +110,6 @@ namespace Academy.Core.Students
 
         [ForeignKey("QualificationId")]
         public virtual Qualifiation Qualifiation { get; set; }
-
-        [ForeignKey("UniversityId")]
-        public virtual University University { get; set; }
 
         [ForeignKey("SpecializationId")]
         public virtual Specialization Specialization { get; set; }

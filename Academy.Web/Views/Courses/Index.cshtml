@@ -1,27 +1,31 @@
-﻿@model Academy.Core.ViewModels.CourseViewModel
-    @{
-        ViewBag.Title = "Courses";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+﻿@using PagedList.Mvc;
+@model  PagedList.IPagedList<Academy.Core.Courses.Course>
+@{
+    ViewBag.Title = "Courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <h2>Courses</h2>
 @Html.ActionLink("Create New ", "New", "Courses", null, new { @class = "btn btn-primary pull-right" })
 
-@using (Html.BeginForm("Search", "Courses"))
+@using (Html.BeginForm("Index", "Courses"))
 {
     @Html.ValidationSummary(false)
 
     <div class="form-group">
-        <div id="searchCourses" class="input-group">
-            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search By Course Name" })
-            <span class="input-group-addon">
-                <i class="glyphicon glyphicon-search"></i>
-            </span>
+        <div id="searchCourses" class="form-inline">
+           @* @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search By Course Name" })*@
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new {@class="form-control",@placeholder="Search here"})
+            <button type="submit" value="Search">
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-search"></i>
+                </span>
+            </button>
         </div>
     </div>
 }
 
-@if (!Model.Courses.Any())
+@if (!Model.Any())
 {
     <p>No Courses Found</p>
 }
@@ -29,49 +33,55 @@ else
 {
     <table class="table table-bordered table-hover">
         <thead>
-        <tr>
-            <th>Name</th>
-            <th>Date From</th>
-            <th>Date To</th>
-            <th>Instructor</th>
-            <th>Course Location</th>
-            <th>Course Lab</th>
-            <th>Course Fees</th>
-            <th>Actions</th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Date From</th>
+                <th>Date To</th>
+                <th>Instructor</th>
+                <th>Course Location</th>
+                <th>Course Lab</th>
+                <th>Course Fees</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var course in Model.Courses)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(course.CourseName.Name, "Edit", "Courses", new { id = course.Id },null)   
-                </td>
-                <td>
-                    @course.DateFrom.ToString("d")
-                </td>
-                <td>
-                    @course.DateTo.ToString("d")
-                </td>
-                <td>
-                    @course.Instructor.FullName
-                </td>
-                <td>
-                    @course.CourseLocation.Name
-                </td>
-                <td>
-                    @course.CourseLab.Name
-                </td>
-                <td>
-                    @course.CourseFees
-                </td>
-                <td style="text-align: center;">
-                    @Html.ActionLink("Delete", "DeleteCourse", "Courses", new { id = course.Id}, new { @class = "btn btn-danger"})
-                </td>
-            </tr>
-        }
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(course.CourseName.Name, "Edit", "Courses", new { id = course.Id }, null)
+                    </td>
+                    <td>
+                        @course.DateFrom.ToString("d")
+                    </td>
+                    <td>
+                        @course.DateTo.ToString("d")
+                    </td>
+                    <td>
+                        @course.Instructor.FullName
+                    </td>
+                    <td>
+                        @course.CourseLocation.Name
+                    </td>
+                    <td>
+                        @course.CourseLab.Name
+                    </td>
+                    <td>
+                        @course.CourseFees
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.ActionLink("Delete", "DeleteCourse", "Courses", new { id = course.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 }
 
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 

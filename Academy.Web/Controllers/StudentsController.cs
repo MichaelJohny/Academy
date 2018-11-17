@@ -9,6 +9,8 @@ using Academy.Core.Enums;
 using Academy.Core.Students;
 using Academy.Core.ViewModels;
 using Academy.Web.Models;
+using PagedList;
+using PagedList.EntityFramework;
 
 namespace Academy.Web.Controllers
 {
@@ -22,26 +24,30 @@ namespace Academy.Web.Controllers
         }
 
         // GET: Students
-        public async Task<ActionResult> Index(string query = null)
+        public async Task<ActionResult> Index(string currentFilter, string searchString, int? page)
         {
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
             var students = _context.Students
                 .Where(s => s.Status == StudentStatus.Accepted);
 
-            if (!string.IsNullOrWhiteSpace(query))
+            if (!string.IsNullOrWhiteSpace(searchString))
             {
-                students = students.Where(s => s.FirstName.Contains(query) ||
-                                               s.SecondName.Contains(query) ||
-                                               s.LastName.Contains(query) || s.Mobile1.Contains(query) ||
-                                               s.Mobile2.Contains(query) || s.Code.ToString().Contains(query));
+                students = students.Where(s => s.FirstName.Contains(searchString) ||
+                                               s.SecondName.Contains(searchString) ||
+                                               s.Mobile1.Contains(searchString) ||
+                                               s.Code.ToString().Contains(searchString));
             }
-
-            var studentVm = new StudentViewModel()
-            {
-                Students = await students.ToListAsync(),
-                SearchTerm = query
-            };
-
-            return View(studentVm);
+            const int pageSize = 10;
+            var pageNumber = (page ?? 1);
+            var ss = await students.OrderByDescending(x=>x.Id).ToPagedListAsync(pageNumber,pageSize);
+            return View(ss);
         }
 
         [HttpPost]
@@ -103,7 +109,6 @@ namespace Academy.Web.Controllers
             ViewBag.Qualifications = await _context.Qualifiations.ToListAsync();
             ViewBag.Cities = await _context.Cities.ToListAsync();
             ViewBag.Areas = await _context.Areas.ToListAsync();
-            ViewBag.Universities = await _context.Universities.ToListAsync();
             ViewBag.Sepecializations = await _context.Specializations.ToListAsync();
         }
 

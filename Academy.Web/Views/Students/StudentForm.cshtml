@@ -53,7 +53,7 @@ else
             </div>
             <div class="col-md-4">
                 @Html.TextBoxFor(m => m.BirthDate, $"{Model.BirthDate?.ToShortDateString():d}",
-                    new { @class = "form-control datepicker", type = "date", @Value = Model.BirthDate?.ToString("yyyy-MM-dd") })
+                    new {  @class = "form-control datepicker", @id = "datetimepicker1", type = "date", @Value = Model.BirthDate?.ToString("yyyy-MM-dd") })
             </div>
             <div class="col-md-4">
                 @Html.DropDownListFor(m => m.NationalityId, new SelectList(ViewBag.Nationalities, "Id", "Name"), "Select Nationality", new { @class = "form-control custom-select" })
@@ -66,7 +66,8 @@ else
             </div>
             <div class="col-md-3">
                 @* Ubiversity *@
-                @Html.DropDownListFor(m => m.UniversityId, new SelectList(ViewBag.Universities, "Id", "Name"), "Select University", new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.University, new { @class = "form-control", placeholder = "University" })
+                @*@Html.DropDownListFor(m => m.UniversityId, new SelectList(ViewBag.Universities, "Id", "Name"), "Select University", new { @class = "form-control" })*@
 
             </div>
             <div class="col-md-3">
@@ -170,6 +171,10 @@ else
             let areasSelect = $('#AreaId');
             AddAreas(selectedCity, areasSelect, selectedArea);
 
+            //$('#datetimepicker1').datetimepicker({
+            //    viewMode: 'years',
+            //    format: 'dd/mm/YYYY'
+            //});
 
 
         });

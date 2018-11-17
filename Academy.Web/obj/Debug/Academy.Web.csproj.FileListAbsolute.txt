@@ -175,3 +175,10 @@ D:\Projects\Academy\Academy.Web\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.csprojResolveAssemblyReference.cache
 D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.dll
 D:\Projects\Academy\Academy.Web\obj\Debug\Academy.Web.pdb
+D:\Projects\Academy\Academy.Web\bin\PagedList.dll
+D:\Projects\Academy\Academy.Web\bin\PagedList.Mvc.dll
+D:\Projects\Academy\Academy.Web\bin\PagedList.xml
+D:\Projects\Academy\Academy.Web\bin\PagedList.Mvc.xml
+D:\Projects\Academy\Academy.Web\bin\PagedList.EntityFramework.dll
+D:\Projects\Academy\Academy.Web\bin\PagedList.EntityFramework.pdb
+D:\Projects\Academy\Academy.Web\bin\PagedList.EntityFramework.xml

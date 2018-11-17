@@ -50,3 +50,8 @@ D:\Projects\Academy\Academy.Core\bin\Debug\Newtonsoft.Json.xml
 D:\Projects\Academy\Academy.Core\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 D:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.dll
 D:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.pdb
+D:\Projects\Academy\Academy.Core\bin\Debug\PagedList.dll
+D:\Projects\Academy\Academy.Core\bin\Debug\PagedList.Mvc.dll
+D:\Projects\Academy\Academy.Core\bin\Debug\PagedList.xml
+D:\Projects\Academy\Academy.Core\bin\Debug\PagedList.Mvc.xml
+D:\Projects\Academy\Academy.Core\obj\Debug\Academy.Core.csprojResolveAssemblyReference.cache
