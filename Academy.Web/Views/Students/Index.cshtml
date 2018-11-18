@@ -1,4 +1,9 @@
-﻿@model  Academy.Core.ViewModels.StudentViewModel  
+﻿@*@model  IPagedList< Academy.Core.ViewModels.StudentViewModel>*@
+@model  IPagedList<Academy.Core.Students.Student>
+
+@using PagedList;
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Students";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,58 +13,57 @@
 @Html.ActionLink("Create New ", "New", "Students", null, new { @class = "btn btn-primary pull-right" })
 
 
-@using (Html.BeginForm("Search", "Students"))
+@using (Html.BeginForm("Index", "Students"))
 {
-    <div class="form-group">
-        <div id="searchStudents" class="input-group">
-            @Html.TextBoxFor(m=>m.SearchTerm,new {@class="form-control"})
-            <span class="input-group-addon">
-                <i class="glyphicon glyphicon-search"></i>
-            </span>
+    <div class="form-group ">
+        <div id="searchStudents" class="form-inline">
+            @*@Html.TextBoxFor(m=>m.First().SearchTerm,new {@class="form-control"})*@
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new {@class="form-control",@placeholder="Search here"})
+            <button type="submit" value="Search">
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-search"></i>
+                </span>
+            </button>
         </div>
     </div>
 }
 
 
-@if (!Model.Students.Any())
+@if (!Model.Any())
 {
     <p>No Stdents Found</p>
 }
 else
 {
+    <p>
+
+    </p>
     <table class="table table-bordered table-hover">
         <thead>
-        <tr>
-            <th>Name</th>
-            <th>Code</th>
-            <th>Collage</th>
-            <th>Date of birth</th>
-            <th>Mobile</th>
-            <th>Graduation Year</th>
-            <th>Assign Courses</th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Code</th>
+                <th>City</th>
+                <th>Mobile</th>
+
+                <th>Assign Courses</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var student in Model.Students)
+            @foreach (var student in Model)
         {
             <tr>
                 <td>
-                    @Html.ActionLink(student.FullName, "Edit", "Students", new { id = student.Id },null)   
+                    @Html.ActionLink(student.FullName, "Edit", "Students", new { id = student.Id },null)
                 </td>
                 <td>
                     @student.Code
                 </td>
                 <td>
-                    @student.Collage.Name
-                </td>
-                <td>
-                    @student.BirthDate.ToString("d")
+                    @student.City.Name
                 </td>
                 <td>
                     @student.Mobile1
-                </td>
-                <td>
-                    @student.GraduationYear
                 </td>
                 <td>
                     @Html.ActionLink("Assign Course", "AssignCourses", "Students",new { id = student.Id }, new { @class = "btn btn-info"})
@@ -68,4 +72,11 @@ else
         }
         </tbody>
     </table>
+    <br />
 }
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

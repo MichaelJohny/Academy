@@ -1,23 +1,10 @@
 ﻿$(function() {
-   // $('.datePicker').datetimepicker();
-
-    //$('.datePick').each(function () {
-    //    var a = $(this).datepicker({
-    //        dateFormat: "dd/ww/yy",
-    //        defaultDate: new Date($(this).val())
-    //    });
+    //$(".datePicker").datetimepicker({
+    //    format:"DD/MM/YYYY"
     //});
 
     $('#acceptApplicant').attr("disbled", true);
     $('#rejectApplicant').attr("disbled", true);
-
-
-
-
-
-
-
-
 
     ///////////////*****************New Style****************/////////////////////////////
     $("#foto").click(function() {
@@ -78,24 +65,23 @@
     }
 
 
-
-    $("#doenca_comprovada").change(function () {
+    $("#doenca_comprovada").change(function() {
         $("#doenca_provavel").val($("#doenca_provavel option:first").val());
         $("#doenca_provavel").parent().parent().hide();
 
         if ($(this).prop('selectedIndex') === 0)
             $("#doenca_provavel").parent().parent().show();
 
-    })
+    });
 
-    $("#doenca_provavel").change(function () {
+    $("#doenca_provavel").change(function() {
         $("#doenca_comprovada").val($("#doenca_comprovada option:first").val());
         $("#doenca_comprovada").parent().parent().hide();
 
         if ($(this).prop('selectedIndex') == 0)
             $("#doenca_comprovada").parent().parent().show();
 
-    })
+    });
 
     autosize(document.getElementById("justificativa"));
     autosize(document.getElementById("caracteristicas"));

@@ -53,6 +53,8 @@ namespace Academy.Web.Models
         public DbSet<Area> Areas { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Batch> Batches { get; set; }
+        public DbSet<University> Universities { get; set; }
+        public DbSet<Specialization> Specializations { get; set; }
         public ApplicationDbContext()
             : base("AcademyConnection")
         {

@@ -1,5 +1,8 @@
 ﻿@using Academy.Core.Enums
-@model  Academy.Core.ViewModels.StudentViewModel
+@model  IPagedList<Academy.Core.Students.Student>
+@using PagedList;
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,86 +10,86 @@
 
 <h2 >Applicants</h2>
 
+<br/>
+
 
 @Html.ActionLink("Create New ", "New", "Applicants", null, new { @class = "btn btn-primary pull-right" })
 
-@using (Html.BeginForm("Search", "Applicants"))
+@using (Html.BeginForm("Index", "Applicants"))
 {
     <div class="form-group">
-        <div id="searchStudents" class="input-group">
-            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control" })
-            <span class="input-group-addon">
-                <i class="glyphicon glyphicon-search"></i>
-            </span>
+        <div id="searchStudents" class="form-inline">
+            @*@Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control" })*@
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Search here" })
+            <button type="submit" value="Search">
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-search"></i>
+                </span>
+            </button>
         </div>
     </div>
 }
 
-@if (!Model.Students.Any())
+@if (!Model.Any())
 {
-    <p>No Applicants Found</p>
+    <p class="border-danger">No Applicants Found</p>
 }
 else
 {
     <table class="table table-bordered table-hover">
         <thead>
-            <tr>
-                <th>Name</th>
-                <th>Code</th>
-                <th>Collage</th>
-                <th>Date of birth</th>
-                <th>Mobile</th>
-                <th>Graduation Year</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Mobile</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var student in Model.Students)
-            {
+        @foreach (var student in Model)
+        {
 
-                <tr>
-                    <td>
-                        @Html.ActionLink(student.FullName, "Edit", "Applicants", new { id = student.Id }, null)
-                    </td>
-                    <td>
-                        @student.Code
-                    </td>
-                    <td>
-                        @student.Collage.Name
-                    </td>
-                    <td>
-                        @student.BirthDate.ToString("d")
-                    </td>
-                    <td>
-                        @student.Mobile1
-                    </td>
-                    <td>
-                        @student.GraduationYear
-                    </td>
-                    <td>
-                        @student.Status
-                    </td>
-                    @if (student.Status != StudentStatus.Rejected && !student.IsBlackList)
-                    {
-                        <td class="text-center">
+            <tr>
+                <td>
+                    @Html.ActionLink(student.FullName, "Edit", "Applicants", new { id = student.Id }, null)
+                </td>
+                <td>
+                    @student.Code
+                </td>
+                <td>
+                    @student.Mobile1
+                </td>
+                <td>
+                    @student.Status
+                </td>
+                @if (student.Status != StudentStatus.Rejected && !student.IsBlackList)
+                {
+                    <td class="text-center">
 
-                            @Html.ActionLink("Accept", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Accepted }, new { @class = "btn btn-success", })
-                            @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Rejected }, new { @class = "btn btn-danger", })
-                        </td>
-                    }
-                    else
-                    {
-                        <td class="text-center">
-                            @Html.ActionLink("Accept", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Accepted }, new { @class = "btn btn-default not-active",id="acceptApplicant" })
-                            @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Rejected }, new { @class = "btn btn-danger not-active", id = "rejectApplicant" })
+                        @Html.ActionLink("Accept", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Accepted }, new { @class = "btn btn-success", })
+                        @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Rejected }, new { @class = "btn btn-danger", })
+                    </td>
+                }
+                else
+                {
+                    <td class="text-center">
+                        @Html.ActionLink("Accept", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Accepted }, new { @class = "btn btn-default not-active",id="acceptApplicant" })
+                        @Html.ActionLink("Rejected", "UpdateStatus", "Applicants", new { id = student.Id, status = StudentStatus.Rejected }, new { @class = "btn btn-danger not-active", id = "rejectApplicant" })
 
-                        </td>
-                    }
+                    </td>
+                }
 
-                </tr>
-            }
+            </tr>
+        }
         </tbody>
     </table>
+    <br/>
+
 }
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 

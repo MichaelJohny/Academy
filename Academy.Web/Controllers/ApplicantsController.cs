@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +11,7 @@ using Academy.Core.Enums;
 using Academy.Core.Students;
 using Academy.Core.ViewModels;
 using Academy.Web.Models;
+using PagedList.EntityFramework;
 
 namespace Academy.Web.Controllers
 {
@@ -24,23 +26,29 @@ namespace Academy.Web.Controllers
             _context = new ApplicationDbContext();
         }
         // GET: Applicants
-        public async Task<ActionResult> Index(string query = null)
+       
+        public async Task<ActionResult> Index(string currentFilter, string searchString, int? page)
         {
-            var applicants = _context.Students.Where(s => s.Status != StudentStatus.Accepted);
-            if (!string.IsNullOrWhiteSpace(query))
+            if (searchString != null)
             {
-                applicants = applicants.Where(s => s.FirstName.Contains(query) ||
-                                               s.SecondName.Contains(query) || s.ThirdName.Contains(query) ||
-                                               s.LastName.Contains(query) || s.Mobile1.Contains(query) ||
-                                               s.Mobile2.Contains(query)|| s.Code.ToString().Contains(query));
+                page = 1;
             }
-            var studentVm = new StudentViewModel()
+            else
             {
-                Students = await applicants.ToListAsync(),
-                SearchTerm = query
-            };
-
-            return View(studentVm);
+                searchString = currentFilter;
+            }
+            var applicants = _context.Students.Where(s => s.Status != StudentStatus.Accepted);
+            if (!string.IsNullOrWhiteSpace(searchString))
+            {
+                applicants = applicants.Where(s => s.FirstName.Contains(searchString) ||
+                                                   s.SecondName.Contains(searchString) ||
+                                                   s.Mobile1.Contains(searchString) ||
+                                                   s.Code.ToString().Contains(searchString));
+            }
+            const int pageSize = 10;
+            var pageNumber = (page ?? 1);
+            var apps= await applicants.OrderByDescending(x => x.Id).ToPagedListAsync(pageNumber, pageSize);
+            return View(apps);
         }
         [HttpPost]
         public ActionResult Search(StudentViewModel viewModel)
@@ -51,7 +59,7 @@ namespace Academy.Web.Controllers
         public async Task<ActionResult> New()
         {
             await GetDropLists();
-            var student = new Student {BirthDate = new DateTime(1990, 1, 1)};
+            var student = new Student {BirthDate =null};
             return View("ApplicantForm", student);
         }
 
@@ -78,6 +86,8 @@ namespace Academy.Web.Controllers
 
             student.Status = StudentStatus.Pending;
             student.Code = await GetStudentCide();
+            if (student.AreaId == 0)
+                student.AreaId = null;
             if (student.Id == 0)
                 _context.Students.Add(student);
             else
@@ -91,7 +101,8 @@ namespace Academy.Web.Controllers
 
         private async Task<int> GetStudentCide()
         {
-            var code =await _context.Students.MaxAsync(x => x.Code);
+            if (!await _context.Students.AnyAsync()) return 100;
+            var code = await _context.Students.MaxAsync(x => x.Code);
             return code == 0 ? 100 : code + 1;
         }
         public async Task<ActionResult> Edit(int id)
@@ -122,6 +133,7 @@ namespace Academy.Web.Controllers
             ViewBag.Qualifications = await _context.Qualifiations.ToListAsync();
             ViewBag.Cities = await _context.Cities.ToListAsync();
             ViewBag.Areas = await _context.Areas.ToListAsync();
+            ViewBag.Sepecializations = await _context.Specializations.ToListAsync();
         }
     }
 }
