@@ -182,3 +182,15 @@ D:\Projects\Academy\Academy.Web\bin\PagedList.Mvc.xml
 D:\Projects\Academy\Academy.Web\bin\PagedList.EntityFramework.dll
 D:\Projects\Academy\Academy.Web\bin\PagedList.EntityFramework.pdb
 D:\Projects\Academy\Academy.Web\bin\PagedList.EntityFramework.xml
+E:\Projects\Academy\Academy.Web\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+E:\Projects\Academy\Academy.Web\bin\PagedList.dll
+E:\Projects\Academy\Academy.Web\bin\PagedList.EntityFramework.dll
+E:\Projects\Academy\Academy.Web\bin\PagedList.Mvc.dll
+E:\Projects\Academy\Academy.Web\bin\System.Diagnostics.DiagnosticSource.dll
+E:\Projects\Academy\Academy.Web\bin\Microsoft.AI.PerfCounterCollector.xml
+E:\Projects\Academy\Academy.Web\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+E:\Projects\Academy\Academy.Web\bin\PagedList.xml
+E:\Projects\Academy\Academy.Web\bin\PagedList.EntityFramework.pdb
+E:\Projects\Academy\Academy.Web\bin\PagedList.EntityFramework.xml
+E:\Projects\Academy\Academy.Web\bin\PagedList.Mvc.xml
+E:\Projects\Academy\Academy.Web\bin\System.Diagnostics.DiagnosticSource.xml
