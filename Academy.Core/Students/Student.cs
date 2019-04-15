@@ -12,7 +12,7 @@ namespace Academy.Core.Students
 {
     public class Student : BaseEntity
     {
-
+        
         [StringLength(50)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
@@ -116,45 +116,10 @@ namespace Academy.Core.Students
 
         public virtual ICollection<Enrollment> Enrollments { get; set; }
 
-        //public IEnumerable<string> GetNationalityList()
-        //{
-        //    return new HashSet<string>()
-        //    {
-        //        "Egyption",
-        //        "American",
-        //        "Australian",
-        //        "Candian"
-        //    };
-        //}
-
-        //public IEnumerable<NationalityComplex> GetNationalityList()
-        //{
-        //    return new HashSet<NationalityComplex>()
-        //    {
-        //        new NationalityComplex() {Id = 1, Name = "Egyption"},
-        //        new NationalityComplex() {Id = 1, Name = "American"},
-        //        new NationalityComplex() {Id = 1, Name = "Australian"},
-        //        new NationalityComplex() {Id = 1, Name = "Candian"}
-        //    };
-        //}
-        //public IEnumerable<string> GetCollageList()
-        //{
-        //    return new HashSet<string>()
-        //    {
-        //        "Computer Science",
-        //        "Commerce",
-        //        "Accountant",
-        //        "Medicin"
-        //    };
-        //}
-        //public IEnumerable<string> GetQualificationList()
-        //{
-        //    return new HashSet<string>()
-        //    {
-        //        "Master",
-        //        "BCs",
-        //    };
-        //}
+        public Student()
+        {
+            Enrollments= new HashSet<Enrollment>();
+        }
 
     }
 }

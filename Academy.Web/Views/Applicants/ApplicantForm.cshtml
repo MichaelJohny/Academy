@@ -67,8 +67,6 @@ else
             <div class="col-md-3">
                 @* Ubiversity *@
                 @Html.TextBoxFor(m => m.University, new { @class = "form-control", placeholder = "University" })
-                @*@Html.DropDownListFor(m => m.UniversityId, new SelectList(ViewBag.Universities, "Id", "Name"), "Select University", new { @class = "form-control" })*@
-
             </div>
             <div class="col-md-3">
                 @Html.DropDownListFor(m => m.CollageId, new SelectList(ViewBag.Collages, "Id", "Name"), "Select Collage", new { @class = "form-control" })

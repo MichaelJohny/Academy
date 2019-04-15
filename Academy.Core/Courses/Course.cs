@@ -12,6 +12,10 @@ namespace Academy.Core.Courses
 {
     public class Course : BaseEntity
     {
+        public Course()
+        {
+            Enrollments= new HashSet<Enrollment>();
+        }
         [Display(Name = "Course Name")]
         public int CourseNameId { get; set; }
 
@@ -90,7 +94,7 @@ namespace Academy.Core.Courses
                 "Sun",
                 "Mon",
                 "Tus",
-                "Wend",
+                "Wed",
                 "Thurs",
                 "Fri"
             };

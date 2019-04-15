@@ -46,7 +46,7 @@ else
                 <th>City</th>
                 <th>Mobile</th>
 
-                <th>Assign Courses</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -65,8 +65,9 @@ else
                 <td>
                     @student.Mobile1
                 </td>
-                <td>
+                <td class="text-center">
                     @Html.ActionLink("Assign Course", "AssignCourses", "Students",new { id = student.Id }, new { @class = "btn btn-info"})
+                    @Html.ActionLink("Delete", "DeleteStudent", "Students", new { id = student.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }

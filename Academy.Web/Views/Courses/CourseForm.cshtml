@@ -242,92 +242,6 @@ else
         </table>
     </div>
 
-
-    @*<div class="form-row">
-            <div class="form-row">
-                <div class="form-inline col-md-4 ">
-                    @Html.LabelFor(m => m.CourseNameId)
-                    @Html.DropDownListFor(m => m.CourseNameId, new SelectList(ViewBag.CourseNames, "Id", "Name"), "Select Course", new { @class = "form-control formcontrolWidth" })
-                    @Html.ValidationMessageFor(m => m.CourseNameId)
-                </div>
-                <div class="form-inline col-md-4">
-                    @Html.LabelFor(m => m.GroupNumber)
-                    @Html.EditorFor(m => m.GroupNumber, new { htmlAttributes = new { @class = "form-control formcontrolWidth" } })
-                    @Html.ValidationMessageFor(m => m.GroupNumber)
-                </div>
-                <div class="form-inline  col-md-4">
-                    @Html.LabelFor(m => m.BatchId)
-                    @Html.DropDownListFor(m => m.BatchId, new SelectList(ViewBag.Batches, "Id", "BatchNumber"), "Select Batch", new { @class = "form-control formcontrolWidth" })
-                    @Html.ValidationMessageFor(m => m.BatchId)
-                </div>
-
-
-            </div>
-
-            <div class="form-row">
-                <div class="form-inline col-md-6">
-                    @Html.LabelFor(m => m.InstructorId)
-                    @Html.DropDownListFor(m => m.InstructorId, new SelectList(ViewBag.Instructors, "Id", "FullName"), "Select Instructor", new { @class = "form-control formcontrolWidth" })
-                    @Html.ValidationMessageFor(m => m.InstructorId)
-                </div>
-                <div class="form-inline col-md-6">
-                    @Html.LabelFor(m => m.CourseManagerId)
-                    @Html.DropDownListFor(m => m.CourseManagerId, new SelectList(ViewBag.Users, "Id", "UserName"), "Select Course Manager", new { @class = "form-control formcontrolWidth" })
-                    @Html.ValidationMessageFor(m => m.CourseManagerId)
-                </div>
-
-            </div>
-            <br/><br/>
-            <div class="divPadding">
-                <div class="form-inline  col-md-3">
-                    @Html.LabelFor(m => m.DateFrom)
-                    @Html.EditorFor(m => m.DateFrom, new { htmlAttributes = new { @class = "form-control formcontrolWidth", @type = "date", @selectedDate = Model.DateFrom } })
-                    @Html.ValidationMessageFor(m => m.DateFrom)
-                </div>
-                <div class="form-inline  col-md-3">
-                    @Html.LabelFor(m => m.DateTo)
-                    @Html.EditorFor(m => m.DateTo, new { htmlAttributes = new { @class = "form-control formcontrolWidth", @type = "date", @selectedDate = Model.DateTo } })
-                    @Html.ValidationMessageFor(m => m.DateTo)
-                </div>
-                <div class="form-inline  col-md-3">
-                    @Html.LabelFor(m => m.TimeFrom)
-                    @Html.EditorFor(m => m.TimeFrom, new { htmlAttributes = new { @class = "form-control formcontrolWidth", @type = "time", @selectedDate = Model.TimeFrom } })
-                    @Html.ValidationMessageFor(m => m.TimeFrom)
-                </div>
-                <div class="form-inline  col-md-3">
-                    @Html.LabelFor(m => m.TimeTo)
-                    @Html.EditorFor(m => m.TimeTo, new { htmlAttributes = new { @class = "form-control formcontrolWidth", @type = "time", @selectedDate = Model.TimeTo } })
-                    @Html.ValidationMessageFor(m => m.TimeTo)
-                </div>
-
-            </div>
-            <br/>
-
-            <div class="divPadding">
-                <div class="form-inline col-md-4">
-                    @Html.LabelFor(m => m.CourseDuration)
-                    @Html.TextBoxFor(m => m.CourseDuration, new { @class = "form-control formcontrolWidth", placeholder = "Course Duration" })
-                    @Html.ValidationMessageFor(m => m.CourseDuration)
-                </div>
-                <div class="form-inline col-md-4">
-                    @Html.LabelFor(m => m.CourseLocationId)
-                    @Html.DropDownListFor(m => m.CourseLocationId, new SelectList(ViewBag.CourseLocations, "Id", "Name"), "Select Location", new { @class = "form-control formcontrolWidth" })
-                    @Html.ValidationMessageFor(m => m.CourseLocationId)
-                </div>
-                <div class="form-inline col-md-4">
-                    @Html.LabelFor(m => m.CourseLabId)
-                    @Html.DropDownListFor(m => m.CourseLabId, new SelectList(ViewBag.CourseLabs, "Id", "Name"), "Select Lab", new { @class = "form-control formcontrolWidth" })
-                    @Html.ValidationMessageFor(m => m.CourseLabId)
-                </div>
-
-                <div class="form-inline col-md-4">
-                    @Html.LabelFor(m => m.CourseFees)
-                    @Html.TextBoxFor(m => m.CourseFees, new { @class = "form-control formcontrolWidth", placeholder = "Course Fees" })
-                </div>
-            </div>
-
-        </div>*@
-
     <div class="form-row">
         <div class="col-xs-12 col-md-12 col-lg-12">
             <div id="submitDiv" class="form-group pull-right">
@@ -336,6 +250,45 @@ else
             </div>
         </div>
     </div>
+    if (Model.Enrollments.Any())
+    {
+        <div class="row-form">
+            <div class="col-xs-12 col-md-12 col=lg-12">
+                <h3>Enrolled students by Selected course</h3>
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Code</th>
+                        <th>City</th>
+                        <th>Mobile</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var enrollment in Model.Enrollments)
+                    {
+                        <tr>
+                            <td>
+                                @enrollment.Student.FullName
+                            </td>
+                            <td>
+                                @enrollment.Student.Code
+                            </td>
+                            <td>
+                                @enrollment.Student.City.Name
+                            </td>
+                            <td>
+                                @enrollment.Student.Mobile1
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
 
 }
 

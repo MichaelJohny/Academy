@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Academy.Core.Dtos;
 using Academy.Core.Enrollments;
 using Academy.Core.Enums;
 using Academy.Core.Students;
@@ -11,11 +12,13 @@ using Academy.Core.ViewModels;
 using Academy.Web.Models;
 using PagedList;
 using PagedList.EntityFramework;
+using WebGrease.Css.Extensions;
 
 namespace Academy.Web.Controllers
 {
     [Authorize]
-    public class StudentsController : Controller
+    [RoutePrefix("student")]
+    public class StudentsController : BaseController
     {
         private readonly ApplicationDbContext _context;
         public StudentsController()
@@ -46,7 +49,7 @@ namespace Academy.Web.Controllers
             }
             const int pageSize = 10;
             var pageNumber = (page ?? 1);
-            var ss = await students.OrderByDescending(x=>x.Id).ToPagedListAsync(pageNumber,pageSize);
+            var ss = await students.OrderByDescending(x => x.Id).ToPagedListAsync(pageNumber, pageSize);
             return View(ss);
         }
 
@@ -91,9 +94,12 @@ namespace Academy.Web.Controllers
                 TryUpdateModel(studentDb);
             }
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Students");
+            await GetDropLists();
+            return View("StudentForm", student);
+            //return RedirectToAction("Index", "Students");
         }
 
+        //[Route("edit/{id}")]
         public async Task<ActionResult> Edit(int id)
         {
             var student = await _context.Students.SingleOrDefaultAsync(s => s.Id == id);
@@ -111,6 +117,24 @@ namespace Academy.Web.Controllers
             ViewBag.Areas = await _context.Areas.ToListAsync();
             ViewBag.Sepecializations = await _context.Specializations.ToListAsync();
         }
+
+        [Route("getDDLs")]
+        public async Task<ActionResult> GetNationalities()
+        {
+            var result = new DdlData()
+            {
+                Collages = await _context.Collages.ToListAsync(),
+                Nationalities = await _context.Nationalities.ToListAsync(),
+                Qualifiations = await _context.Qualifiations.ToListAsync(),
+                Cities = await _context.Cities.ToListAsync(),
+                Areas = await _context.Areas.ToListAsync(),
+                Specializations = await _context.Specializations.ToListAsync(),
+            };
+            return AjaxResponse(true, result);
+        }
+
+
+
 
         public async Task<ActionResult> AssignCourses(int id)
         {
@@ -169,6 +193,18 @@ namespace Academy.Web.Controllers
                 return false;
 
             return true;
+        }
+
+
+        public async Task<ActionResult> DeleteStudent(int id)
+        {
+            var student = await _context.Students.SingleOrDefaultAsync(x => x.Id == id);
+            if (student == null) return HttpNotFound();
+            student.IsDeleted = true;
+            student.Enrollments.ForEach(x => x.IsDeleted = true);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

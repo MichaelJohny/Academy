@@ -35,6 +35,7 @@ else
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Group No</th>
                 <th>Date From</th>
                 <th>Date To</th>
                 <th>Instructor</th>
@@ -50,6 +51,9 @@ else
                 <tr>
                     <td>
                         @Html.ActionLink(course.CourseName.Name, "Edit", "Courses", new { id = course.Id }, null)
+                    </td>
+                    <td>
+                        @course.GroupNumber
                     </td>
                     <td>
                         @course.DateFrom.ToString("d")
@@ -78,10 +82,11 @@ else
     </table>
 }
 
-
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+
 
