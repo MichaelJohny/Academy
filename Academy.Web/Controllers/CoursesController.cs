@@ -75,13 +75,13 @@ namespace Academy.Web.Controllers
                 return View("CourseForm", course);
             }
             //before inesert / update -> validate time&Location and instructor
-            if (course.Id == 0 && !await ValidateCourse(course))
-            {
-                ModelState.AddModelError("", "Please Check Course time and instructor");
-                GetDays();
-                await GetDropLists();
-                return View("CourseForm", course);
-            }
+            //if (course.Id == 0 && !await ValidateCourse(course))
+            //{
+            //    ModelState.AddModelError("", "Please Check Course time and instructor");
+            //    GetDays();
+            //    await GetDropLists();
+            //    return View("CourseForm", course);
+            //}
             if (!await ValidateCourseGroupNumber(course))
             {
                 ModelState.AddModelError("", "Can't Insert duplicated Group Number");
