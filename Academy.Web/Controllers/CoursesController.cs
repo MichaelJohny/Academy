@@ -10,6 +10,7 @@ using Academy.Core.Courses;
 using Academy.Core.ViewModels;
 using Academy.Web.Models;
 using PagedList.EntityFramework;
+using WebGrease.Css.Extensions;
 
 namespace Academy.Web.Controllers
 {
@@ -40,7 +41,7 @@ namespace Academy.Web.Controllers
 
             const int pageSize = 10;
             var pageNumber = (page ?? 1);
-            var pagedCourses = await courses.OrderByDescending(x=>x.Id).ToPagedListAsync(pageNumber, pageSize);
+            var pagedCourses = await courses.OrderByDescending(x => x.Id).ToPagedListAsync(pageNumber, pageSize);
             return View(nameof(Index), pagedCourses);
         }
 
@@ -102,7 +103,7 @@ namespace Academy.Web.Controllers
         [HttpPost]
         public ActionResult Search(CourseViewModel course)
         {
-            return RedirectToAction(nameof(Index) ,"Courses", new { query = course.SearchTerm });
+            return RedirectToAction(nameof(Index), "Courses", new { query = course.SearchTerm });
         }
 
         public async Task<ActionResult> Edit(int id)
@@ -128,10 +129,9 @@ namespace Academy.Web.Controllers
 
         private async Task<bool> ValidateCourse(Course course)
         {
-            var anyCoursesWithSameTimeAndLocation =
-                _context.Courses.Where(c => c.CourseLocationId == course.CourseLocationId &&
+            var existedCoursesInTime =
+                await _context.Courses.AnyAsync(c => c.CourseLocationId == course.CourseLocationId &&
                                             c.CourseLabId == course.CourseLabId
-
                                             && (
                                                 (course.TimeFrom >= c.TimeFrom && course.TimeFrom <= c.TimeTo)
                                                 || (course.TimeTo >= c.TimeFrom && course.TimeTo <= c.TimeTo)
@@ -145,36 +145,53 @@ namespace Academy.Web.Controllers
                                                 || DbFunctions.TruncateTime(course.DateTo) >=
                                                 DbFunctions.TruncateTime(c.DateFrom)
                                                 && DbFunctions.TruncateTime(course.DateTo) <=
-                                                DbFunctions.TruncateTime(c.DateTo))
+                                                DbFunctions.TruncateTime(c.DateTo)
+                                            )
+                                            && (c.Day1 == course.Day1 || c.Day1 == course.Day2)
+                                            && (c.Day2 == course.Day1 || c.Day2 == course.Day2)
+
                 );
-            var selectedInstructorCourses = _context.Instructors.Where(x => x.Id == course.InstructorId).SelectMany(x => x.Courses);
-            var diffCoursesWithSameTime =
-                    selectedInstructorCourses.Where(
-                        c => (course.TimeFrom >= c.TimeFrom && course.TimeFrom <= c.TimeTo
-                                     || course.TimeTo >= c.TimeFrom && course.TimeTo <= c.TimeTo)
-                                     && (
-                                         DbFunctions.TruncateTime(course.DateFrom) >=
-                                         DbFunctions.TruncateTime(c.DateFrom)
-                                         && DbFunctions.TruncateTime(course.DateFrom) <=
-                                         DbFunctions.TruncateTime(c.DateTo)
+            var existedInstructorCourses= await _context.Courses.AnyAsync(c => c.InstructorId == course.InstructorId
+                                        && (course.TimeFrom >= c.TimeFrom && course.TimeFrom <= c.TimeTo
+                                            || course.TimeTo >= c.TimeFrom && course.TimeTo <= c.TimeTo)
+                                        && (
+                                            DbFunctions.TruncateTime(course.DateFrom) >=
+                                            DbFunctions.TruncateTime(c.DateFrom)
+                                            && DbFunctions.TruncateTime(course.DateFrom) <=
+                                            DbFunctions.TruncateTime(c.DateTo)
 
-                                         || DbFunctions.TruncateTime(course.DateTo) >=
-                                         DbFunctions.TruncateTime(c.DateFrom)
-                                         && DbFunctions.TruncateTime(course.DateTo) <=
-                                         DbFunctions.TruncateTime(c.DateTo))
-                    );
+                                            || DbFunctions.TruncateTime(course.DateTo) >=
+                                            DbFunctions.TruncateTime(c.DateFrom)
+                                            && DbFunctions.TruncateTime(course.DateTo) <=
+                                            DbFunctions.TruncateTime(c.DateTo))
+                                        && (c.Day1 == course.Day1 || c.Day1 == course.Day2)
+                                        && (c.Day2 == course.Day1 || c.Day2 == course.Day2));
 
-            return !await anyCoursesWithSameTimeAndLocation.AnyAsync() && !await diffCoursesWithSameTime.AnyAsync();
+            //var diffCoursesWithSameTime =
+            //    selectedInstructorCourses.Where(
+            //        c => (course.TimeFrom >= c.TimeFrom && course.TimeFrom <= c.TimeTo
+            //              || course.TimeTo >= c.TimeFrom && course.TimeTo <= c.TimeTo)
+            //             && (
+            //                 DbFunctions.TruncateTime(course.DateFrom) >= DbFunctions.TruncateTime(c.DateFrom)
+            //                 && DbFunctions.TruncateTime(course.DateFrom) <= DbFunctions.TruncateTime(c.DateTo)
+
+            //                 || DbFunctions.TruncateTime(course.DateTo) >= DbFunctions.TruncateTime(c.DateFrom)
+            //                 && DbFunctions.TruncateTime(course.DateTo) <= DbFunctions.TruncateTime(c.DateTo))
+            //                 && (c.Day1 == course.Day1 || c.Day1 == course.Day2)
+            //                 && (c.Day2 == course.Day1 || c.Day2 == course.Day2)
+            //    );
+
+            return !existedCoursesInTime && !existedInstructorCourses;
         }
 
         private async Task<bool> ValidateCourseGroupNumber(Course course)
         {
             var allCoursesWithSameLocationAndCategory =
                 _context.Courses.Where(c => c.CourseLocationId == course.CourseLocationId &&
-                                            c.BatchId== course.BatchId);
+                                            c.BatchId == course.BatchId && c.Id != course.Id);
             if (!allCoursesWithSameLocationAndCategory.Any()) return true;
             var allGroupNumbers = allCoursesWithSameLocationAndCategory.Select(pr => pr.GroupNumber);
-            return ! await allGroupNumbers.ContainsAsync(course.GroupNumber);
+            return !await allGroupNumbers.ContainsAsync(course.GroupNumber);
         }
 
         public async Task<ActionResult> DeleteCourse(int id)
@@ -182,6 +199,7 @@ namespace Academy.Web.Controllers
             var course = await _context.Courses.SingleOrDefaultAsync(x => x.Id == id);
             if (course == null) return HttpNotFound();
             course.IsDeleted = true;
+            course.Enrollments.ForEach(x=>x.IsDeleted=true);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Courses");
         }

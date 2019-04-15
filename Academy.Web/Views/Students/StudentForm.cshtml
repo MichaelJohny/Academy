@@ -14,155 +14,233 @@ else
     <h3 class="pageLabel">New Student</h3>
 }
 
-@using (Html.BeginForm("Save", "Students"))
-{
-    @Html.ValidationSummary(false)
-    @Html.HiddenFor(m => m.Id)
-
-    <div class="form-row">
-        <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
-            <div class="col-md-4">
-
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
-                @Html.ValidationMessageFor(m => m.FirstName)
-            </div>
-            <div class="col-md-4">
-                @* Middkel name *@
-                @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control", placeholder = "Middle Name" })
-                @Html.ValidationMessageFor(m => m.SecondName)
-            </div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @readonly = "readonly", placeholder = "Code" })
-            </div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.Mobile1, new { @class = "form-control", placeholder = "Mobile1" })
-                @Html.ValidationMessageFor(m => m.Mobile1)
-            </div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.Mobile2, new { @class = "form-control", placeholder = "Mobile2" })
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
-            </div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.BirthDate, $"{Model.BirthDate?.ToShortDateString():d}",
-                    new {  @class = "form-control datepicker", @id = "datetimepicker1", type = "date", @Value = Model.BirthDate?.ToString("yyyy-MM-dd") })
-            </div>
-            <div class="col-md-4">
-                @Html.DropDownListFor(m => m.NationalityId, new SelectList(ViewBag.Nationalities, "Id", "Name"), "Select Nationality", new { @class = "form-control custom-select" })
-            </div>
-
-        </div>
-        <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
-            <div class="col-md-3">
-                @Html.DropDownListFor(m => m.QualificationId, new SelectList(ViewBag.Qualifications, "Id", "Name"), "Select Qualification", new { @class = "form-control", placeholder = "Qualification" })
-            </div>
-            <div class="col-md-3">
-                @* Ubiversity *@
-                @Html.TextBoxFor(m => m.University, new { @class = "form-control", placeholder = "University" })
-                @*@Html.DropDownListFor(m => m.UniversityId, new SelectList(ViewBag.Universities, "Id", "Name"), "Select University", new { @class = "form-control" })*@
-
-            </div>
-            <div class="col-md-3">
-                @Html.DropDownListFor(m => m.CollageId, new SelectList(ViewBag.Collages, "Id", "Name"), "Select Collage", new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.CollageId)
-            </div>
-            <div class="col-md-3">
-                @Html.TextBoxFor(m => m.GraduationYear, new { @class = "form-control", placeholder = "Graduation Year" })
-            </div>
-
-        </div>
-        <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.AddressDescrption, new { @class = "form-control", placeholder = "Address Description" })
-            </div>
-            <div class="col-md-4">
-                @Html.DropDownListFor(m => m.CityId, new SelectList(ViewBag.Cities, "Id", "Name"), "Select City", new { @class = "form-control", placeholder = "City" })
-                @Html.ValidationMessageFor(m => m.CityId)
-            </div>
-            <div class="col-md-4">
-                @Html.DropDownListFor(m => m.AreaId, new SelectList(ViewBag.Areas, "Id", "Name"), new { @class = "form-control", placeholder = "Area" })
-            </div>
+<div ng-app="baseApp" ng-controller="StudentFormCtrl"  ng-init="initStudentForm()">
 
 
-        </div>
-        <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
-            <div class="col-md-3">
-                @Html.DropDownListFor(m => m.SpecializationId, new SelectList(ViewBag.Sepecializations, "Id", "Name"), "Select Specialization", new { @class = "form-control" })
-            </div>
-            <div class="col-md-3">
-                @Html.TextBoxFor(m => m.JobTitle, new { @class = "form-control", placeholder = "Job Title" })
-            </div>
-            <div class="col-md-3">
-                @Html.TextBoxFor(m => m.Experience, new { @class = "form-control", placeholder = "Experiences Year" })
-            </div>
-            <div class="col-md-3">
-                @Html.TextBoxFor(m => m.Employer, new { @class = "form-control", placeholder = "Employer" })
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="form-row">
-        <div class="col-xs-12 col-md-12 col-lg-12">
-            <div id="submitDiv" class="form-group pull-right">
-                @Html.ActionLink("New", "New", "Students", new { @class = "btn btn-default" })
-                <button type="submit" id="submitStudent" class="btn btn-primary pull-right">Save</button>
-            </div>
-        </div>
-    </div>
-
-    if (Model.Enrollments != null && Model.Enrollments.Any())
+    @using (Html.BeginForm("Save", "Students"))
     {
-        <div class="row-form">
-            <div class="col-xs-12 col-md-12 col=lg-12">
-                <h3>Enrolled Courses by Selected Student</h3>
+        @Html.ValidationSummary(false)
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="form-row">
+            <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
+                <div class="col-md-4">
+                    
+                    @*<input type="text" ng-model="student.FirstName" class="form-control" placeholder="First Name" />*@
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                    @Html.ValidationMessageFor(m => m.FirstName)
+                </div>
+                <div class="col-md-4">
+                    @* Middel name *@
+                    @*<input type="text" ng-model="student.SecondName" class="form-control" placeholder="Second Name" />*@
+                    @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control", placeholder = "Middle Name" })
+                    @Html.ValidationMessageFor(m => m.SecondName)
+                </div>
+                <div class="col-md-4">
+                    @*<input type="text" ng-model="student.LastName" class="form-control" placeholder="Last Name" />*@
+                    @Html.TextBoxFor(m => m.LastName, new {@class = "form-control", placeholder = "Last Name"})
+                </div>
             </div>
+            <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
+                <div class="col-md-4">
+                    @*<input type="text" ng-model="student.Code" class="form-control" placeholder="Code" />*@
+                    @Html.TextBoxFor(m => m.Code, new {@class = "form-control", @readonly = "readonly", placeholder = "Code"})
+                </div>
+                <div class="col-md-4">
+                    @*<input type="text" ng-model="student.Mobile1" class="form-control" placeholder="Mobile1" />*@
+                    @Html.TextBoxFor(m => m.Mobile1, new {@class = "form-control", placeholder = "Mobile1"})
+                    @Html.ValidationMessageFor(m => m.Mobile1)
+                </div>
+                <div class="col-md-4">
+                    @*<input type="text" ng-model="student.Mobile2" class="form-control" placeholder="Mobile2" />*@
+                    @Html.TextBoxFor(m => m.Mobile2, new {@class = "form-control", placeholder = "Mobile2"})
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
+                <div class="col-md-4">
+                    @*<input type="text" ng-model="student.Email" class="form-control" placeholder="Email" />*@
+                    @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Email"})
+                </div>
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.BirthDate, $"{Model.BirthDate?.ToShortDateString():d}",
+                    new { @class = "form-control datepicker", @id = "datetimepicker1", type = "date", @Value = Model.BirthDate?.ToString("yyyy-MM-dd") })
+                </div>
+                <div class="col-md-4">
+                    @*<select ng-model="student.NationalityId"
+                            ng-options="nationality.Id as nationality.Name for nationality  in nationalities"
+                            class="form-control"
+                            oninvalid="this.setCustomValidity('')"
+                            oninput="setCustomValidity('')" required
+                            ng-change="changeProductGroup(product.ProductGroupId)">
+                        <option value="">--Select Nationality--</option>
+                    </select>*@
+                    @Html.DropDownListFor(m => m.NationalityId, new SelectList(ViewBag.Nationalities, "Id", "Name"), "Select Nationality", new {@class = "form-control custom-select"})
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
+                <div class="col-md-3">
+                    @*<select ng-model="student.QualificationId"
+                            ng-options="qualifiation.Id as qualifiation.Name for qualifiation  in qualifiations"
+                            class="form-control"
+                            oninvalid="this.setCustomValidity('')"
+                            oninput="setCustomValidity('')" required
+                            ng-change="changeProductGroup(product.ProductGroupId)">
+                        <option value="">--Select Qualification--</option>
+                    </select>*@
+                    @Html.DropDownListFor(m => m.QualificationId, new SelectList(ViewBag.Qualifications, "Id", "Name"), "Select Qualification", new { @class = "form-control", placeholder = "Qualification" })
+                </div>
+                <div class="col-md-3">
+                    @* University *@
+                    @*<input type="text" ng-model="student.University" class="form-control" placeholder="Graduation Year" />*@
+                    @Html.TextBoxFor(m => m.University, new { @class = "form-control", placeholder = "University" })
+                    @*@Html.DropDownListFor(m => m.UniversityId, new SelectList(ViewBag.Universities, "Id", "Name"), "Select University", new { @class = "form-control" })*@
+
+                </div>
+                <div class="col-md-3">
+                    @*<select ng-model="student.CollageId"
+                            ng-options="collage.Id as collage.Name for collage  in collages"
+                            class="form-control"
+                            oninvalid="this.setCustomValidity('')"
+                            oninput="setCustomValidity('')" required
+                            ng-change="changeProductGroup(product.ProductGroupId)">
+                        <option value="">--Select Collage--</option>
+                    </select>*@
+                    @Html.DropDownListFor(m => m.CollageId, new SelectList(ViewBag.Collages, "Id", "Name"), "Select Collage", new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.CollageId)
+                </div>
+                <div class="col-md-3">
+                    @*<input type="text" ng-model="student.GraduationYear" class="form-control" placeholder="Graduation Year" />*@
+                    @Html.TextBoxFor(m => m.GraduationYear, new {@class = "form-control", placeholder = "Graduation Year"})
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
+                <div class="col-md-4">
+                    @*<input type="text" ng-model="student.AddressDescrption" class="form-control" placeholder="Address Description" />*@
+                    @Html.TextBoxFor(m => m.AddressDescrption, new {@class = "form-control", placeholder = "Address Description"})
+                </div>
+                <div class="col-md-4">
+                    @*<select ng-model="student.CityId"
+                            ng-options="city.Id as city.Name for citie  in cities"
+                            class="form-control"
+                            oninvalid="this.setCustomValidity('')"
+                            oninput="setCustomValidity('')" required
+                            ng-change="changeProductGroup(product.ProductGroupId)">
+                        <option value="">--Select City--</option>
+                    </select>*@
+                    @Html.DropDownListFor(m => m.CityId, new SelectList(ViewBag.Cities, "Id", "Name"), "Select City", new {@class = "form-control", placeholder = "City"})
+                    @Html.ValidationMessageFor(m => m.CityId)
+                </div>
+                <div class="col-md-4">
+                    @*<select ng-model="student.AreaId"
+                            ng-options="area.Id as area.Name for area  in areas"
+                            class="form-control"
+                            oninvalid="this.setCustomValidity('')"
+                            oninput="setCustomValidity('')" required
+                            ng-change="changeProductGroup(product.ProductGroupId)">
+                        <option value="">--Select Area--</option>
+                    </select>*@
+                    @Html.DropDownListFor(m => m.AreaId, new SelectList(ViewBag.Areas, "Id", "Name"), new {@class = "form-control", placeholder = "Area"})
+                </div>
+
+
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
+                <div class="col-md-3">
+                    @*<select ng-model="student.CollageId"
+                            ng-options="collage.Id as collage.Name for collage  in collages"
+                            class="form-control"
+                            oninvalid="this.setCustomValidity('')"
+                            oninput="setCustomValidity('')" required
+                            ng-change="changeProductGroup(product.ProductGroupId)">
+                        <option value="">--Select College--</option>
+                    </select>*@
+                    @Html.DropDownListFor(m => m.SpecializationId, new SelectList(ViewBag.Sepecializations, "Id", "Name"), "Select Specialization", new {@class = "form-control"})
+                </div>
+                <div class="col-md-3">
+                    @*<input type="text" ng-model="student.JobTitle" class="form-control" placeholder="JobTitle" />*@
+                    @Html.TextBoxFor(m => m.JobTitle, new {@class = "form-control", placeholder = "Job Title"})
+                </div>
+                <div class="col-md-3">
+                    @*<input type="text" ng-model="student.Experience" class="form-control" placeholder="Experience" />*@
+                    @Html.TextBoxFor(m => m.Experience, new {@class = "form-control", placeholder = "Experiences Year"})
+                </div>
+                <div class="col-md-3">
+                    @*<input type="text" ng-model="student.Employer" class="form-control" placeholder="Employer" />*@
+                    @Html.TextBoxFor(m => m.Employer, new {@class = "form-control", placeholder = "Employer"})
+                </div>
+                <div class="col-md-3">
+                    <label></label>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(m => m.IsBlackList) BlackList
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
             <div class="col-xs-12 col-md-12 col-lg-12">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Date From</th>
-                            <th>Date To</th>
-                            <th>Course Location</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var course in Model.Enrollments)
-                    {
-                            <tr>
-                                <td>
-                                    @course.Course.CourseName.Name
-                                </td>
-                                <td>
-                                    @course.Course.DateFrom.ToString("d")
-                                </td>
-                                <td>
-                                    @course.Course.DateTo.ToString("d")
-                                </td>
-                                <td>
-                                    @course.Course.CourseLocation.Name
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                <div id="submitDiv" class="form-group pull-right">
+                    @Html.ActionLink("New", "New", "Students", new { @class = "btn btn-default" })
+                    <button type="submit" id="submitStudent" class="btn btn-primary ">Save</button>
+                    @if (Model.Id > 0)
+                {
+                        @Html.ActionLink("Assign Course", "AssignCourses", "Students", new { id = Model.Id }, new { @class = "btn btn-info" })
+                    }
+                </div>
             </div>
         </div>
+
+        if (Model.Enrollments != null && Model.Enrollments.Any())
+        {
+            <div class="row-form">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                    <h3>Enrolled Courses by Selected Student</h3>
+                </div>
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date From</th>
+                                <th>Date To</th>
+                                <th>Course Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var course in Model.Enrollments)
+                    {
+                                <tr>
+                                    <td>
+                                        @course.Course.CourseName.Name
+                                    </td>
+                                    <td>
+                                        @course.Course.DateFrom.ToString("d")
+                                    </td>
+                                    <td>
+                                        @course.Course.DateTo.ToString("d")
+                                    </td>
+                                    <td>
+                                        @course.Course.CourseLocation.Name
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
     }
-}
+
+</div>
 
 @section scripts{
     @Scripts.Render("~/bundle/jaueryval")
+    <script src="~/Scripts/app/studentForm.js"></script>
     <script>
 
         $(document).ready(function () {

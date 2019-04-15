@@ -131,6 +131,8 @@
     <Compile Include="DropLists\Qualifiation.cs" />
     <Compile Include="DropLists\Specialization.cs" />
     <Compile Include="DropLists\University.cs" />
+    <Compile Include="Dtos\DdlData.cs" />
+    <Compile Include="Dtos\SearchInput.cs" />
     <Compile Include="DynamicFilters\ISoftDelete.cs" />
     <Compile Include="DynamicFilters\StaticFilterNames.cs" />
     <Compile Include="Enrollments\Enrollment.cs" />

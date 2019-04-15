@@ -100,7 +100,7 @@ namespace Academy.Web.Models
                 ((BaseEntity)entity.Entity).ModifiedUserId = HttpContext.Current.User.Identity.GetUserId<int>();
 
             });
-
         }
+
     }
 }

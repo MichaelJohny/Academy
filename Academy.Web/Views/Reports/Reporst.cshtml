@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Reporst";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-app="reportsApp" ng-controller="ReportsFormCtrl" ng-init="initReports()">
+
+    @*<input time="false" date="true" mdc-datetime-picker=""
+        type="text"
+        placeholder="BirthDate"
+        min-date="minDate"
+        max-date="maxDate"
+        class="md-input form-control"
+        readonly="readonly">*@
+
+    @*  <md-input-container flex-gt-md="30">
+            <label>end</label>
+            <input time="false" date="true" mdc-datetime-picker=""
+                   type="text"
+                   placeholder="end date"
+                   min-date="minDate"
+                   max-date="maxDate"
+                   ng-model="time2"
+                   class="md-input form-control"
+                   readonly="readonly">
+        </md-input-container>*@
+    <div class="form-row">
+        <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
+            <div class="col-md-4">
+                <label>Group No</label>
+                <select ng-model="SearchInput.GroupNumber"
+                        ng-options="number as number for number  in groupNumbers"
+                        class="form-control"
+                        oninvalid="this.setCustomValidity('')"
+                        oninput="setCustomValidity('')" required>
+                    <option value="">--Select Group Number--</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label>batch no</label>
+                <select ng-model="SearchInput.BatchNumber"
+                        ng-options="batch.Id as batch.Name for batch  in batches"
+                        class="form-control"
+                        oninput="setCustomValidity('')" required>
+                    <option value="">--Select Batch--</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12 col-lg-12 divPadding">
+            <div class="col-md-4">
+                <label class="mt-checkbox">
+                    <input type="checkbox" ng-model="SearchInput.Active"> Active
+                    <span></span>
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label class="mt-checkbox">
+                    <input type="checkbox" ng-model="SearchInput.IsBlackList"> balck list
+                    <span></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <input type="submit" class="btn btn-primary" ng-click="test()"/>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Trainee Code</th>
+                <th>Full Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Start date</th>
+                <th>end date</th>
+                <th>Grp no</th>
+                <th>batch no</th>
+                <th>instructor name</th>
+                <th>category</th>
+                <th>states</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat='reg in MyCSV'>
+                <td>{{reg.EmpId}}</td>
+                <td>{{reg.EmployeeName}}</td>
+                <td>{{reg.Department}}</td>
+                <td>{{reg.Designation}}</td>
+                <td>{{reg.City}}</td>
+                <td>{{reg.ContactNo}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button type="button" display="none" class="btn btn-default"
+            ng-csv="MyCSV()"
+            csv-header="getHeaders()"
+            filename="test.csv"
+            charset="UTF-8" add-bom="true">
+        <span class="glyphicon glyphicon-download-alt">&nbsp;</span>Download CSV
+    </button>
+</div>
+
+
+
+
+@section scripts{
+    <script src="~/Scripts/app/reports.js"></script>
+}

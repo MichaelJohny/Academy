@@ -47,6 +47,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework.DynamicFilters, Version=3.0.1.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.DynamicFilters.3.0.1\lib\net40\EntityFramework.DynamicFilters.dll</HintPath>
       <Private>True</Private>
@@ -108,6 +112,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -216,6 +221,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -229,6 +235,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -242,6 +249,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-minty.css" />
@@ -250,6 +258,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\daterangepicker.css" />
+    <Content Include="Content\datetimepicker.css" />
+    <Content Include="Content\material-datetimepicker.css" />
+    <Content Include="Content\material-datetimepicker.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
@@ -262,6 +274,52 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\angular-ui\angular-ui.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
+    <Content Include="Scripts\angular\angular-animate.js" />
+    <Content Include="Scripts\angular\angular-animate.min.js" />
+    <Content Include="Scripts\angular\angular-areas.js" />
+    <Content Include="Scripts\angular\angular-aria.js" />
+    <Content Include="Scripts\angular\angular-aria.min.js" />
+    <Content Include="Scripts\angular\angular-cookies.js" />
+    <Content Include="Scripts\angular\angular-cookies.min.js" />
+    <Content Include="Scripts\angular\angular-csp.css" />
+    <Content Include="Scripts\angular\angular-dropdownMultiselect.js" />
+    <Content Include="Scripts\angular\angular-dropdownMultiselect.min.js" />
+    <Content Include="Scripts\angular\angular-loader.js" />
+    <Content Include="Scripts\angular\angular-loader.min.js" />
+    <Content Include="Scripts\angular\angular-material-datetimepicker.js" />
+    <Content Include="Scripts\angular\angular-material-datetimepicker.min.js" />
+    <Content Include="Scripts\angular\angular-material-datetimepickercustom.js" />
+    <Content Include="Scripts\angular\angular-material-datetimepickercustom.min.js" />
+    <Content Include="Scripts\angular\angular-material.min.js" />
+    <Content Include="Scripts\angular\angular-message-format.js" />
+    <Content Include="Scripts\angular\angular-message-format.min.js" />
+    <Content Include="Scripts\angular\angular-messages.js" />
+    <Content Include="Scripts\angular\angular-messages.min.js" />
+    <Content Include="Scripts\angular\angular-mocks.js" />
+    <Content Include="Scripts\angular\angular-parse-ext.js" />
+    <Content Include="Scripts\angular\angular-parse-ext.min.js" />
+    <Content Include="Scripts\angular\angular-resource.js" />
+    <Content Include="Scripts\angular\angular-resource.min.js" />
+    <Content Include="Scripts\angular\angular-route.js" />
+    <Content Include="Scripts\angular\angular-route.min.js" />
+    <Content Include="Scripts\angular\angular-sanitize.js" />
+    <Content Include="Scripts\angular\angular-sanitize.min.js" />
+    <Content Include="Scripts\angular\angular-scenario.js" />
+    <Content Include="Scripts\angular\angular-touch.js" />
+    <Content Include="Scripts\angular\angular-touch.min.js" />
+    <Content Include="Scripts\angular\angular.js" />
+    <Content Include="Scripts\angular\angular.min.js" />
+    <Content Include="Scripts\angular\bootstrap-colorpicker-module.min.js" />
+    <Content Include="Scripts\angular\ng-file-upload-shim.min.js" />
+    <Content Include="Scripts\angular\ng-file-upload.min.js" />
+    <Content Include="Scripts\angular\ng-virtual-keyboard.js" />
+    <Content Include="Scripts\app\reports.js" />
+    <Content Include="Scripts\app\studentForm.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -284,7 +342,10 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="Scripts\angular\errors.json" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
+    <Content Include="Scripts\excel\ng-csv.js" />
+    <Content Include="Scripts\excel\ng-csv.min.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.js" />
@@ -371,6 +432,7 @@
     <Content Include="Views\Batches\Index.cshtml" />
     <Content Include="Views\Batches\BatchForm.cshtml" />
     <Content Include="Views\Students\AssignCourseForm.cshtml" />
+    <Content Include="Views\Reports\Reporst.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -182,3 +182,5 @@ D:\Projects\Academy\Academy.Web\bin\PagedList.Mvc.xml
 D:\Projects\Academy\Academy.Web\bin\PagedList.EntityFramework.dll
 D:\Projects\Academy\Academy.Web\bin\PagedList.EntityFramework.pdb
 D:\Projects\Academy\Academy.Web\bin\PagedList.EntityFramework.xml
+D:\Projects\Academy\Academy.Web\bin\AutoMapper.dll
+D:\Projects\Academy\Academy.Web\bin\AutoMapper.xml
